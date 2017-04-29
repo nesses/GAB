@@ -1,0 +1,135 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21.04.2017, 11:01:32
+    Author     : pcteam
+*/
+html {
+    font-size: 12px;
+}
+body {
+    background: #d7e3f3;
+    font-family: "Helvetica";
+}
+input, select, button {
+    border: 1px solid;
+    font-size: 12px;
+}
+table {
+    font-size: 12px;
+}
+#navigation {
+    height:45px;
+    width:100%;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+}
+#title {
+    text-align: center;
+    font-size:18px;
+    font-weight: bolder;
+    border-bottom: 1px solid grey;
+}
+#actions_nav {
+    background: lightgrey;
+    width:100%;
+    border-bottom: 1px solid grey;
+}
+#actions_nav a {
+    text-decoration: none;
+    color: black;
+}
+#actions_nav_table td{
+    border: 1px solid;
+}
+#actions_nav_table td :hover {
+    background: white;
+}
+#simple_nav_logo {
+    width: 90px;
+    height: 35px;
+    float: left;
+    margin-left: 30px;
+    margin-right: 30px;
+    float: left;
+    margin-top: 5px;
+}
+
+.horizontal_nav,.horizontal_nav a {
+    padding: 5px;
+    border-spacing: 5px;
+    text-decoration: none;
+}
+#listAllTitles {
+    font-weight: bold;
+    background: darkcyan;
+    background: #006600;
+    color:white;
+    text-align: center;
+}
+#listAllTitles a {
+    text-decoration: none;
+    color:white;
+}
+#listAllTitles :hover {
+    background: cyan;   
+}
+#listAllRowA {
+    background: lightgoldenrodyellow;
+    text-align: center;     
+}
+.nav_item {
+    padding: 5px;
+    background: #CCFF99;
+    
+}
+.nav_item :hover {
+    padding: 5px;
+    background: #CCFF66;
+    
+}
+.nav_vertical {
+    border-spacing: 30px; 
+    
+}
+#line {
+    width: 100%;
+    height: 15px;
+    
+    background: #006600;
+}
+#content {
+    width:100%;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    
+}
+#login {
+    background: white;
+    float:left;
+}
+#left {
+    float: left;
+    width: 100px;
+    min-height: 500px;
+    background: lightgray;
+}
+#inner_mod_error {
+    background:red;
+    width:100%;
+    text-align: center;
+
+}
+
+
+
+
+
+
