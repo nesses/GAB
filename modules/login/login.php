@@ -33,7 +33,7 @@ class Login extends Smarty {
           } else 
                 $this->assign('error','Benhtzername existiert nicht!');
 			
-            if($_SESSION['user']['status'] == 1 ) {
+            if($_SESSION['user']['userstatus_id'] == 1 ) {
                 echo '<script type="text/javascript">window.location="index.php?module=employees&view=listAll"</script>';
             }
 	}

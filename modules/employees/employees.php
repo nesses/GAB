@@ -14,6 +14,42 @@ class employees extends ModuleMother {
     private $viewTitles = [ 'createNew' => 'Hinzufügen',
                             'listAll'   => 'Übersicht'];
     
+    private $fieldVisibility = ["id"                =>  1,
+                                "username"          =>  1,
+                                "password"          =>  0,
+                                "name"              =>  1,
+                                "surname"           =>  1,
+                                "rights_id"         =>  0,
+                                "groups_id"         => 1,
+                                "creator_id"        =>  0,
+                                "created"           =>  0,
+                                "alterer_id"        =>  0,
+                                "userstatus_id"     =>  1];
+    
+    private $fieldEntities =   ["id"            =>  'number',
+                                "username"      =>  'string',
+                                "password"      =>  'password',
+                                "name"          =>  'string',
+                                "surname"       =>  'string',
+                                "rights_id"     =>  'combobox',
+                                "groups_id"     =>  'combobox',
+                                "creator_id"    =>  'combobox',
+                                "created"       =>  'date',
+                                "alterer_id"    =>  'combobox',
+                                "userstatus_id" =>  'combobox'];    
+    
+    private $fieldTitles =  [   'id'            =>  'ID',
+                                'username'      =>  'Benutzername',
+                                'password'      =>  'Password',
+                                'name'          =>  'Name',
+                                'surname'       =>  'Vorname',
+                                'groups_id'     =>  'Gewerk',
+                                'rights_id'     =>  'Rechte',
+                                'creator_id'    =>  'Ersteller',
+                                'created'       =>  'Erstellt',
+                                'alterer_id'    =>  'Bearbeiter',
+                                'userstatus_id' =>  'Status'];
+    
     public function __construct($view,$action) {
         parent::__construct();
         if($this->isAuthenticated() == 1) {
@@ -42,21 +78,23 @@ class employees extends ModuleMother {
 
             $this->userTable = new UserTable();
             $this->userTable->loadTable();
-            $colTitles = $this->userTable->getColTitles();
-            $fieldTypes = $this->userTable->getColTypes();
+            
+            $dataTypes = $this->userTable->getColTypes();
             $users = $this->userTable->asArray();
 
             $this->assign('view',$view);
-            $this->assign('fieldTypes', $fieldTypes);
-            $this->assign('colTitles', $colTitles);
             $this->assign('viewTitles',$this->viewTitles);
-                
+            
+            $this->assign('fieldEntities', $this->fieldEntities);
+            $this->assign('fieldTitles', $this->fieldTitles);
+            $this->assign('fieldVisibility', $this->fieldVisibility);
+            $this->assign('dataTypes', $dataTypes);
+               
             if($view == 'createNew') {
                 $this->assign('groups',$groups);
                 $this->assign('rights',$rights);
                 $this->assign('uid',$_SESSION['user']['id']);
             } elseif ($view == 'listAll') {
-                $user = $this->userTable->asArray();
                 $this->assign('groups',$groups);
                 $this->assign('users',$users);
                 $this->assign('rights',$rights);

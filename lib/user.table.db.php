@@ -4,44 +4,34 @@ class UserTable extends DbTable {
 	
     private $userID;
 	
-    private $table = "employee";
+    private $table = "users";
 	
-    private $colNames   = ARRAY("id",
-                                "username",
-                                "password",
-                                "name",
-                                "surname",
-                                "rights_id",
-                                "group_id",
-                                "creator_id",
-                                "created",
-                                "alterer_id",
-                                "status"
-                                );
+    private $colNames   =  ["id",
+                            "username",
+                            "password",
+                            "name",
+                            "surname",
+                            "rights_id",
+                            "groups_id",
+                            "creator_id",
+                            "created",
+                            "alterer_id",
+                            "userstatus_id"];
     
-    private $colTitles  = ARRAY('id'         => 'ID',
-                                'username'   => 'Ben.Name',
-                                'password'   => 'Passwort',
-                                'name'       => 'Vorname',
-                                'surname'    => 'Nachname',
-                                'group_id'   => 'Gewerk',
-                                'rights_id'  => 'Rechte',
-                                'creator_id' => 'Ersteller',
-                                'created'    => 'Erstellt am',
-                                'alterer_id' => 'Bearbeiter',
-                                'status'     => 'Status');
+     
     
     private $colTypes =   [ 'id'            =>  'int',
                             'username'      =>  'text',
                             'password'      =>  'password',
                             'name'          =>  'text',
                             'surname'       =>  'text',
-                            'group_id'      =>  'combobox',
+                            'groups_id'      =>  'combobox',
                             'rights_id'     =>  'combobox',
                             'creator_id'    =>  'int',
                             'created'       =>  'timestamp',
                             'alterer_id'    =>  'int',
-                            'status'        =>  'int'];
+                            'userstatus_id' =>  'int'];
+    
     
     public function __construct() {
         parent::__construct($this->table,$this->colNames);
@@ -53,7 +43,7 @@ class UserTable extends DbTable {
         $this->setCol('password', $passwd);
     }
     public function setStatus($status) {
-        $this->setCol('status',$status);
+        $this->setCol('userstatus_id',$status);
     }
     public function getUsername() {
         return $this->getCol('username');
@@ -62,7 +52,7 @@ class UserTable extends DbTable {
         return $this->getCol('password');
     }
     public function getStatus() {
-        return $this->getCol('status');
+        return $this->getCol('userstatus_id');
     }
     public function getRights() {
         return $this->getCol('rights_id');
@@ -70,9 +60,7 @@ class UserTable extends DbTable {
     public function getUserID() {
         return $this->getCol('id');
     }	
-    public function getColTitles() {
-        return $this->colTitles;
-    }
+    
     public function getColTypes() {
         return $this->colTypes;
     }

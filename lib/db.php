@@ -119,7 +119,7 @@ class DB {
         $sql = rtrim($sql, ", ");
 
         $sql .= " WHERE " .'id' . " = $id";
-			
+			echo $sql;
         if ($debug == true) {
             $_SESSION['debug'][] = __FUNCTION__ . ': $sql is <strong>' . $sql . '</strong>';
         }
@@ -237,7 +237,7 @@ class DB {
      * @param  array     $columns     array of columns
      * @return string                  imploded array
      */
-    private static function generateColumnList($columns) {
+    public static function generateColumnList($columns) {
         if (is_array($columns)) {
             return implode(', ', $columns);
         } else {

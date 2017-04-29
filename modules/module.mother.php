@@ -9,7 +9,7 @@ class ModuleMother extends Smarty {
         $this->rightsTable = new RightsTable();
     }
     public function isAuthenticated() {
-        if($_SESSION['user']['status'] == 1)
+        if($_SESSION['user']['userstatus_id'] == 1)
             return 1;
         return 0;
     }

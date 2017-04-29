@@ -1,7 +1,7 @@
 <?php
 $db_type = "SQLite";
 
-$db_conf = "gab.sqlite3.sqlite";
+$db_conf = "gab.sqlite";
 
 $modules = ARRAY(   "Login" => "login",
                     "Mitarbeiter" => "employees");

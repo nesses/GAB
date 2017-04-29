@@ -16,7 +16,7 @@
 {if $view eq "createNew"}
 	<form method="POST" action="index.php?module=employees&view=createNew&action=save">
 		<table>
-                    {foreach from=$colTitles key=key item=title}
+                    {foreach from=$fieldTitles key=key item=title}
                         
                             {if $key eq "group_id"}
                             <tr>
@@ -72,46 +72,24 @@
     </table>
     <table id='listAll'>
         <tr id='listAllTitles'><!-- ONLY COLUMN KEYS -->
-            {foreach from=$colTitles key=title item=value}
+            {foreach from=$fieldTitles key=title item=value}
+            {if $fieldVisibility[$title] eq 1}
             <form method="POST" action="index.php?module=employees&view=listAll&action=orderBy">
-                {if $fieldTypes[$title] eq 'int'}
-                <td style="width:30px;" class='listAllTitlesItem'>
-                    <button style="background:#006600;color:white;border:none;width:30px;" type="submit" name="action" value="{$title}">{$value}</button>
-                </td>
-            {elseif $fieldTypes[$title] eq 'password'}
                 <td class='listAllTitlesItem'>
                     <button style="background:#006600;color:white;border:none;width:80px;" type="submit" name="action" value="{$title}">{$value}</button>
                 </td>
-            {else}
-                <td class='listAllTitlesItem'>
-                    <button style="background:#006600;color:white;border:none;width:80px;" type="submit" name="action" value="{$title}">{$value}</button>
-                </td>
-            {/if}
             </form>
+            {/if}
             {/foreach}
         </tr>
         {foreach from=$users key=row item=cols}
             <tr id='listAllRowA'>
                 {foreach from=$cols key=title item=val}
+                    {if $fieldVisibility[$title] eq 1}
                     <td>
-                    {if $title eq "rights_id"}
-                        {$rights[$val]['title']}
-                    {elseif $title eq "password"}
-                        ********
-                    {elseif $title eq "creator_id"}
-                        {$users[$val]['surname']}
-                    {elseif $title eq "group_id"}
-                        {$groups[$val]['title']}
-                    {elseif $title eq "alterer_id"}
-                        {$users[$val]['surname']}
-                    {elseif $title eq "created"}
-                        {gmdate("d.m.Y", $val)}
-                    {elseif $title eq "status"}
-                        {if $val eq 1}Online{else}Offline{/if}
-                    {else}    
                          {$val}
+                    </td>
                     {/if}
-                </td>
                 {/foreach}
                 <td>[E]</td>
                 <td>[D]</td>
