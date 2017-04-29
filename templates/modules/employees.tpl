@@ -1,6 +1,6 @@
 <div id="employess">
     <div id='title'>
-        Mitarbeiter
+        Mitarbeiter - {$viewTitles[$view]}
     </div>
 <div id="inner_mod_error">
 {$error}
@@ -9,7 +9,7 @@
 <table id="actions_nav_table">
     <tr>
         <td><a href="index.php?module=employees&view=createNew">hinzufugen</a></td>
-        <td><a href="index.php?module=employees&view=listAll&orderby=id">anzeigen</a></td>
+        <td><a href="index.php?module=employees&view=listAll">anzeigen</a></td>
     </tr>
 </table>
 </div>
@@ -73,46 +73,48 @@
     <table id='listAll'>
         <tr id='listAllTitles'><!-- ONLY COLUMN KEYS -->
             {foreach from=$colTitles key=title item=value}
-                {if $fields[$title] eq 'int'}
-            <td class='listAllTitlesItem'>
-                <!-- <a href="index.php?module=employees&view=listAll&orderby</a> -->
-                <form method="POST" action="index.php">
-                    <button style="border:1px solid;width:30px;" type="submit" name="action" value="orderby">{$value}</button>
-                </form>
-            </td>
+            <form method="POST" action="index.php?module=employees&view=listAll&action=orderBy">
+                {if $fieldTypes[$title] eq 'int'}
+                <td style="width:30px;" class='listAllTitlesItem'>
+                    <button style="background:#006600;color:white;border:none;width:30px;" type="submit" name="action" value="{$title}">{$value}</button>
+                </td>
+            {elseif $fieldTypes[$title] eq 'password'}
+                <td class='listAllTitlesItem'>
+                    <button style="background:#006600;color:white;border:none;width:80px;" type="submit" name="action" value="{$title}">{$value}</button>
+                </td>
             {else}
                 <td class='listAllTitlesItem'>
-                <!-- <a href="index.php?module=employees&view=listAll&orderby</a> -->
-                <form method="POST" action="index.php">
-                    <button style="border:1px solid;width:80px;" type="submit" name="action" value="orderby">{$value}</button>
-                </form>
-            </td>
+                    <button style="background:#006600;color:white;border:none;width:80px;" type="submit" name="action" value="{$title}">{$value}</button>
+                </td>
             {/if}
+            </form>
             {/foreach}
         </tr>
         {foreach from=$users key=row item=cols}
             <tr id='listAllRowA'>
                 {foreach from=$cols key=title item=val}
+                    <td>
                     {if $title eq "rights_id"}
-                        <td>{$rights[$val]['title']}</td>
+                        {$rights[$val]['title']}
                     {elseif $title eq "password"}
-                        <td>********</td>
+                        ********
                     {elseif $title eq "creator_id"}
-                        <td>{$users[$val]['surname']}</td>
+                        {$users[$val]['surname']}
                     {elseif $title eq "group_id"}
-                        <td>{$groups[$val]['title']}</td>
+                        {$groups[$val]['title']}
                     {elseif $title eq "alterer_id"}
-                        <td>{$users[$val]['surname']}</td>
+                        {$users[$val]['surname']}
                     {elseif $title eq "created"}
-                        <td>{gmdate("d.m.Y", $val)}</td>
+                        {gmdate("d.m.Y", $val)}
                     {elseif $title eq "status"}
-                        <td>{if $val eq 1}Online{else}Offline{/if}</td>
+                        {if $val eq 1}Online{else}Offline{/if}
                     {else}    
-                         <td>{$val}</td>
-                {/if}
+                         {$val}
+                    {/if}
+                </td>
                 {/foreach}
-                <td>Bearbeiten</td>
-                <td>Löschen</td>
+                <td>[E]</td>
+                <td>[D]</td>
             </tr>
         {/foreach}
     </table>

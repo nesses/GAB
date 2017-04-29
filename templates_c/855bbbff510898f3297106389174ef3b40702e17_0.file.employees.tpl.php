@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-04-29 03:08:27
+/* Smarty version 3.1.30, created on 2017-04-29 10:12:24
   from "/var/www/gab_/templates/modules/employees.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5903e78b52aeb8_10850410',
+  'unifunc' => 'content_59044ae80da3c5_44167746',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '855bbbff510898f3297106389174ef3b40702e17' => 
     array (
       0 => '/var/www/gab_/templates/modules/employees.tpl',
-      1 => 1493428104,
+      1 => 1493453541,
       2 => 'file',
     ),
   ),
@@ -23,11 +23,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:templates/items/combobox.tpl' => 2,
   ),
 ),false)) {
-function content_5903e78b52aeb8_10850410 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59044ae80da3c5_44167746 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div id="employess">
     <div id='title'>
-        Mitarbeiter
+        Mitarbeiter - <?php echo $_smarty_tpl->tpl_vars['viewTitles']->value[$_smarty_tpl->tpl_vars['view']->value];?>
+
     </div>
 <div id="inner_mod_error">
 <?php echo $_smarty_tpl->tpl_vars['error']->value;?>
@@ -37,7 +38,7 @@ function content_5903e78b52aeb8_10850410 (Smarty_Internal_Template $_smarty_tpl)
 <table id="actions_nav_table">
     <tr>
         <td><a href="index.php?module=employees&view=createNew">hinzufugen</a></td>
-        <td><a href="index.php?module=employees&view=listAll&orderby=id">anzeigen</a></td>
+        <td><a href="index.php?module=employees&view=listAll">anzeigen</a></td>
     </tr>
 </table>
 </div>
@@ -127,23 +128,27 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['title']->value => $_smarty_tpl->tpl_vars['value']->value) {
 ?>
-                <?php if ($_smarty_tpl->tpl_vars['fields']->value[$_smarty_tpl->tpl_vars['title']->value] == 'int') {?>
-            <td class='listAllTitlesItem'>
-                <!-- <a href="index.php?module=employees&view=listAll&orderby</a> -->
-                <form method="POST" action="index.php">
-                    <button style="border:1px solid;width:30px;" type="submit" name="action" value="orderby"><?php echo $_smarty_tpl->tpl_vars['value']->value;?>
+            <form method="POST" action="index.php?module=employees&view=listAll&action=orderBy">
+                <?php if ($_smarty_tpl->tpl_vars['fieldTypes']->value[$_smarty_tpl->tpl_vars['title']->value] == 'int') {?>
+                <td style="width:30px;" class='listAllTitlesItem'>
+                    <button style="background:#006600;color:white;border:none;width:30px;" type="submit" name="action" value="<?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['value']->value;?>
 </button>
-                </form>
-            </td>
+                </td>
+            <?php } elseif ($_smarty_tpl->tpl_vars['fieldTypes']->value[$_smarty_tpl->tpl_vars['title']->value] == 'password') {?>
+                <td class='listAllTitlesItem'>
+                    <button style="background:#006600;color:white;border:none;width:80px;" type="submit" name="action" value="<?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['value']->value;?>
+</button>
+                </td>
             <?php } else { ?>
                 <td class='listAllTitlesItem'>
-                <!-- <a href="index.php?module=employees&view=listAll&orderby</a> -->
-                <form method="POST" action="index.php">
-                    <button style="border:1px solid;width:80px;" type="submit" name="action" value="orderby"><?php echo $_smarty_tpl->tpl_vars['value']->value;?>
+                    <button style="background:#006600;color:white;border:none;width:80px;" type="submit" name="action" value="<?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['value']->value;?>
 </button>
-                </form>
-            </td>
+                </td>
             <?php }?>
+            </form>
             <?php
 }
 }
@@ -162,37 +167,39 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['title']->value => $_smarty_tpl->tpl_vars['val']->value) {
 ?>
+                    <td>
                     <?php if ($_smarty_tpl->tpl_vars['title']->value == "rights_id") {?>
-                        <td><?php echo $_smarty_tpl->tpl_vars['rights']->value[$_smarty_tpl->tpl_vars['val']->value]['title'];?>
-</td>
+                        <?php echo $_smarty_tpl->tpl_vars['rights']->value[$_smarty_tpl->tpl_vars['val']->value]['title'];?>
+
                     <?php } elseif ($_smarty_tpl->tpl_vars['title']->value == "password") {?>
-                        <td>********</td>
+                        ********
                     <?php } elseif ($_smarty_tpl->tpl_vars['title']->value == "creator_id") {?>
-                        <td><?php echo $_smarty_tpl->tpl_vars['users']->value[$_smarty_tpl->tpl_vars['val']->value]['surname'];?>
-</td>
+                        <?php echo $_smarty_tpl->tpl_vars['users']->value[$_smarty_tpl->tpl_vars['val']->value]['surname'];?>
+
                     <?php } elseif ($_smarty_tpl->tpl_vars['title']->value == "group_id") {?>
-                        <td><?php echo $_smarty_tpl->tpl_vars['groups']->value[$_smarty_tpl->tpl_vars['val']->value]['title'];?>
-</td>
+                        <?php echo $_smarty_tpl->tpl_vars['groups']->value[$_smarty_tpl->tpl_vars['val']->value]['title'];?>
+
                     <?php } elseif ($_smarty_tpl->tpl_vars['title']->value == "alterer_id") {?>
-                        <td><?php echo $_smarty_tpl->tpl_vars['users']->value[$_smarty_tpl->tpl_vars['val']->value]['surname'];?>
-</td>
+                        <?php echo $_smarty_tpl->tpl_vars['users']->value[$_smarty_tpl->tpl_vars['val']->value]['surname'];?>
+
                     <?php } elseif ($_smarty_tpl->tpl_vars['title']->value == "created") {?>
-                        <td><?php echo gmdate("d.m.Y",$_smarty_tpl->tpl_vars['val']->value);?>
-</td>
+                        <?php echo gmdate("d.m.Y",$_smarty_tpl->tpl_vars['val']->value);?>
+
                     <?php } elseif ($_smarty_tpl->tpl_vars['title']->value == "status") {?>
-                        <td><?php if ($_smarty_tpl->tpl_vars['val']->value == 1) {?>Online<?php } else { ?>Offline<?php }?></td>
+                        <?php if ($_smarty_tpl->tpl_vars['val']->value == 1) {?>Online<?php } else { ?>Offline<?php }?>
                     <?php } else { ?>    
-                         <td><?php echo $_smarty_tpl->tpl_vars['val']->value;?>
-</td>
-                <?php }?>
+                         <?php echo $_smarty_tpl->tpl_vars['val']->value;?>
+
+                    <?php }?>
+                </td>
                 <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-                <td>Bearbeiten</td>
-                <td>Löschen</td>
+                <td>[E]</td>
+                <td>[D]</td>
             </tr>
         <?php
 }
