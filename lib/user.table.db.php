@@ -44,14 +44,20 @@ class UserTable  {
         $tdata = $this->db->asArray();
         return $tdata;
     }
+    public function getAll() {
+        $this->db->initTable();
+        $tdata = $this->db->asArray();
+        return $tdata;
+    }
     public function updateUserstatusId($username,$int) {
         $this->db->updateTable(['userstatus_id' => $int],['username',$username]);
     }
     public function updateLastSeen($username) {
         $date = new DateTime("now");
         $this->db->updateTable(['lastseen' => $date->format('Y-m-d H:i:s')],['username',$username]);
-    
+        return $date->format('Y-m-d H:i:s');
     }
+    
 
 
     

@@ -95,7 +95,8 @@ class Db {
         $sql .= "WHERE ". $this->compileWhere($where)." ";
         
         $sql .= ";";
-        echo $sql;
+        
         $this->query($sql);
+        
     }
 }

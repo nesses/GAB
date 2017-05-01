@@ -17,30 +17,29 @@
 	<form method="POST" action="index.php?module=employees&view=createNew&action=save">
 		<table>
                     {foreach from=$fieldTitles key=key item=title}
-                        
-                            {if $key eq "group_id"}
+                            {if $fieldEntities[$key] eq 'hidden'}
+                            <input type='hidden' name="{$key}" value=""/>
+                            {elseif $fieldEntities[$key] eq "combobox"}
+                            {if $key eq 'groups_id'}
+                                {$name = $key}
+                                {$options = $groups}
+                            {elseif $key eq 'rights_id'}
+                                {$name = $key}
+                                {$options = $rights}
+                            {/if}
                             <tr>
                                 <td>{$title}:</td>
-				<td>{include file="templates/items/groups.combobox.tpl"}</td>
+				<td>{include file="templates/items/combobox.tpl"}</td>
                             </tr>
-                            {elseif $key eq "status"}
-                                <input type="hidden" name="status" value="0"/>
-                            
-                            {elseif $key eq "rights_id"}
-                            <tr>
-                                <td>{$title}:</td>
-                                <td>{include file="templates/items/rights.combobox.tpl"}</td>
-                            </tr>
-                            {elseif $key eq "created"}
-                                <input type="hidden" name="created" value="TIMESTAMP"/>
-                            {elseif $key eq "creator_id"}
-                                <input type="hidden" name="creator_id" value="{$uid}"/>
-                            {elseif $key eq "alterer_id"}
-                                <input type="hidden" name="{$key}" value="{$uid}"/>
-                            {else}
+                            {elseif $fieldEntities[$key] eq "text"}
                             <tr>    
                                 <td>{$title}</td>
                                 <td><input type="text" name="{$key}"/></td>
+                            </tr>
+                            {elseif $fieldEntities[$key] eq "password"}
+                            <tr>    
+                                <td>{$title}</td>
+                                <td><input type="password" name="{$key}"/></td>
                             </tr>
                             {/if}
                         

@@ -1,29 +1,27 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-04-29 20:09:17
+/* Smarty version 3.1.30, created on 2017-05-01 18:41:46
   from "/var/www/gab_/templates/modules/employees.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5904d6cdef6b74_54065778',
+  'unifunc' => 'content_5907654aa5d5d7_40493157',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '855bbbff510898f3297106389174ef3b40702e17' => 
     array (
       0 => '/var/www/gab_/templates/modules/employees.tpl',
-      1 => 1493489356,
+      1 => 1493656552,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:templates/items/groups.combobox.tpl' => 1,
-    'file:templates/items/rights.combobox.tpl' => 1,
-    'file:templates/items/combobox.tpl' => 2,
+    'file:templates/items/combobox.tpl' => 3,
   ),
 ),false)) {
-function content_5904d6cdef6b74_54065778 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5907654aa5d5d7_40493157 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div id="employess">
     <div id='title'>
@@ -50,40 +48,40 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['key']->value => $_smarty_tpl->tpl_vars['title']->value) {
 ?>
-                        
-                            <?php if ($_smarty_tpl->tpl_vars['key']->value == "group_id") {?>
+                            <?php if ($_smarty_tpl->tpl_vars['fieldEntities']->value[$_smarty_tpl->tpl_vars['key']->value] == 'hidden') {?>
+                            <input type='hidden' name="<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+" value=""/>
+                            <?php } elseif ($_smarty_tpl->tpl_vars['fieldEntities']->value[$_smarty_tpl->tpl_vars['key']->value] == "combobox") {?>
+                            <?php if ($_smarty_tpl->tpl_vars['key']->value == 'groups_id') {?>
+                                <?php $_smarty_tpl->_assignInScope('name', $_smarty_tpl->tpl_vars['key']->value);
+?>
+                                <?php $_smarty_tpl->_assignInScope('options', $_smarty_tpl->tpl_vars['groups']->value);
+?>
+                            <?php } elseif ($_smarty_tpl->tpl_vars['key']->value == 'rights_id') {?>
+                                <?php $_smarty_tpl->_assignInScope('name', $_smarty_tpl->tpl_vars['key']->value);
+?>
+                                <?php $_smarty_tpl->_assignInScope('options', $_smarty_tpl->tpl_vars['rights']->value);
+?>
+                            <?php }?>
                             <tr>
                                 <td><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
 :</td>
-				<td><?php $_smarty_tpl->_subTemplateRender("file:templates/items/groups.combobox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+				<td><?php $_smarty_tpl->_subTemplateRender("file:templates/items/combobox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
 ?>
 </td>
                             </tr>
-                            <?php } elseif ($_smarty_tpl->tpl_vars['key']->value == "status") {?>
-                                <input type="hidden" name="status" value="0"/>
-                            
-                            <?php } elseif ($_smarty_tpl->tpl_vars['key']->value == "rights_id") {?>
-                            <tr>
-                                <td><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
-:</td>
-                                <td><?php $_smarty_tpl->_subTemplateRender("file:templates/items/rights.combobox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
-?>
-</td>
-                            </tr>
-                            <?php } elseif ($_smarty_tpl->tpl_vars['key']->value == "created") {?>
-                                <input type="hidden" name="created" value="TIMESTAMP"/>
-                            <?php } elseif ($_smarty_tpl->tpl_vars['key']->value == "creator_id") {?>
-                                <input type="hidden" name="creator_id" value="<?php echo $_smarty_tpl->tpl_vars['uid']->value;?>
-"/>
-                            <?php } elseif ($_smarty_tpl->tpl_vars['key']->value == "alterer_id") {?>
-                                <input type="hidden" name="<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
-" value="<?php echo $_smarty_tpl->tpl_vars['uid']->value;?>
-"/>
-                            <?php } else { ?>
+                            <?php } elseif ($_smarty_tpl->tpl_vars['fieldEntities']->value[$_smarty_tpl->tpl_vars['key']->value] == "text") {?>
                             <tr>    
                                 <td><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
 </td>
                                 <td><input type="text" name="<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
+"/></td>
+                            </tr>
+                            <?php } elseif ($_smarty_tpl->tpl_vars['fieldEntities']->value[$_smarty_tpl->tpl_vars['key']->value] == "password") {?>
+                            <tr>    
+                                <td><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+</td>
+                                <td><input type="password" name="<?php echo $_smarty_tpl->tpl_vars['key']->value;?>
 "/></td>
                             </tr>
                             <?php }?>
@@ -115,7 +113,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
             <td style="width: 30px;">
                 <input type="text" style="width: 30px;" name="pagesize"/>
             </td>
-            <td><?php $_smarty_tpl->_subTemplateRender("file:templates/items/combobox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+            <td><?php $_smarty_tpl->_subTemplateRender("file:templates/items/combobox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
 ?>
 </td>
         

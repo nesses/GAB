@@ -21,23 +21,24 @@ class employees extends ModuleMother {
                                 "surname"           =>  1,
                                 "lastseen"          =>  1,
                                 "rights_id"         =>  0,
-                                "groups_id"         => 1,
+                                "groups_id"         =>  1,
                                 "creator_id"        =>  0,
                                 "created"           =>  0,
                                 "alterer_id"        =>  0,
                                 "userstatus_id"     =>  1];
     
-    private $fieldEntities =   ["id"            =>  'number',
-                                "username"      =>  'string',
+    private $fieldEntities =   ["id"            =>  'hidden',
+                                "username"      =>  'text',
                                 "password"      =>  'password',
-                                "name"          =>  'string',
-                                "surname"       =>  'string',
+                                "name"          =>  'text',
+                                "surname"       =>  'text',
+                                "lastseen"      =>  'hidden',
                                 "rights_id"     =>  'combobox',
                                 "groups_id"     =>  'combobox',
-                                "creator_id"    =>  'combobox',
+                                "creator_id"    =>  'hidden',
                                 "created"       =>  'date',
-                                "alterer_id"    =>  'combobox',
-                                "userstatus_id" =>  'combobox'];    
+                                "alterer_id"    =>  'hidden',
+                                "userstatus_id" =>  'hidden'];    
     
     private $fieldTitles =  [   'id'            =>  'ID',
                                 'username'      =>  'Benutzername',
@@ -54,7 +55,7 @@ class employees extends ModuleMother {
     
     public function __construct($view,$action) {
         parent::__construct();
-        if($_SESSION['user']['userstatus_id'] == 1) {
+        if($this->isAuthenticated() == 1) {
             if($this->initView($view) == 1) {
                 if($this->executeAction($action) == 1) {
                     
@@ -71,6 +72,13 @@ class employees extends ModuleMother {
     private function initView($view) {
         if($view != null && $view != '') { 
             $this->userTable = new UserTable();
+            $users = $this->userTable->getAll();
+            
+            $this->groupsTable = new GroupsTable();
+            $groups = $this->groupsTable->getAll();
+            
+            $this->rightsTable = new RightsTable();
+            $rights = $this->rightsTable->getAll();
             
             $this->assign('view',$view);
             $this->assign('viewTitles',$this->viewTitles);
@@ -85,9 +93,9 @@ class employees extends ModuleMother {
                 $this->assign('rights',$rights);
                 $this->assign('uid',$_SESSION['user']['id']);
             } elseif ($view == 'listAll') {
-                $this->assign('groups',$groups);
-                $this->assign('users',$users);
                 $this->assign('rights',$rights);
+                $this->assign('users',$users);
+                $this->assign('groups',$groups);
             } else 
                 return 0;
                 
@@ -108,6 +116,7 @@ class employees extends ModuleMother {
         return 1;
     }
     public function save() {
+        
         print_r($_POST);//$this->userTable->
     }
 }

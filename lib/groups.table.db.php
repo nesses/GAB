@@ -1,16 +1,20 @@
 <?php
 
-class GroupsTable extends DbTable {
-	
+class GroupsTable {
+    private $db;
     private $table = 'groups';
-    private $colNames = ARRAY('id','title','description');
+    private $colNames = ARRAY(   'id',
+                                 'title',
+                                 'description');
 	
     public function __construct() {
-        parent::__construct($this->table,$this->colNames);
+        $this->db = new DbTable($this->table,$this->colNames);
     }
-
-
-
+    public function getAll() {
+        $this->db->initTable();
+        $tdata = $this->db->asArray();
+        return $tdata;
+    }
 
 }
 
