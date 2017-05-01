@@ -2,6 +2,8 @@
 require_once 'lib/db.php';
 class DbTable extends Db {
 
+    private $db;
+    
     private $tableName;
     private $colNames = ARRAY();
 	
@@ -22,7 +24,6 @@ class DbTable extends Db {
             throw new Exception(__FUNCTION__." :: Column definition does not match");
     }
     public function initTable($columns = '*') {
-        
         if($columns == '*')
             $columns = $this->colNames;
         
@@ -33,7 +34,9 @@ class DbTable extends Db {
         }
         return 0;
     }
-    
+    public function initRow() {
+        
+    }
     public function asArray() {
         $ret = ARRAY();
         

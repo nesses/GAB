@@ -1,8 +1,8 @@
 <?php
 require_once 'lib/table.db.php';
-class UserTable extends DbTable {
+class UserTable  {
 	
-    private $userID;
+    private $db;
 	
     private $table = "users";
 	
@@ -34,9 +34,11 @@ class UserTable extends DbTable {
     
     
     public function __construct() {
-        parent::__construct($this->table,$this->colNames);
+        $this->db = new DbTable($this->table,$this->colNames);
     }
-    
+    public function getByUsername($username) {
+        $this->db->select($tablename, $columns, $where);
+    }
 
 
     

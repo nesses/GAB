@@ -1,7 +1,8 @@
 <?php
 require_once 'lib/table.db.php';
-class ModulesTable extends DbTable {
+class ModulesTable {
 	
+    private $db;
     private $table = "modules";
 	
     private $colNames   =  ["id",
@@ -12,12 +13,14 @@ class ModulesTable extends DbTable {
     
     
     public function __construct() {
-        parent::__construct($this->table,$this->colNames);
+    
+        $this->db = new DbTable($this->table,$this->colNames);
+    
     }
     
     public function getTitles() {
-        $this->initTable(["title","name"]);
-        return $this->asArray();
+        $this->db->initTable(["title","name"]);
+        return $this->db->asArray();
     }
 
     
