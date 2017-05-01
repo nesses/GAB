@@ -119,7 +119,7 @@ class DB {
         $sql = rtrim($sql, ", ");
 
         $sql .= " WHERE " .'id' . " = $id";
-			echo $sql;
+			
         if ($debug == true) {
             $_SESSION['debug'][] = __FUNCTION__ . ': $sql is <strong>' . $sql . '</strong>';
         }

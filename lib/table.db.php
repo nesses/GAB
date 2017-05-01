@@ -11,12 +11,12 @@ class DbTable {
 	
     public function __construct($tableName,$colNames) {
         if($tableName && $tableName != "" && $colNames && $colNames != "") {
-            $db = new Db();
+            $this->db = new Db();
 			
             $this->tableName = $tableName;
             $this->colNames = $colNames;
             if($this->testTable() <> 1)
-					throw new Exception(__FUNCTION__." :: Column definition does not match");
+		throw new Exception(__FUNCTION__." :: Column definition does not match");
    
         } else throw new Exception(__FUNCTION__." :: Missing Table or Column definitions");
     }
@@ -24,8 +24,19 @@ class DbTable {
         $tdata = $this->db->select($this->tableName,$this->colNames,['id','1']);
         if(!$tdata)
              return 0;
-		 return 1;
-	 }
+	return 1;
+    }
+    private function checkData($data) {
+        $dataColumns = array_keys($data);
+        foreach($dataColumns as $colname => $val) {
+            if(!in_array($colname, $this->colNames))
+                return false;
+                
+        }
+        
+        return true;
+        
+    }
     public function initTable($columns = '*',$where = '') {
         if($columns == '*')
             $columns = $this->colNames;
@@ -37,7 +48,12 @@ class DbTable {
         }
         return 0;
     }
-    
+    public function updateTable($data,$where) {
+        if($this->checkData($data)) {
+            $this->db->update($this->tableName, $data, $where);
+        } else 
+           throw new Exception(__FUNCTION__." :: Column of given Data does not match table def");
+    }
     public function asArray() {
         $ret = ARRAY();
         

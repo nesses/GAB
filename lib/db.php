@@ -27,15 +27,11 @@ class Db {
             if($result->rowCount() > 0) {
                 $this->rowCount = $result->rowCount();
                 $this->queryResult = $result;
-                
             }
             return 1;
         } else {
-            $this->rowCount = null;
-            $this->queryResult = null;
-            
+            throw new Exception("SQL FAILED::".$sql);
         }
-        return 0;
     }
     
     /**
@@ -50,6 +46,22 @@ class Db {
             return $columns;
         }
     }
+    private function sqlFormatData($dataKeyVal) {
+        $sql = "";
+        foreach ($dataKeyVal as $key => $value) {
+            $key = "$key";
+            $value = "$value";
+            if ($value == null) {
+                $sql .= "$key = null, ";
+            } else {
+                $sql .= "$key = '$value', ";
+            }
+        }
+        
+        $sql = rtrim($sql, ", ");
+        
+        return $sql;
+    }
     private function compileWhere($where) {
         if(is_array($where)) {
             $ret = $where[0]." = '".$where[1]."'";
@@ -58,7 +70,7 @@ class Db {
         }
         return $ret;
     }
-    public function select($tablename,$columns,$where = '') {
+    public function select($tablename,$columns = '*',$where = '') {
         $columnList = $this->generateColumnList($columns);
         $sql = "SELECT ".$columnList." FROM ".$tablename;
         
@@ -74,5 +86,16 @@ class Db {
             }
         }
         return null;
+    }
+    public function update($tablename,$data,$where) {
+        $sql = "UPDATE $tablename SET ";
+        
+        $sql .= $this->sqlFormatData($data)." ";
+        
+        $sql .= "WHERE ". $this->compileWhere($where)." ";
+        
+        $sql .= ";";
+        echo $sql;
+        $this->query($sql);
     }
 }
