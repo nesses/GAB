@@ -24,15 +24,8 @@ class Login extends Smarty {
 	$this->display('templates/modules/login.tpl');
     }
     public function doLogin() {
-		
-        if($this->initUser($_POST['username'],null) == 1) {
-			 if($this->authorize($_POST['password']) == 1 ) {
-                $_SESSION['user'] = $this->userTable->asArray()[0];
-            } else
-                $this->assign('error','Passwort falsch');
-          } else 
-                $this->assign('error','Benhtzername existiert nicht!');
-			
+			  $userdata = $this->userTable->getUserByUsername($_POST['username']);
+			  print_r($userdata);die;
             if($_SESSION['user']['userstatus_id'] == 1 ) {
                 echo '<script type="text/javascript">window.location="index.php?module=employees&view=listAll"</script>';
             }

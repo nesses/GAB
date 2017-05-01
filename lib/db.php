@@ -1,4 +1,4 @@
-<?php
+l<?php
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -11,7 +11,6 @@ class Db {
     private $rowCount;
     
     private $queryResult;
-    
     
     public function __construct() {
         global $mysql_conf;

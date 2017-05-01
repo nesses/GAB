@@ -37,7 +37,8 @@ class UserTable  {
         $this->db = new DbTable($this->table,$this->colNames);
     }
     public function getByUsername($username) {
-        $this->db->select($tablename, $columns, $where);
+        $this->db->initTable( '*', ['username',$username]);
+        return $this->db->asArray();
     }
 
 
