@@ -5,8 +5,8 @@
                     {foreach from=$modules key=id item=title}
                     <td class="nav_item"><a href="index.php?module={$title['name']}">{$title['title']}</a></td>
                     {/foreach}
-                    {if $user['userstatus_id'] eq 1}
-                    <td class="nav_item"><a href="index.php?module=login&action=doLogout">Logout</a></td>
+                    {if $user['username']}
+                    <td class="nav_item"><a href="index.php?module=login&action=doLogout">Logout - {$user['username']}</a></td>
                     {/if}
                 </tr>
             </table>

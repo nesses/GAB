@@ -54,8 +54,8 @@ class Login extends Smarty {
             $this->assign ('error', 'Benutzername nicht gefunden');
 	}
     public function doLogout() {
-        $this->initUser(null,$_SESSION['user']['id']);
-        $this->unauthorize();
+        $this->userTable = new UserTable();
+        $this->userTable->updateUserStatusId($_SESSION['user']['username'],2);
         session_unset();
         echo '<script type="text/javascript">window.location="index.php?module=login"</script>';
     }

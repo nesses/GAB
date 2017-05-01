@@ -5,8 +5,8 @@ require_once "inc/conf.inc.php";
 require_once "inc/session.inc.php";
 require_once "lib/smarty-3.1.30/libs/Smarty.class.php";
 
-print_r($_SESSION);
-print_r($_POST);
+#print_r($_SESSION);
+#print_r($_POST);
 
 
 $module = $_SESSION['module'];

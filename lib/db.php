@@ -1,4 +1,4 @@
-l<?php
+<?php
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -21,9 +21,7 @@ class Db {
     private function query($sql) {
         
         $result = $this->pdo->query($sql);
-        $_SESSION['SQL']="$sql";
         if($result) {
-            
             if($result->rowCount() > 0) {
                 $this->rowCount = $result->rowCount();
                 $this->queryResult = $result;
@@ -44,6 +42,14 @@ class Db {
             return implode(', ', $columns);
         } else {
             return $columns;
+        }
+    }
+    
+    private function generateInsertList($data) {
+        if (is_array($data)) {
+            return implode("', '", $data);
+        } else {
+            return $data;
         }
     }
     private function sqlFormatData($dataKeyVal) {
@@ -104,8 +110,13 @@ class Db {
         
         $sql = "INSERT INTO $tablename ";
         
-        $sql .= "($colNames) VALUES ";
+        $sql .= "($colNames) VALUES ('";
         
-        echo $sql;
+        
+        $sql .= $this->generateInsertList($data);
+        
+        $sql .= "');";
+        $_SESSION['INS'][] = "$sql";
+        $this->query($sql);
     }
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-05-01 03:06:06
+/* Smarty version 3.1.30, created on 2017-05-01 20:37:14
   from "/var/www/gab_/templates/navigation.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_590689fe6fd742_02974499',
+  'unifunc' => 'content_5907805a142e27_66963243',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4267c3bbaadd24d0851260929c36e1ab0b9cda96' => 
     array (
       0 => '/var/www/gab_/templates/navigation.tpl',
-      1 => 1493600761,
+      1 => 1493663831,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:templates/content.tpl' => 1,
   ),
 ),false)) {
-function content_590689fe6fd742_02974499 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5907805a142e27_66963243 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
         <div id="navigation">
             <img src="img/logoGab.png" id="simple_nav_logo" alt="logo"></img>
@@ -41,8 +41,9 @@ foreach ($_from as $_smarty_tpl->tpl_vars['id']->value => $_smarty_tpl->tpl_vars
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
-                    <?php if ($_smarty_tpl->tpl_vars['user']->value['userstatus_id'] == 1) {?>
-                    <td class="nav_item"><a href="index.php?module=login&action=doLogout">Logout</a></td>
+                    <?php if ($_smarty_tpl->tpl_vars['user']->value['username']) {?>
+                    <td class="nav_item"><a href="index.php?module=login&action=doLogout">Logout - <?php echo $_smarty_tpl->tpl_vars['user']->value['username'];?>
+</a></td>
                     <?php }?>
                 </tr>
             </table>

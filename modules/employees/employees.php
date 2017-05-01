@@ -20,9 +20,9 @@ class employees extends ModuleMother {
                                 "name"              =>  1,
                                 "surname"           =>  1,
                                 "lastseen"          =>  1,
-                                "rights_id"         =>  0,
+                                "rights_id"         =>  1,
                                 "groups_id"         =>  1,
-                                "creator_id"        =>  0,
+                                "creator_id"        =>  1,
                                 "created"           =>  0,
                                 "alterer_id"        =>  0,
                                 "userstatus_id"     =>  1];
@@ -116,6 +116,9 @@ class employees extends ModuleMother {
         return 1;
     }
     public function save() {
+        
+        $_SESSION['SAVE'][]="BLUB";
+        
         unset($_POST['_action']);
         unset($_POST['id']);
         $_POST['creator_id'] = $_SESSION['user']['id'];
@@ -128,6 +131,10 @@ class employees extends ModuleMother {
         
         //print_r($_POST);
         $this->userTable->addUser($_POST);
+        echo '<script type="text/javascript">window.location="index.php?module=employees&view=listAll"</script>';
+                
+        
+        
     }
 }
 ?>
