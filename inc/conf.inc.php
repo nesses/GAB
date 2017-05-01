@@ -6,7 +6,7 @@ $db_conf = "gab.sqlite";
 $mysql_conf = [ 'host'      => 'localhost',
                 'dbname'    => 'gab',
                 'user'      => 'root',
-                'passwd'    => ''];
+                'passwd'    => '08xb7cX2'];
 
 $modules = ARRAY(   "Login" => "login",
                     "Mitarbeiter" => "employees");

@@ -1,4 +1,5 @@
 <?php
+require_once "lib/modules.table.db.php";
 
 require_once "inc/conf.inc.php";
 require_once "inc/session.inc.php";
@@ -6,6 +7,7 @@ require_once "lib/smarty-3.1.30/libs/Smarty.class.php";
 
 print_r($_SESSION);
 print_r($_POST);
+
 
 $module = $_SESSION['module'];
 $view   = $_SESSION['view'];
@@ -20,7 +22,8 @@ $smarty->assign('user',$user);
 
 $smarty->display('templates/header.tpl');
 
-$smarty->assign('modules',$modules);
+$dbModules = new ModulesTable();
+$smarty->assign('modules',$dbModules->getTitles());
 
 $smarty->display('templates/navigation.tpl');
 

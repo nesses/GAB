@@ -36,35 +36,8 @@ class UserTable extends DbTable {
     public function __construct() {
         parent::__construct($this->table,$this->colNames);
     }
-    public function setUsername($username) {
-        $this->setCol('username', $username);
-    }
-    public function setPassword($passwd) {
-        $this->setCol('password', $passwd);
-    }
-    public function setStatus($status) {
-        $this->setCol('userstatus_id',$status);
-    }
-    public function getUsername() {
-        return $this->getCol('username');
-    }
-   public function getMD5Password() {
-        return $this->getCol('password');
-    }
-    public function getStatus() {
-        return $this->getCol('userstatus_id');
-    }
-    public function getRights() {
-        return $this->getCol('rights_id');
-    }
-    public function getUserID() {
-        return $this->getCol('id');
-    }	
     
-    public function getColTypes() {
-        return $this->colTypes;
-    }
-    
+
 
     
 }
