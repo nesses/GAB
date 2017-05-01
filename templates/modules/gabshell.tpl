@@ -1,1 +1,0 @@
-<form name="edituser" method="post" action="index.php.

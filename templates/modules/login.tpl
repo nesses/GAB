@@ -1,6 +1,9 @@
 <div id="inner_mod_error">
 {$error}
 </div>
+<div id='login'>
+
+
 <div id="login_form"> 
     <form name="f1" method="post" action="index.php?module=login&action=doLogin" id="f1">
         <table>
@@ -13,6 +16,10 @@
                <td><input type="password" name="password" value="" /> </td> 
             </tr> 
             <tr> 
-                <td> <input type="submit" name="login" value="Log In" style="font-size:18px; " /> </td> </tr> </table> </form> 
-</div>
+                <td><input type="submit" name="login" value="Log In" style="font-size:18px; " /> </td>
+            </tr>
+        </table>
+    </form> 
+    </div>
 
+</div>

@@ -29,7 +29,10 @@ $smarty->display('templates/navigation.tpl');
 
 if(is_file('modules/'.$module.'/'.$module.'.php')) {
     require_once 'modules/'.$module.'/'.$module.'.php';
-    $smarty_module = new $module($view,$action);
+    if(class_exists($module))
+        $smarty_module = new $module($view,$action);
+    else
+        $smarty->assign('error','Module File eixsts but Class is not there');
 } else {
     $smarty->assign('error','No such module :: '.$module);
 }

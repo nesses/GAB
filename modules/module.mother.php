@@ -1,11 +1,17 @@
 <?php
-require_once 'lib/user.table.db.php';
-class ModuleMother extends Smarty {
 
+require_once 'lib/user.table.db.php';
+require_once 'lib/modules.table.db.php';
+
+class ModuleMother extends Smarty {
+    
+    private $modulesTable;
+    
     private $userTable;
 
     public function __construct() {
         parent::__construct();
+        
         $this->userTable = new UserTable();
         if($this->isAuthenticated() == 1 ) {
             $this->updateLastSeen();
