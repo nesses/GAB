@@ -19,6 +19,7 @@ class employees extends ModuleMother {
                                 "password"          =>  0,
                                 "name"              =>  1,
                                 "surname"           =>  1,
+                                "lastseen"          =>  1,
                                 "rights_id"         =>  0,
                                 "groups_id"         => 1,
                                 "creator_id"        =>  0,
@@ -43,6 +44,7 @@ class employees extends ModuleMother {
                                 'password'      =>  'Password',
                                 'name'          =>  'Name',
                                 'surname'       =>  'Vorname',
+                                'lastseen'      =>  'Zuletzt',
                                 'groups_id'     =>  'Gewerk',
                                 'rights_id'     =>  'Rechte',
                                 'creator_id'    =>  'Ersteller',
@@ -52,7 +54,7 @@ class employees extends ModuleMother {
     
     public function __construct($view,$action) {
         parent::__construct();
-        if($this->isAuthenticated() == 1) {
+        if($_SESSION['user']['userstatus_id'] == 1) {
             if($this->initView($view) == 1) {
                 if($this->executeAction($action) == 1) {
                     
@@ -68,20 +70,8 @@ class employees extends ModuleMother {
     }
     private function initView($view) {
         if($view != null && $view != '') { 
-            $this->groupsTable = new GroupsTable();
-            $this->groupsTable->loadTable();
-            $groups = $this->groupsTable->asArray();
-
-            $this->rightsTable = new RightsTable();
-            $this->rightsTable->loadTable();
-            $rights = $this->rightsTable->asArray();
-
             $this->userTable = new UserTable();
-            $this->userTable->loadTable();
             
-            $dataTypes = $this->userTable->getColTypes();
-            $users = $this->userTable->asArray();
-
             $this->assign('view',$view);
             $this->assign('viewTitles',$this->viewTitles);
             
