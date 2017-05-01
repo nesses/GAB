@@ -49,7 +49,7 @@
                             
                         </td>
                         <td>
-                            <button type="submit" name="action" value="0">Hinzufügen</button>
+                            <button type="submit" name="_action" value="">Hinzufügen</button>
                         </td>
                     </tr>
 		</table>

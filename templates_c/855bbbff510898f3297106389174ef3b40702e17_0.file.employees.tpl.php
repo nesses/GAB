@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-05-01 18:41:46
+/* Smarty version 3.1.30, created on 2017-05-01 18:51:19
   from "/var/www/gab_/templates/modules/employees.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5907654aa5d5d7_40493157',
+  'unifunc' => 'content_59076787ebc847_48914555',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '855bbbff510898f3297106389174ef3b40702e17' => 
     array (
       0 => '/var/www/gab_/templates/modules/employees.tpl',
-      1 => 1493656552,
+      1 => 1493657475,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:templates/items/combobox.tpl' => 3,
   ),
 ),false)) {
-function content_5907654aa5d5d7_40493157 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59076787ebc847_48914555 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div id="employess">
     <div id='title'>
@@ -97,7 +97,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
                             
                         </td>
                         <td>
-                            <button type="submit" name="action" value="0">Hinzufügen</button>
+                            <button type="submit" name="_action" value="">Hinzufügen</button>
                         </td>
                     </tr>
 		</table>

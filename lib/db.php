@@ -99,4 +99,13 @@ class Db {
         $this->query($sql);
         
     }
+    public function insert($tablename,$data) {
+        $colNames = $this->generateColumnList(array_keys($data));
+        
+        $sql = "INSERT INTO $tablename ";
+        
+        $sql .= "($colNames) VALUES ";
+        
+        echo $sql;
+    }
 }

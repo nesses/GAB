@@ -30,7 +30,7 @@ class UserTable  {
                             'groups_id'      =>  'combobox',
                             'rights_id'     =>  'combobox',
                             'creator_id'    =>  'int',
-                            'created'       =>  'timestamp',
+                            'created'       =>  'datetime',
                             'alterer_id'    =>  'int',
                             'userstatus_id' =>  'int'];
     
@@ -56,6 +56,9 @@ class UserTable  {
         $date = new DateTime("now");
         $this->db->updateTable(['lastseen' => $date->format('Y-m-d H:i:s')],['username',$username]);
         return $date->format('Y-m-d H:i:s');
+    }
+    public function addUser($data) {
+        $this->db->insertRow($data);
     }
     
 

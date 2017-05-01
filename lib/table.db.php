@@ -28,10 +28,11 @@ class DbTable {
     }
     private function checkData($data) {
         $dataColumns = array_keys($data);
+        //print_r($dataColumns);echo "-------------------------------------------------";  
         foreach($dataColumns as $colname => $val) {
-            if(!in_array($colname, $this->colNames))
+            if(!in_array($val, $this->colNames)) {
                 return false;
-                
+            }
         }
         
         return true;
@@ -53,6 +54,16 @@ class DbTable {
             $this->db->update($this->tableName, $data, $where);
         } else 
            throw new Exception(__FUNCTION__." :: Column of given Data does not match table def");
+    
+        
+    }
+    public function insertRow($data) {
+        if($this->checkData($data)) {
+            $this->db->insert($this->tableName , $data);
+        } else  
+            throw new Exception(__FUNCTION__." :: Column of given Data does not match table def");
+    
+        
     }
     public function asArray() {
         $ret = ARRAY();

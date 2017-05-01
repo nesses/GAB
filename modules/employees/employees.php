@@ -36,7 +36,7 @@ class employees extends ModuleMother {
                                 "rights_id"     =>  'combobox',
                                 "groups_id"     =>  'combobox',
                                 "creator_id"    =>  'hidden',
-                                "created"       =>  'date',
+                                "created"       =>  'hidden',
                                 "alterer_id"    =>  'hidden',
                                 "userstatus_id" =>  'hidden'];    
     
@@ -116,8 +116,18 @@ class employees extends ModuleMother {
         return 1;
     }
     public function save() {
+        unset($_POST['_action']);
+        unset($_POST['id']);
+        $_POST['creator_id'] = $_SESSION['user']['id'];
+        $_POST['alterer_id'] = $_SESSION['user']['id'];
+        $_POST['password'] = md5($_POST['password']);
+        $_POST['userstatus_id'] = 4;
+        $date = new DateTime('now');
+        $date->format('Y-m-d H:i:s');
+        $_POST['created'] = $date->format('Y-m-d H:i:s');
         
-        print_r($_POST);//$this->userTable->
+        //print_r($_POST);
+        $this->userTable->addUser($_POST);
     }
 }
 ?>
