@@ -1,9 +1,20 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*** 
+ * @author Matthias Grotjohann
  */
+require_once 'modules/module.mother.php';
 
+class plungerclock extends ModuleMother {
+    
+    private $pclockTable;
+    
+    public function __construct($view,$action) {
+        parent::__construct();
+        
+        $this->display('templates/modules/plungerclock.tpl');
+    }
+    
+    
+}
     
