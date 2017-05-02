@@ -1,5 +1,5 @@
 <div id="content">
-    <div id="employess">
+    <div id="{$modules[$module]}">
         <div id='title'>
-            {$module} - {$viewTitles[$view]}
+            {$modules[$module]}
         </div>

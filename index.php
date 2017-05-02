@@ -22,7 +22,7 @@ $smarty = new Smarty();
 
 $dbModules = new ModulesTable();
 
-$smarty->assign('modules',$dbModules->getTitles());
+$smarty->assign('modules',$dbModules->getTitles('valkey'));
 $smarty->assign('module',$module);
 $smarty->assign('view',$view);
 $smarty->assign('user',$user);

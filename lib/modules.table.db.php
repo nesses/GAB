@@ -18,9 +18,17 @@ class ModulesTable {
     
     }
     
-    public function getTitles() {
+    public function getTitles($mode = 'normal') {
+        
         $this->db->initTable(["title","name"]);
-        return $this->db->asArray();
+		  if($mode == 'normal')
+		  	$ret = $this->db->asArray();
+		  elseif($mode == 'keyval') {
+				foreach($this->db->asArray() as $idx => $valArr)
+					$ret[$valArr[0]] = $valArr[1];
+			}
+			
+			return $ret;
     }
 
     

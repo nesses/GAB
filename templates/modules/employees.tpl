@@ -1,7 +1,4 @@
-<div id="employess">
-    <div id='title'>
-        Mitarbeiter - {$viewTitles[$view]}
-    </div>
+
 <div id="actions_nav">
 <table id="actions_nav_table">
     <tr>
