@@ -1,4 +1,8 @@
 <?php
+/*
+ * @author Matthias Grotjohann
+ * 
+ */
 require_once "lib/modules.table.db.php";
 
 require_once "inc/conf.inc.php";
