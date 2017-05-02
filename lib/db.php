@@ -41,7 +41,7 @@ class Db {
                 $this->rowCount = $result->rowCount();
                 $this->queryResult = $result;
             }
-            return 1;
+            
         } else {
             throw new Exception("SQL FAILED::".$sql);
         }
@@ -103,12 +103,12 @@ class Db {
         
         $sql .= ";";
         
-        if($this->query($sql) == 1) {
+        $this->query($sql);
             if($this->rowCount > 0) {
                 $ret = $this->queryResult->fetchAll();
                 return $ret;
             }
-        }
+        
         return null;
     }
     public function update($tablename,$data,$where) {
