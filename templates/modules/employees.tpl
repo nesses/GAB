@@ -2,9 +2,6 @@
     <div id='title'>
         Mitarbeiter - {$viewTitles[$view]}
     </div>
-<div id="inner_mod_error">
-{$error}
-</div>
 <div id="actions_nav">
 <table id="actions_nav_table">
     <tr>

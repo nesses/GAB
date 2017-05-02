@@ -20,14 +20,16 @@ $user   = $_SESSION['user'];
 
 $smarty = new Smarty();
 
+$dbModules = new ModulesTable();
+
+$smarty->assign('modules',$dbModules->getTitles());
 $smarty->assign('module',$module);
 $smarty->assign('view',$view);
 $smarty->assign('user',$user);
 
 $smarty->display('templates/header.tpl');
 
-$dbModules = new ModulesTable();
-$smarty->assign('modules',$dbModules->getTitles());
+
 
 $smarty->display('templates/navigation.tpl');
 
