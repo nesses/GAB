@@ -11,13 +11,28 @@ class Db {
     private $rowCount;
     
     private $queryResult;
-    
+    /***
+		* Creates PDO Connection either to MySQL Server or
+		* to an sqlite comatible file dependig on conf.inc.php
+		* file
+		*/
     public function __construct() {
-        global $mysql_conf;
-        $this->pdo = new PDO('mysql:host='.$mysql_conf['host'].';dbname='.$mysql_conf['dbname'], $mysql_conf['user'], $mysql_conf['passwd']);
-        $this->query("SET NAMES UTF8;");
+        global $db_type;
+		  global $db_conf;
+		 if($db_type == 'MySQL') {
+        	$this->pdo = new PDO('mysql:host='.$mysql_conf['host'].';dbname='.$mysql_conf['dbname'], $mysql_conf['user'], $mysql_conf['passwd']);
+        	$this->query("SET NAMES UTF8;");
+			}
+		 elseif($db_type == 'SQLite') {
+			//create sqlite
+			}
         
     }
+	/***
+	  * Query database connection
+	  * @param string $sql
+	  * @throws Excpetion
+	*/
     private function query($sql) {
         
         $result = $this->pdo->query($sql);
@@ -26,7 +41,7 @@ class Db {
                 $this->rowCount = $result->rowCount();
                 $this->queryResult = $result;
             }
-            return 1;
+            
         } else {
             throw new Exception("SQL FAILED::".$sql);
         }
@@ -46,10 +61,13 @@ class Db {
     }
     
     private function generateInsertList($data) {
-        if (is_array($data)) {
-            return implode("', '", $data);
+       $ret = "'";
+		 if (is_array($data)) {
+            $ret .= implode("', '", $data);
+			  $ret .= "'";
+				return $ret;
         } else {
-            return $data;
+            throw new Exception(__FUNCTION__.' :: $data :: Not an ARRAY');
         }
     }
     private function sqlFormatData($dataKeyVal) {
@@ -106,17 +124,18 @@ class Db {
         
     }
     public function insert($tablename,$data) {
+	
         $colNames = $this->generateColumnList(array_keys($data));
-        
+        $dataList     = $this->generateInsertList($data);
+
         $sql = "INSERT INTO $tablename ";
         
-        $sql .= "($colNames) VALUES ('";
+        $sql .= "($colNames) VALUES (";
         
-        
-        $sql .= $this->generateInsertList($data);
+        $sql .= "$dataList";
         
         $sql .= "');";
-        $_SESSION['INS'][] = "$sql";
+        
         $this->query($sql);
     }
 }
