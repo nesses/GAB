@@ -94,12 +94,18 @@ class Db {
         }
         return $ret;
     }
-    public function select($tablename,$columns = '*',$where = '') {
+    public function select($tablename,$columns = '*',$where = '',$orderby = '',$limit = '') {
         $columnList = $this->generateColumnList($columns);
         $sql = "SELECT ".$columnList." FROM ".$tablename;
         
         if($where <> '')
             $sql .= " WHERE ".$this->compileWhere($where);
+        
+        if($orderby <> '')
+            $sql .= " ORDER BY $orderby";
+        
+        if($limit <> '')
+            $sql .= " LIMIT $limit";
         
         $sql .= ";";
         

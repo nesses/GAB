@@ -34,11 +34,11 @@ class DbTable {
         }
         return true;
     }
-    public function initTable($columns = '*',$where = '') {
+    public function initTable($columns = '*',$where = '',$orderby = '',$limit = '') {
         if($columns == '*')
             $columns = $this->colNames;
         
-        $tdata = $this->db->select($this->tableName,$columns,$where);
+        $tdata = $this->db->select($this->tableName,$columns,$where,$orderby,$limit);
         if($tdata != null) {
             $this->data = $tdata;
             return 1;

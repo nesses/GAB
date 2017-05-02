@@ -19,12 +19,15 @@ class plungerclock extends ModuleMother {
     
     public function __construct($view,$action) {
         parent::__construct($this->actions);
+        
         $this->pclockTable = new PlungerclockTable();
         $stamps = $this->pclockTable->getAllByUserId($_SESSION['user']['id']);
+        
         $this->usersTable = new UserTable();
         $users = $this->usersTable->getUsersByGroupId($_SESSION['user']['groups_id']);
+        $this->assign('users',$users);
         
-        print_r($users);
+        
         $this->executeAction($action);
         
         $this->display('templates/modules/plungerclock.tpl');
@@ -41,8 +44,13 @@ class plungerclock extends ModuleMother {
         return 1;
     }
     public function stamp() {
-        
-        $this->pclockTable->insertStamp($_SESSION['user']['id']);
+        $last_stamp_id = $this->pclockTable->getLastStatusByUserId($_SESSION['user']['id']);
+        //toggle stamp because you can not come to work twice
+        if($last_stamp_id == '0')
+            $stamp_id = '1';
+        elseif($last_stamp_id = '1')
+            $stamp_id = '0';
+        $this->pclockTable->insertStamp($_SESSION['user']['id'],$stamp_id);
         $_SESSION['action'] = null;
         echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
         

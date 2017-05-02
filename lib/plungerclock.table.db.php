@@ -8,7 +8,8 @@ class PlungerclockTable {
 	
     private $colNames   = ARRAY("id" ,
                                 "users_id",
-                                "timestamp");
+                                "timestamp",
+                                "status_id");
   
     public function __construct() {
         $this->db = new DbTable($this->table,$this->colNames);
@@ -23,12 +24,20 @@ class PlungerclockTable {
         $tdata = $this->db->asArray();
         return $tdata;
     }
-    public function insertStamp($userid) {
+    public function insertStamp($userid,$status_id) {
         $date = date('Y-m-d h:i:s', time());
-        echo $date;
+        
         $this->db->insertRow(['users_id' => $userid,
-                              'timestamp'=> $date]);
+                              'timestamp'=> $date,
+                              'status_id'=> $status_id]);
     }
+    public function getLastStatusByUserId($userid) {
+        $this->db->initTable('status_id',['users_id',$userid],'timestamp desc','0,1');
+        $tdata = $this->db->asArray();
+        
+        return $tdata[0]['status_id'];
+    }
+    
 
 }
 ?>
