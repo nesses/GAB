@@ -12,20 +12,20 @@ class Db {
     
     private $queryResult;
     /***
-		* Creates PDO Connection either to MySQL Server or
-		* to an sqlite comatible file dependig on conf.inc.php
-		* file
-		*/
+    * Creates PDO Connection either to MySQL Server or
+    * to an sqlite comatible file dependig on conf.inc.php
+    * file
+    */
     public function __construct() {
         global $db_type;
-		  global $db_conf;
-		 if($db_type == 'MySQL') {
-        	$this->pdo = new PDO('mysql:host='.$mysql_conf['host'].';dbname='.$mysql_conf['dbname'], $mysql_conf['user'], $mysql_conf['passwd']);
-        	$this->query("SET NAMES UTF8;");
-			}
-		 elseif($db_type == 'SQLite') {
-			//create sqlite
-			}
+        global $db_conf;
+	if($db_type == 'MySQL') {
+            $mysql_conf  = $db_conf['MySQL'];
+            $this->pdo = new PDO('mysql:host='.$mysql_conf['host'].';dbname='.$mysql_conf['dbname'], $mysql_conf['user'], $mysql_conf['passwd']);
+            $this->query("SET NAMES UTF8;");
+	} elseif($db_type == 'SQLite') {
+            //create sqlite
+	}
         
     }
 	/***
@@ -41,7 +41,7 @@ class Db {
                 $this->rowCount = $result->rowCount();
                 $this->queryResult = $result;
             }
-            
+            return 1;
         } else {
             throw new Exception("SQL FAILED::".$sql);
         }
