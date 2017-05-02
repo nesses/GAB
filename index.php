@@ -9,7 +9,7 @@ require_once "inc/conf.inc.php";
 require_once "inc/session.inc.php";
 require_once "lib/smarty-3.1.30/libs/Smarty.class.php";
 
-#print_r($_SESSION);
+print_r($_SESSION);
 #print_r($_POST);
 
 
@@ -21,8 +21,8 @@ $user   = $_SESSION['user'];
 $smarty = new Smarty();
 
 $dbModules = new ModulesTable();
-
-$smarty->assign('modules',$dbModules->getTitles('valkey'));
+//print_r($dbModules->getTitles('valkey'));
+$smarty->assign('modules',$dbModules->getTitles('keyval'));
 $smarty->assign('module',$module);
 $smarty->assign('view',$view);
 $smarty->assign('user',$user);

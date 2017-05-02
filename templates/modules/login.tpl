@@ -8,7 +8,7 @@
     <form name="f1" method="post" style="color:white;" action="index.php?module=login&action=doLogin" id="f1">
         <table>
             <tr>
-               <td class="f1_label">Benutzername :</td>
+               <td class="f1_label">Benutzername:</td>
                <td><input type="text" name="username" value="" /> </td>
             </tr> 
             <tr>

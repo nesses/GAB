@@ -21,14 +21,16 @@ class ModulesTable {
     public function getTitles($mode = 'normal') {
         
         $this->db->initTable(["title","name"]);
-		  if($mode == 'normal')
-		  	$ret = $this->db->asArray();
-		  elseif($mode == 'keyval') {
-				foreach($this->db->asArray() as $idx => $valArr)
-					$ret[$valArr[0]] = $valArr[1];
-			}
-			
-			return $ret;
+        if($mode == 'normal')
+            $ret = $this->db->asArray();
+	elseif($mode == 'keyval') {
+            foreach($this->db->asArray() as $idx => $valArr) {
+                
+                $ret[$valArr['name']] = $valArr['title'];
+            }
+	}
+        
+	return $ret;
     }
 
     

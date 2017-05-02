@@ -17,6 +17,6 @@ class RightsTable {
         $this->db->initTable();
         $tdata = $this->db->asArray();
         return $tdata;
-    }   
+    }
 }
 ?>

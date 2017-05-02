@@ -11,6 +11,8 @@ class employees extends ModuleMother {
     private $groupsTable;
     private $rightsTable;
     
+    private $actions =    ['save'];
+    
     private $viewTitles = [ 'createNew' => 'Hinzufügen',
                             'listAll'   => 'Übersicht'];
     
@@ -54,7 +56,7 @@ class employees extends ModuleMother {
                                 'userstatus_id' =>  'Status'];
     
     public function __construct($view,$action) {
-        parent::__construct();
+        parent::__construct($this->actions);
             if($this->initView($view) == 1) {
                 if($this->executeAction($action) == 1) {
 
@@ -131,6 +133,7 @@ class employees extends ModuleMother {
         
         //print_r($_POST);
         $this->userTable->addUser($_POST);
+        $_SESSION['action'] = null;
         echo '<script type="text/javascript">window.location="index.php?module=employees&view=listAll"</script>';
                 
         

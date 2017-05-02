@@ -7,7 +7,7 @@ class PlungerclockTable {
     private $table = "plungerclock";
 	
     private $colNames   = ARRAY("id" ,
-                                "user_id",
+                                "users_id",
                                 "timestamp");
   
     public function __construct() {
@@ -18,5 +18,17 @@ class PlungerclockTable {
         $tdata = $this->db->asArray();
         return $tdata;
     }   
+    public function getAllByUserId($id) {
+        $this->db->initTable('*',['users_id',$id]);
+        $tdata = $this->db->asArray();
+        return $tdata;
+    }
+    public function insertStamp($userid) {
+        $date = date('Y-m-d h:i:s', time());
+        echo $date;
+        $this->db->insertRow(['users_id' => $userid,
+                              'timestamp'=> $date]);
+    }
+
 }
 ?>

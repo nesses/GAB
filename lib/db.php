@@ -61,11 +61,11 @@ class Db {
     }
     
     private function generateInsertList($data) {
-       $ret = "'";
-		 if (is_array($data)) {
+        $ret = "'";
+        if (is_array($data)) {
             $ret .= implode("', '", $data);
-			  $ret .= "'";
-				return $ret;
+            $ret .= "'";
+            return $ret;
         } else {
             throw new Exception(__FUNCTION__.' :: $data :: Not an ARRAY');
         }
@@ -134,7 +134,7 @@ class Db {
         
         $sql .= "$dataList";
         
-        $sql .= "');";
+        $sql .= ");";
         
         $this->query($sql);
     }

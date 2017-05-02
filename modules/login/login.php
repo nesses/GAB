@@ -1,24 +1,24 @@
 <?php
 require_once 'inc/conf.inc.php';
 require_once 'lib/user.table.db.php';
+require_once 'modules/module.mother.php';
 
-class Login extends Smarty {
-    
-    private $userID = null;
-    
+class Login extends ModuleMother {
+   
     private $userTable;
 	
     private $gropsTable;
-	
+
+    private $action = ['doLogin','doLogout'];
     public function __construct($view,$action) {
-        parent::__construct();
+        parent::__construct($this->action,$open_mod = true);
         
         if($action != null && $action != '') {
             try {
                 $this->$action();
 					
             } catch (Throwable $e) {
-                $this->assign('error','No such action :: '.$action);
+                $this->assign('error','Action defined but not in file :: '.$action);
             }
  	}
 	$this->display('templates/modules/login.tpl');
