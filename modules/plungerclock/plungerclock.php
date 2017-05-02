@@ -22,14 +22,14 @@ class plungerclock extends ModuleMother {
         
         $this->pclockTable = new PlungerclockTable();
         $stamps = $this->pclockTable->getAllByUserId($_SESSION['user']['id']);
-        
+        $usr_wrk_stat = $this->isUserWorking();
         $this->usersTable = new UserTable();
         $users = $this->usersTable->getUsersByGroupId($_SESSION['user']['groups_id']);
         $this->assign('users',$users);
+        $this->assign('user_work_stat',$usr_wrk_stat);
         
         
         $this->executeAction($action);
-        
         $this->display('templates/modules/plungerclock.tpl');
     }
     private function executeAction($action) {
@@ -54,6 +54,9 @@ class plungerclock extends ModuleMother {
         $_SESSION['action'] = null;
         echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
         
+    }
+    public function isUserWorking() {
+        return $this->pclockTable->getLastStatusByUserId($_SESSION['user']['id']);
     }
     
     

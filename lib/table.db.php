@@ -14,8 +14,9 @@ class DbTable {
             $this->db = new Db();
             $this->tableName = $tableName;
             $this->colNames = $colNames;
-            if($this->testTable() <> 1)
-		throw new Exception(__FUNCTION__." :: Column definition does not match");
+            //QUICK SOLUTION TO QUERY EMPTY TABLES::::
+            //if($this->testTable() <> 1)
+		//throw new Exception(__FUNCTION__." :: Column definition does not match");
    
         } else throw new Exception(__FUNCTION__." :: Missing Table or Column definitions");
     }

@@ -18,16 +18,15 @@ $view   = $_SESSION['view'];
 $action = $_SESSION['action'];
 $user   = $_SESSION['user'];
 
+$dbModules = new ModulesTable();
+$modTitles = $dbModules->getTitles('keyval');
+
 $smarty = new Smarty();
 
-$dbModules = new ModulesTable();
-//print_r($dbModules->getTitles('valkey'));
-$smarty->assign('modules',$dbModules->getTitles('keyval'));
+$smarty->assign('modTitles',$modTitles);
 $smarty->assign('module',$module);
 $smarty->assign('view',$view);
 $smarty->assign('user',$user);
-
-$smarty->display('templates/header.tpl');
 
 
 

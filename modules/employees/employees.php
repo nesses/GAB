@@ -59,7 +59,7 @@ class employees extends ModuleMother {
         parent::__construct($this->actions);
             if($this->initView($view) == 1) {
                 if($this->executeAction($action) == 1) {
-
+        
                 } else 
                     $this->assign('error','No such action');
 
@@ -119,7 +119,7 @@ class employees extends ModuleMother {
     }
     public function save() {
         
-        $_SESSION['SAVE'][]="BLUB";
+        
         
         unset($_POST['_action']);
         unset($_POST['id']);
