@@ -55,19 +55,19 @@ class employees extends ModuleMother {
     
     public function __construct($view,$action) {
         parent::__construct();
-        if($this->isAuthenticated() == 1) {
             if($this->initView($view) == 1) {
                 if($this->executeAction($action) == 1) {
-                    
+
                 } else 
                     $this->assign('error','No such action');
-    
+
             } else
                 $this->assign('error', "View not found::"); 
-            $this->display('templates/modules/employees.tpl');
-        } else {
-            echo "not logged in";
-        }
+        
+        $this->display('templates/modules/employees.tpl');
+        
+           
+                
     }
     private function initView($view) {
         if($view != null && $view != '') { 

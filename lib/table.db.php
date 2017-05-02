@@ -12,7 +12,6 @@ class DbTable {
     public function __construct($tableName,$colNames) {
         if($tableName && $tableName != "" && $colNames && $colNames != "") {
             $this->db = new Db();
-			
             $this->tableName = $tableName;
             $this->colNames = $colNames;
             if($this->testTable() <> 1)
@@ -28,15 +27,12 @@ class DbTable {
     }
     private function checkData($data) {
         $dataColumns = array_keys($data);
-        //print_r($dataColumns);echo "-------------------------------------------------";  
         foreach($dataColumns as $colname => $val) {
             if(!in_array($val, $this->colNames)) {
                 return false;
             }
         }
-        
         return true;
-        
     }
     public function initTable($columns = '*',$where = '') {
         if($columns == '*')
@@ -76,7 +72,7 @@ class DbTable {
                     $ret[$row]["$title"] = $value;
                 }
             }
-		}
+	}
         return $ret;
     }
 }
