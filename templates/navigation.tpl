@@ -10,6 +10,8 @@
         <link rel="stylesheet" type="text/css" href="css/layout.css">
     </head>
     <body>
+        <script type="text/javascript" src="js/functions.js"></script>
+        
         <div id="header">
         </div>
   

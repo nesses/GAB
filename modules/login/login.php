@@ -1,10 +1,13 @@
 <?php
-require_once 'inc/conf.inc.php';
+/*
+ * @author Matthias Grotjohann
+ */
 require_once 'lib/user.table.db.php';
-require_once 'modules/module.mother.php';
 
-class Login extends ModuleMother {
+class Login  {
    
+    
+    private $smarty;
     private $userTable;
 	
     private $gropsTable;
