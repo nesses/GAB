@@ -7,6 +7,7 @@
     </tr>
 </table>
 </div>
+{include file="templates/views/listView.tpl"}
 {if $view eq "createNew"}
 	<form method="POST" action="index.php?module=employees&view=createNew&action=save">
 		<table>

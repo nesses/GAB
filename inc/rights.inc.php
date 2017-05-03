@@ -15,6 +15,7 @@ class Rights {
         
     }
     public function isAuthenticated($userstatus) {
+        
         if($userstatus == 1)
             return 1;
         return 0;
