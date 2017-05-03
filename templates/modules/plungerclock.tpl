@@ -11,7 +11,7 @@
 </div>  
 <div style="float:left;padding:110px;">
 </div>
-<div style="float:left;margin:5px;background:lightgray;width:250px;height:150px;" id="group_members">
+<div style="float:left;margin:5px;background:lightgray;width:250px;min-height:150px;" id="group_members">
     <table style="background:darkgreen;color:white;width:100%;text-align: center;">
         <tr>
             <td style="font-size: 14px;font-weight: bold">Anwesende Kollegen<td> 

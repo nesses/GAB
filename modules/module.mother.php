@@ -15,12 +15,10 @@ class ModuleMother extends Smarty {
             $this->assign('error','No such action '.$_SESSION['action']);
             $this->display('templates/error.tpl');
             die;
-            
+        //$_POST verursachte die doppelte kacke
         } elseif ($_SESSION['action'] && !$_POST) {
-            
             $this->assign('error','No parameters set for :: '.$_SESSION['action']);
-            $this->display('templates/error.tpl');
-            
+            $this->display('templates/error.tpl');    
         } else {
             if(!$open_mod) {
                 $this->userTable = new UserTable();

@@ -4,7 +4,7 @@
             <td style="font-size: 14px;font-weight: bold">TITLE<td>      
         </tr>
     </table>
-    <table>
+    <table style="width:100%;">
         <tr>
             <th>HEAD0</th>
             <th>HEAD1</th>
