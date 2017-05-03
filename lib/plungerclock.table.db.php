@@ -34,7 +34,6 @@ class PlungerclockTable {
     public function getLastStatusByUserId($userid) {
         $this->db->initTable('status_id',['users_id',$userid],'timestamp desc','0,1');
         $tdata = $this->db->asArray();
-        
         return $tdata[0]['status_id'];
     }
     

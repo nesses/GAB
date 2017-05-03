@@ -23,8 +23,11 @@ class plungerclock extends ModuleMother {
         $this->pclockTable = new PlungerclockTable();
         $stamps = $this->pclockTable->getAllByUserId($_SESSION['user']['id']);
         $usr_wrk_stat = $this->isUserWorking();
+        
         $this->usersTable = new UserTable();
         $users = $this->usersTable->getUsersByGroupId($_SESSION['user']['groups_id']);
+        
+        $this->assign('myself',$this->usersTable->getUserByUsername($_SESSION['user']['username']));
         $this->assign('users',$users);
         $this->assign('user_work_stat',$usr_wrk_stat);
         
@@ -46,9 +49,9 @@ class plungerclock extends ModuleMother {
     public function stamp() {
         $last_stamp_id = $this->pclockTable->getLastStatusByUserId($_SESSION['user']['id']);
         //toggle stamp because you can not come to work twice
-        if($last_stamp_id == '0')
-            $stamp_id = '1';
-        elseif($last_stamp_id = '1')
+        if($last_stamp_id == 0)
+            $stamp_id = '1'; 
+        elseif($last_stamp_id == 1)
             $stamp_id = '0';
         $this->pclockTable->insertStamp($_SESSION['user']['id'],$stamp_id);
         $_SESSION['action'] = null;

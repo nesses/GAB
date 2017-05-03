@@ -2,9 +2,9 @@
     
 
 <div style="padding-left:350px;margin:5px;background:white;width:250px;" id="user_info">
-    <table style="background:{if $user_work_stat eq 0}darkgreen{else}red{/if};color:white;width:100%;text-align: center;">
+    <table style="background:{if $user_work_stat eq '1'}darkgreen{else}red{/if};color:white;width:100%;text-align: center;">
         <tr>
-            <td style="font-size: 14px;font-weight: bold">{if $user_work_stat eq 0}Anwesend{else}Abwesend{/if}<td> 
+            <td style="font-size: 14px;font-weight: bold">{if $user_work_stat eq '1'}Anwesend{else}Abwesend{/if}<td> 
             
         </tr>
     </table>
@@ -17,18 +17,18 @@
             <td style="font-size: 14px;font-weight: bold">Anwesende Kollegen<td> 
         </tr>
     </table>
-    <table>
-        {foreach from=$users key=id item=user}
+    <table style="width:100%;text-align:center;">
+        {foreach from=$users key=id item=itm}
             <tr>
-                <td>{$user['name']}</td>
-                <td>{$user['surname']}</td>
+                <td>{$itm['surname']}</td>
+                <td>{$itm['name']}</td>
             </tr>
         {/foreach}
     </table>    
     <form method="POST" action="index.php?module=plungerclock&action=stamp">
-        <table>    
-            <tr>
-                <td><input type="submit" value="Stempeln" name="stamp" /></td>
+        <table style="width:100%;text-align: center;">    
+            <tr style="background:gray;">
+                <td><input style="background:yellow;font-size:16px;" type="submit" value="{if $user_work_stat eq '1'}Feierabend/Pause{else}Arbeit beginnen{/if}" name="stamp" /></td>
             </tr>
         </table>
     </form>	
@@ -37,8 +37,7 @@
 <div style="float:left;margin:5px;background:lightgray;width:250px;height:150px;" id="user_info">
     <table style="background:darkgreen;color:white;width:100%;text-align: center;">
         <tr>
-            <td style="font-size: 14px;font-weight: bold">Meine Arbeitszeit<td> 
-            
+            <td style="font-size: 14px;font-weight: bold">{$myself[0]['surname']} {$myself[0]['name']}<td>      
         </tr>
     </table>
     <table>
@@ -46,7 +45,6 @@
             <th></th>
             <th>Arbeitszeit<th>
             <th>Pause<th>
-             
         </tr>
         <tr>
             <td>Heute:<td>
