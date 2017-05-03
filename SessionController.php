@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/modules.table.db.php';
-require_once 'inc/rights.inc.php';
+require_once 'Rights.php';
 
 
 class SessionController {
