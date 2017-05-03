@@ -1,4 +1,4 @@
-{include file="templates/error.tpl"}
+
 <div id="actions_nav">
 <table id="actions_nav_table">
     <tr>

@@ -16,6 +16,7 @@ print_r($_SESSION);
 $module = $_SESSION['module'];
 $view   = $_SESSION['view'];
 $action = $_SESSION['action'];
+
 $user   = $_SESSION['user'];
 
 $dbModules = new ModulesTable();

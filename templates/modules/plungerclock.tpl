@@ -33,7 +33,8 @@
         </table>
     </form>	
 </div>
-
+{include file="templates/views/InformationDisplay.tpl"}
+<!--
 <div style="float:left;margin:5px;background:lightgray;width:250px;height:150px;" id="user_info">
     <table style="background:darkgreen;color:white;width:100%;text-align: center;">
         <tr>
@@ -63,5 +64,6 @@
             <td><td>
         </tr>
     </table>
-</div>   
+</div>
+-->
 </div>

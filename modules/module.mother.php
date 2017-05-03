@@ -17,8 +17,8 @@ class ModuleMother extends Smarty {
             die;
             
         } elseif ($_SESSION['action'] && !$_POST) {
-            $_SESSION['action'] = NULL;
-            $this->assign('error','No such action :: '.$actions);
+            
+            $this->assign('error','No parameters set for :: '.$_SESSION['action']);
             $this->display('templates/error.tpl');
             
         } else {

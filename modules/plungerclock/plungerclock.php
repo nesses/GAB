@@ -21,10 +21,14 @@ class plungerclock extends ModuleMother {
         parent::__construct($this->actions);
         
         $this->pclockTable = new PlungerclockTable();
+        $this->usersTable = new UserTable();
+        
+        $this->executeAction($action);
+        
         $stamps = $this->pclockTable->getAllByUserId($_SESSION['user']['id']);
         $usr_wrk_stat = $this->isUserWorking();
         
-        $this->usersTable = new UserTable();
+        
         $users = $this->usersTable->getUsersByGroupId($_SESSION['user']['groups_id']);
         
         $this->assign('myself',$this->usersTable->getUserByUsername($_SESSION['user']['username']));
@@ -32,7 +36,6 @@ class plungerclock extends ModuleMother {
         $this->assign('user_work_stat',$usr_wrk_stat);
         
         
-        $this->executeAction($action);
         $this->display('templates/modules/plungerclock.tpl');
     }
     private function executeAction($action) {
@@ -47,15 +50,19 @@ class plungerclock extends ModuleMother {
         return 1;
     }
     public function stamp() {
-        $last_stamp_id = $this->pclockTable->getLastStatusByUserId($_SESSION['user']['id']);
-        //toggle stamp because you can not come to work twice
-        if($last_stamp_id == 0)
-            $stamp_id = '1'; 
-        elseif($last_stamp_id == 1)
-            $stamp_id = '0';
-        $this->pclockTable->insertStamp($_SESSION['user']['id'],$stamp_id);
-        $_SESSION['action'] = null;
-        echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
+        if(isset($_POST['stamp'])) {
+            $last_stamp_id = $this->pclockTable->getLastStatusByUserId($_SESSION['user']['id']);
+            
+            //toggle stamp because you can not come to work twice
+            if($last_stamp_id == 0)
+                $stamp_id = '1'; 
+            elseif($last_stamp_id == 1)
+                $stamp_id = '0';
+            
+            $this->pclockTable->insertStamp($_SESSION['user']['id'],$stamp_id);  
+            echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
+        
+        }
         
     }
     public function isUserWorking() {
