@@ -6,7 +6,6 @@ require_once 'Rights.php';
 class SessionController {
     
     private $rights;
-    
     private $module;
     private $view;
     private $action;
@@ -44,13 +43,15 @@ class SessionController {
         if(isset($_GET['view']))
             $_SESSION['view'] = $_GET['view'];
         else
-            $_SESSION['view'] = '';
-        $this->view   = $_SESSION['view'];
+            $_SESSION['view'] = 'listView';
+        
+        $this->view= $_SESSION['view'];
 
         if(isset($_GET['action'])) 
             $_SESSION['action'] = $_GET['action'];
         else 
             $_SESSION['action'] = '';
+        
         $this->action = $_SESSION['action'];
         
         

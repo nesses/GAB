@@ -4,8 +4,7 @@
  * @author Matthias Grotjohann
  */
 require_once 'modules/module.mother.php';
-require_once 'lib/plungerclock.table.db.php';   
-class plungerclock extends ModuleMother {
+class plungerclock  {
     
     private $actions = ['stamp'];
     
