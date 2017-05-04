@@ -3,7 +3,7 @@
 <table id="actions_nav_table">
     <tr>
         <td><a href="index.php?module=employees&view=editView">hinzufugen</a></td>
-        <td><a href="index.php?module=employees&view=listView">{$view}</a></td>
+        <td><a href="index.php?module=employees&view=listView">anzeigen</a></td>
     </tr>
 </table>
 </div>
