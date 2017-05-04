@@ -17,7 +17,7 @@ class GAB  {
     
     public function __construct($debug=false) {
         $this->sessionController = new SessionController($this->restricted,$debug);
-        $this->sessionController->init();
+        //$this->sessionController->init();
         
     }
     public function HORIDO() {

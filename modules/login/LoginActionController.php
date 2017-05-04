@@ -29,7 +29,7 @@ class LoginActionController extends ActionController {
                     $userdata = $this->userTable->getUserByUsername($_POST['username']);
                     $_SESSION['user'] = $userdata[0];
                 
-                    echo '<script type="text/javascript">window.location="index.php?module=employees&view=listAll"</script>';
+                    echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
                 }
                 
             } else {

@@ -11,7 +11,9 @@ class SessionController {
     private $action;
     private $user;
     
-    public function __construct($open_mod=false,$debug = false) {
+    public function __construct($view,$open_mod=false,$debug = false) {
+        
+        
         $this->init();
         
         $this->rights = new Rights();
@@ -25,13 +27,12 @@ class SessionController {
             if($_SESSION['user']['username'])
             $this->rights->updateLastSeen($_SESSION['user']['username']);
             
-
         } else {
             //$this->assign('error',"Keine Berechtigung :: Nicht angemeldet");
             //$this->display('templates/error.tpl');
-            echo "KEINE BERECHTIGUNG";
+            echo "KEINE BERECHTIGUNG - Modul";
             echo $this->module;
-            echo $this->view;
+           
             die;
         } 
     }
@@ -42,11 +43,11 @@ class SessionController {
         
         if(isset($_GET['view']))
             $_SESSION['view'] = $_GET['view'];
-        else
-            $_SESSION['view'] = 'listView';
+        //else
+          //  $_SESSION['view'] = '';
         
-        $this->view= $_SESSION['view'];
-
+        $this->view = $_SESSION['view'];
+        
         if(isset($_GET['action'])) 
             $_SESSION['action'] = $_GET['action'];
         else 

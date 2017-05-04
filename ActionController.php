@@ -6,6 +6,7 @@
 
 class ActionController {
     public function __construct($action,$actions) {
+        
         if($action != null && $action != '') {
             if($action && !in_array($action,$actions)) {
                 $_SESSION['action'] = NULL;

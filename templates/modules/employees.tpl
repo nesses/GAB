@@ -1,14 +1,7 @@
-
-<div id="actions_nav">
-<table id="actions_nav_table">
-    <tr>
-        <td><a href="index.php?module=employees&view=editView">hinzufugen</a></td>
-        <td><a href="index.php?module=employees&view=listView">anzeigen</a></td>
-    </tr>
-</table>
-</div>
+{include file="templates/items/viewsNav.tpl"}
 {if $view eq "listView"}
-{include file="templates/views/listView.tpl"}
+    {include file="templates/views/listView.tpl"}
+{elseif $view eq "editView"}
+    {include file="templates/views/editView.tpl"}
 {/if}
-
 </div>
