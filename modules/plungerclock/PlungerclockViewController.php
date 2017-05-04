@@ -13,10 +13,10 @@ class PlungerclockViewController extends SessionController {
     public function __construct($view) {
         
         if(!in_array($view, $this->views)) {
-            echo "NO SUCH VIEW :: $view";
-            $_SESSION['view'] = 'dashBoard';
+            echo "<br>PLUNGERCLOCK : NO VIEW :: $view";
+            //$_SESSION['view'] = 'dashBoard';
             //die;
-            echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
+            //echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
         
         }
         

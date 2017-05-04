@@ -11,7 +11,7 @@ class SessionController {
     private $action;
     private $user;
     
-    public function __construct($view,$open_mod=false,$debug = false) {
+    public function __construct($open_mod=false,$debug = false) {
         
         
         $this->init();
@@ -30,7 +30,7 @@ class SessionController {
         } else {
             //$this->assign('error',"Keine Berechtigung :: Nicht angemeldet");
             //$this->display('templates/error.tpl');
-            echo "KEINE BERECHTIGUNG - Modul";
+            echo "<br>NO RIGHTS ::  ";
             echo $this->module;
            
             die;
@@ -43,8 +43,8 @@ class SessionController {
         
         if(isset($_GET['view']))
             $_SESSION['view'] = $_GET['view'];
-        //else
-          //  $_SESSION['view'] = '';
+        else
+            $_SESSION['view'] = '';
         
         $this->view = $_SESSION['view'];
         

@@ -20,9 +20,9 @@ class EmployeesViewController extends SessionController {
         
         if(!in_array($view, $this->views)) {
             echo "NO SUCH VIEW :: $view";
-            $_SESSION['view'] = 'listView';
+            //$_SESSION['view'] = 'listView';
             //die;
-            echo '<script type="text/javascript">window.location="index.php?module=employees"</script>';
+            //echo '<script type="text/javascript">window.location="index.php?module=employees"</script>';
         
         }
         

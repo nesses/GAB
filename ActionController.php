@@ -11,7 +11,8 @@ class ActionController {
             if($action && !in_array($action,$actions)) {
                 $_SESSION['action'] = NULL;
                 $_SESSION['ERROR'] = 'No such action';
-                die;
+                echo "<br>NO ACTION :: $action";
+                
             //$_POST verursachte die doppelte kacke
             
             }elseif($action != '') {

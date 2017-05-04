@@ -42,14 +42,6 @@ class GAB  {
     private function testModuleFile($module) {
         return is_file('modules/'.$module.'/'.$module.'.php');
     }
-    private function loadModule($moduletitle) {
-        if($this->testModuleFile($moduletitle)) {
-            
-            return true;
-        } else
-            return false;
-            
-    }
     private function showNavigation($module) {
         $dbModules = new ModulesTable();
         $modTitles = $dbModules->getTitles('keyval');
