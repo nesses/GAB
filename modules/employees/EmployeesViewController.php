@@ -10,24 +10,25 @@ require_once 'lib/rights.table.db.php';
 class EmployeesViewController extends SessionController {
     private $smarty;
     
-    private $view;
     private $views = ['listView','editView'];
-    
-    private $defaultView = 0;
     
     private $userTable;
     private $groupsTable;
     private $rightsTable;
             
     public function __construct($smarty,$view) {
-        $this->smarty = $smarty;
         
-        if(!in_array($view, $this->views))
-           $view = $this->views[$this->defaultView];
+        if(!in_array($view, $this->views)) {
+            echo "NO SUCH VIEW :: $view";
+            $_SESSION['view'] = 'listView';
+            //die;
+            echo '<script type="text/javascript">window.location="index.php?module=employees"</script>';
+        
+        }
         
         parent::__construct($open_mod=false);
-        $this->view = $view;
-        
+        //$this->view = $view;
+        $this->smarty = $smarty;
         $this->smarty->assign('view',$this->getView());
         $this->smarty->assign('module',$this->getModule());
         
@@ -35,9 +36,6 @@ class EmployeesViewController extends SessionController {
             $this->$view();
         } catch (Throwable $e) {}
         
-    }
-    public function getView() {
-        return $this->view;
     }
     public function listView() {
         
@@ -56,6 +54,7 @@ class EmployeesViewController extends SessionController {
         $this->smarty->assign('rights',$rights);
         $this->smarty->assign('users',$users);
         $this->smarty->assign('groups',$groups);
+        
     }
     public function editView() {
         $this->userTable = new UserTable();
@@ -67,7 +66,8 @@ class EmployeesViewController extends SessionController {
         $this->rightsTable = new RightsTable();
         $rights = $this->rightsTable->getAll();
         
-        
+        // $this->assign('users',$users);
+        //$this->assign('user_work_stat',$usr_wrk_stat);
         $this->smarty->assign('uid',$_SESSION['user']['id']);
         $this->smarty->assign('rights',$rights);
         $this->smarty->assign('users',$users);

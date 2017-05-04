@@ -77,6 +77,13 @@ class SessionController {
     public function getView() {
         return $this->view;
     }
+    public function setView($view) {
+        $this->view = $view;
+        $_SESSION['view'] = $view;
+    }
+    public function Rights() {
+        return $this->rights;
+    }
     
 }   
 

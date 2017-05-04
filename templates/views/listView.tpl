@@ -1,4 +1,4 @@
-r   <table style="width: 100%;">
+   <table style="width: 100%;">
         <tr class="tableCommands">
             <td style="width: 30px;">---></td>
             <td style="width: 30px;"><---</td>
