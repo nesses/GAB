@@ -1,4 +1,7 @@
 <?php
+/*
+ * @author Matthias Grotjohann
+ */
 require_once 'lib/user.table.db.php';
 require_once 'lib/groups.table.db.php';
 require_once 'lib/rights.table.db.php';

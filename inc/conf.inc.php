@@ -1,4 +1,7 @@
 <?php
+/*
+ * @author Matthias Grotjohann
+ */
 //contains @var $password
 require_once '_gitignore/password.php';
 $db_type = "MySQL";

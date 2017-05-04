@@ -1,8 +1,9 @@
 <?php
+/*
+ * @author Matthias Grotjohann
+ */
 require_once 'lib/modules.table.db.php';
 require_once 'Rights.php';
-
-
 class SessionController {
     
     private $rights;

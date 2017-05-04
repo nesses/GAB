@@ -1,4 +1,7 @@
 <?php
+/*
+ * @author Matthias Grotjohann
+ */
 require_once 'lib/db.php';
 class DbTable {
 

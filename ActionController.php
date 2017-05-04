@@ -1,9 +1,7 @@
 <?php
-
 /* 
  * @author Matthias Grotjohann
  */
-
 class ActionController {
     public function __construct($action,$actions) {
         if($action != null && $action != '') {
