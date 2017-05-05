@@ -3,6 +3,8 @@
  * @author Matthias Grotjohann
  */
 class ActionController {
+    private $error
+    
     private $sessionController;
     public function __construct($sessionController,$actions) {
         $this->sessionController = $sessionController;
@@ -13,7 +15,7 @@ class ActionController {
         if($sessionController->getAction() != null && $sessionController->getAction() != '') {
             if($sessionController->getAction() && !in_array($sessionController->getAction(),$actions)) {
                 $_SESSION['action'] = NULL;
-                $_SESSION['ERROR'] = 'No such action';
+                
                 echo "<br>NO ACTION :: ".$sessionController->getAction();
                 
             //$_POST verursachte die doppelte kacke
@@ -24,10 +26,14 @@ class ActionController {
                     $this->$action();
                     
                 } catch (Throwable $e) {}
-            }
-            
-            
-            
- 	}
+            }            
+ 	      }
     }
+    private setError($error) {
+          $this-error = $error;
+    }
+    public getError() {
+          return $this->error
+    }
+    
 }

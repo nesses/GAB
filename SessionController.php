@@ -12,62 +12,62 @@ class SessionController {
     private $action;
     private $user;
     
-    public function __construct($open_mod=false,$debug = false) {
-        
+    
+    
+    public function __construct($debug = false) {
         
         $this->init();
-        
-        $this->rights = new Rights();
-        
         if($debug)
             print_r($_SESSION);
         
-        if($open_mod || $this->rights->isAuthenticated($_SESSION['user']['userstatus_id']) == 1) {
-            $this->user   = $_SESSION['user'];
         
-            if($_SESSION['user']['username'])
-            $this->rights->updateLastSeen($_SESSION['user']['username']);
-            
-        } else {
-            //$this->assign('error',"Keine Berechtigung :: Nicht angemeldet");
-            //$this->display('templates/error.tpl');
-            echo "<br>NO RIGHTS ::  ";
-            echo $this->module;
-           
-            die;
-        } 
     }
     public function init() {
         session_start();
         
-        $this->fetchModules();
+        $this->fetchModule();
         
+        $this->fetchView();
+        
+        $this->fetchAction();
+        
+        
+        
+        
+    }
+    private function fetchModule() {
+        if(isset($_GET['module'])) {
+            $_SESSION['module'] = $_GET['module'];
+        } else 
+            $_SESSION['module'] = 'login';
+        $this->module = $_SESSION['module'];
+    }
+    private function fetchView() {
         if(isset($_GET['view']))
             $_SESSION['view'] = $_GET['view'];
         else
             $_SESSION['view'] = '';
-        
         $this->view = $_SESSION['view'];
-        
+    }
+    private function fetchAction() {
         if(isset($_GET['action'])) 
             $_SESSION['action'] = $_GET['action'];
         else 
             $_SESSION['action'] = '';
         
         $this->action = $_SESSION['action'];
-        
-        
     }
-    private function fetchModules() {
-        if(isset($_GET['module'])) {
-            $_SESSION['module'] = $_GET['module'];
-        } else 
-            $_SESSION['module'] = 'login';
-        $this->module = $_SESSION['module'];
-            
+    public function hasPOST() {
+        if($_POST)
+              return true;
+        return false
     }
     public function getUser() {
         return $this->user;
+    }
+    public function setUser($user) {
+          $_SESSION['user'] = $user;
+          $this->user = $user;
     }
     public function getModule() {
         return $this->module;
@@ -82,8 +82,14 @@ class SessionController {
         $this->view = $view;
         $_SESSION['view'] = $view;
     }
-    public function Rights() {
-        return $this->rights;
+    public function redirect($module = null) {
+          if(!$module)
+                $module = $this->module:
+                
+          echo '<script type="text/javascript">window.location="index.php?module='.$module.'"</script>';
+    }
+    public function destroy() {
+          session_unset();
     }
     
 }   

@@ -52,10 +52,11 @@ class employees {
                                 'alterer_id'    =>  'Bearbeiter',
                                 'userstatus_id' =>  'Status'];
     
-    public function __construct($view,$action) {
-        $this->actionController = new EmployeesActionController($action);
+    public function __construct($sessionController,$smarty,$debug) {
         $this->smarty = new Smarty();
-        $this->viewController = new EmployeesViewController($this->smarty,$view);
+        $this->actionController = new EmployeesActionController($sessionController,$debug);
+        $this->smarty->assign('error',$this->actionController->getError())
+        $this->viewController = new EmployeesViewController($sessionController,$smarty,$debug);
         
         
     }
