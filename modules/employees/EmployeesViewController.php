@@ -17,21 +17,38 @@ class EmployeesViewController extends SessionController {
     private $rightsTable;
             
     public function __construct($smarty,$view) {
-        
+            
         if(!in_array($view, $this->views)) {
             echo "NO SUCH VIEW :: $view";
             //$_SESSION['view'] = 'listView';
             //die;
-            //echo '<script type="text/javascript">window.location="index.php?module=employees"</script>';
+            echo '<script type="text/javascript">window.location="index.php?module=employees&view=listView"</script>';
         
+        } else {
+            parent::__construct($open_mod=false);
+        
+            $this->smarty = $smarty;
+            
+            $this->smarty->assign('view',$this->getView());
+            $this->smarty->assign('module',$this->getModule());
+       
+            $this->userTable = new UserTable();
+            $users = $this->userTable->getAll();
+            
+            $this->groupsTable = new GroupsTable();
+            $groups = $this->groupsTable->getAll();
+        
+            $this->rightsTable = new RightsTable();
+            $rights = $this->rightsTable->getAll();
+            $this->smarty->assign('uid',$_SESSION['user']['id']);
+            $this->smarty->assign('rights',$rights);
+            $this->smarty->assign('users',$users);
+            $this->smarty->assign('groups',$groups);
+    
         }
         
-        parent::__construct($open_mod=false);
         //$this->view = $view;
-        $this->smarty = $smarty;
-        $this->smarty->assign('view',$this->getView());
-        $this->smarty->assign('module',$this->getModule());
-        
+         
         try {
             $this->$view();
         } catch (Throwable $e) {}
@@ -39,38 +56,8 @@ class EmployeesViewController extends SessionController {
     }
     public function listView() {
         
-        $this->userTable = new UserTable();
-        $users = $this->userTable->getAll();
-            
-        $this->groupsTable = new GroupsTable();
-        $groups = $this->groupsTable->getAll();
-        
-        $this->rightsTable = new RightsTable();
-        $rights = $this->rightsTable->getAll();
-        
-        $this->smarty->assign('view',$this->getView());
-        
-        $this->smarty->assign('uid',$_SESSION['user']['id']);
-        $this->smarty->assign('rights',$rights);
-        $this->smarty->assign('users',$users);
-        $this->smarty->assign('groups',$groups);
-        
     }
     public function editView() {
-        $this->userTable = new UserTable();
-        $users = $this->userTable->getAll();
-            
-        $this->groupsTable = new GroupsTable();
-        $groups = $this->groupsTable->getAll();
         
-        $this->rightsTable = new RightsTable();
-        $rights = $this->rightsTable->getAll();
-        
-        // $this->assign('users',$users);
-        //$this->assign('user_work_stat',$usr_wrk_stat);
-        $this->smarty->assign('uid',$_SESSION['user']['id']);
-        $this->smarty->assign('rights',$rights);
-        $this->smarty->assign('users',$users);
-        $this->smarty->assign('groups',$groups);
     }
 }

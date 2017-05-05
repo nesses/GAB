@@ -11,7 +11,7 @@ class EmployeesActionController extends ActionController {
        
         parent::__construct($action,$this->actions);
     }
-        public function save() {
+    public function save() {
         $this->userTable=new UserTable();
         
         if(isset($_POST['_action'])) {
@@ -30,9 +30,7 @@ class EmployeesActionController extends ActionController {
         }
         
         echo '<script type="text/javascript">window.location="index.php?module=employees&view=listAll"</script>';
-                
-        
-        
+ 
     }
     
 }

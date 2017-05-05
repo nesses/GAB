@@ -4,7 +4,10 @@
  */
 require_once 'GAB.php';
 session_start();
-print_r($_SESSION);
+
+/*
+ * debug enables SESSION dumping 
+ */
 $GAB = new GAB($debug = true);
 $GAB->HORIDO();
 

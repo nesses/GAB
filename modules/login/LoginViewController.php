@@ -4,25 +4,28 @@
  * @author Matthias Grotjohann
  */
 require_once 'SessionController.php';
-class LoginViewController extends SessionController {
+require_once 'ViewController.php';
+
+class LoginViewController extends ViewController{
     
     
-    private $view;
-    private $views = ['dashBoard'];
+    private $views = ['main'];
+    private $smarty;
             
-    public function __construct($view) {
-        print_r($this->getUser());
-        if(!in_array($view, $this->views)) {
-            echo "NO SUCH VIEW :: $view";
-            //$_SESSION['view'] = 'dashBoard';
-            //die;
-            //echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
+    public function __construct($sessionController,$smarty,$debug=false) {
+        if($debug)
+            echo "<b>[DBG]Login</b>";
+        $this->smarty = $smarty;
+        parent::__construct($sessionController,$this->views,$debug);
         
-        }
         
-        parent::__construct($open_mod=true);
         
-        $this->view = $view;
+    }
+    public function main() {
+        
+        $this->smarty->display('templates/modules/login.tpl'); 
+    
+        
     }
     
 }

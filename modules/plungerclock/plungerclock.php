@@ -21,7 +21,7 @@ class plungerclock  {
     public function __construct($view,$action) {
         $this->actionController  = new PlungerclockActionController($action, $this->actions);
         $this->smarty = new Smarty();
-        $this->viewController = new PlungerclockViewController($view);
+        $this->viewController = new PlungerclockViewController($this->smarty,$view);
         
        
         

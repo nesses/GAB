@@ -10,19 +10,21 @@ class PlungerclockViewController extends SessionController {
     private $view;
     private $views = ['dashBoard'];
             
-    public function __construct($view) {
+    public function __construct($smarty,$view) {
         
         if(!in_array($view, $this->views)) {
             echo "<br>PLUNGERCLOCK : NO VIEW :: $view";
             //$_SESSION['view'] = 'dashBoard';
             //die;
-            //echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
+            echo '<script type="text/javascript">window.location="index.php?module=plungerclock&view=dashBoard"</script>';
         
+        } else {
+            parent::__construct($open_mod=false);
+            $this->view = $view;
+    
         }
         
-        parent::__construct($open_mod=false);
         
-        $this->view = $view;
     }
     public function getView() {
         return $this->view;
@@ -31,8 +33,8 @@ class PlungerclockViewController extends SessionController {
         $this->pclockTable = new PlungerclockTable();
         $this->usersTable = new UserTable();
         
-        
-        $stamps = $this->pclockTable->getAllByUserId($_SESSION['user']['id']);
+        echo $this->getUser();
+        $stamps = $this->pclockTable->getAllByUserId($this->getUser()['id']);
         $usr_wrk_stat = $this->isUserWorking();
         
         

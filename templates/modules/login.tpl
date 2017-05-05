@@ -1,11 +1,9 @@
-<div id="inner_mod_error">
-{$error}
-</div>
+{include file="templates/error.tpl"}
 <div id='login'>
 
 
 <div id="login_form"> 
-    <form id="loginForm" name="f1" method="post" style="color:white;" action="index.php?module=login&action=doLogin" id="f1">
+    <form id="loginForm" name="f1" method="post" style="color:white;" action="index.php?module=login&view=main&action=doLogin" id="f1">
         <table>
             <tr>
                <td class="f1_label">Benutzername:</td>

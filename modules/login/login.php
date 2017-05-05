@@ -11,15 +11,11 @@ class Login  {
     private $actionController;
     private $viewController;
 
-    public function __construct($view,$action) { 
-        $this->actionController = new LoginActionController($action);
-        $this->smarty = new Smarty();
-        
-        $this->viewController = new LoginViewController($view);
-    }
-    public function show() {
-        
-        $this->smarty->display('templates/modules/login.tpl'); 
+    public function __construct($sessionController,$smarty,$debug) {//$view,$action) { 
+        $this->smarty = $smarty;
+        $this->actionController = new LoginActionController($sessionController,$debug);
+        $this->smarty->assign('error',$this->actionController->getError());
+        $this->viewController = new LoginViewController($sessionController,$smarty,$debug);
     }
     
 

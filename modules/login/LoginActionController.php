@@ -6,9 +6,19 @@
 require 'ActionController.php';
 require_once 'lib/user.table.db.php';
 class LoginActionController extends ActionController {
+    private $sessionController;
+    
     private $actions = ['doLogin','doLogout'];
-    public function __construct($action) {
-        parent::__construct($action,$this->actions);
+    
+    private $error;
+    
+    public function __construct($sessionController,$debug) {
+        if($debug)
+            echo "<br><b>[DBG]LoginActionController</b>";
+        $this->sessionController = $sessionController;
+        parent::__construct($sessionController,$this->actions);
+    
+        
     }
     public function doLogin() {
 	$this->userTable = new UserTable();
@@ -33,12 +43,16 @@ class LoginActionController extends ActionController {
                 }
                 
             } else {
-                $this->assign('error', 'Passwort falsch');
+                
+                $this->error='Passwort falsch';
             }
         } else 
             //if username is not in table users
-            $this->assign ('error', 'Benutzername nicht gefunden');
-	}
+            $this->error = 'Benutzername nicht gefunden';
+    }
+    public function getError() {
+        return $this->error;
+    }
     public function doLogout() {
         $this->userTable = new UserTable();
         $this->userTable->updateUserStatusId($_SESSION['user']['username'],2);
