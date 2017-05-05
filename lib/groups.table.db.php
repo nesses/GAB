@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * @author Matthias Grotjohann
+ */
 class GroupsTable {
     private $db;
     private $table = 'groups';

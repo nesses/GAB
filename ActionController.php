@@ -1,9 +1,7 @@
 <?php
-
 /* 
  * @author Matthias Grotjohann
  */
-
 class ActionController {
     private $sessionController;
     public function __construct($sessionController,$actions) {
