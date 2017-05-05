@@ -1,3 +1,3 @@
 <div id="inner_mod_error">
-{$error}
+{$errorType}{$errorMsg}
 </div>

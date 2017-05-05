@@ -3,7 +3,7 @@
  * @author Matthias Grotjohann
  */
 require_once 'lib/modules.table.db.php';
-require_once 'Rights.php';
+
 class SessionController {
     
     private $rights;
@@ -31,6 +31,8 @@ class SessionController {
         
         $this->fetchAction();
         
+        $this->fetchUser();
+        
         
         
         
@@ -54,13 +56,15 @@ class SessionController {
             $_SESSION['action'] = $_GET['action'];
         else 
             $_SESSION['action'] = '';
-        
         $this->action = $_SESSION['action'];
+    }
+    public function fetchUser() {
+        $this->user = $_SESSION['user'];
     }
     public function hasPOST() {
         if($_POST)
               return true;
-        return false
+        return false;
     }
     public function getUser() {
         return $this->user;
@@ -84,7 +88,7 @@ class SessionController {
     }
     public function redirect($module = null) {
           if(!$module)
-                $module = $this->module:
+                $module = $this->module;
                 
           echo '<script type="text/javascript">window.location="index.php?module='.$module.'"</script>';
     }

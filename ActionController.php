@@ -3,9 +3,10 @@
  * @author Matthias Grotjohann
  */
 class ActionController {
-    private $error
+    private $error;
     
     private $sessionController;
+    
     public function __construct($sessionController,$actions) {
         $this->sessionController = $sessionController;
         if($debug) {
@@ -27,13 +28,13 @@ class ActionController {
                     
                 } catch (Throwable $e) {}
             }            
- 	      }
+        }     
     }
-    private setError($error) {
-          $this-error = $error;
+    private function setError($error) {
+          $this->error = $error;
     }
-    public getError() {
-          return $this->error
+    public function getError() {
+          return $this->error;
     }
     
 }

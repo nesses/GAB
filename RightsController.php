@@ -4,6 +4,8 @@
  */
 require_once 'lib/user.table.db.php';
 class RightsController {
+    private $error;
+    
     private $sessionController;
     private $userTable;
     
@@ -28,15 +30,18 @@ class RightsController {
     }
     public function isLoggedIn() {
           if(!$this->sessionController->getUser()) {
-                echo "rightsController not logged in";
-                die();
+                $this->error = "[DENIED] Sie sind zurzeit nicht Angemeldet";
+                
           } else 
-                return true:
+                return true;
     }
     public function isOpenModule() {
           if($this->sessionController->getModule() == 'login')
                 return true;
           else return false;
+    }
+    public function getError() {
+        return $this->error;
     }
     /*
     public function updateLastSeen($username) {

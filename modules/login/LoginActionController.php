@@ -36,9 +36,9 @@ class LoginActionController extends ActionController {
                           $this->userTable->updateLastSeen($userdata[0]['username']);
                           //update session after successful login
                           $userdata = $this->userTable->getUserByUsername($_POST['username']);
-                    
-                          $_SESSION['user'] = $userdata[0];
-                          $this->sessionController->redirect();
+                          $this->sessionController->setUser($userdata[0]);
+                          //$_SESSION['user'] = ;
+                          $this->sessionController->redirect('employees');
                           //echo '<script type="text/javascript">window.location="index.php?module=plungerclock"</script>';
                       }  
                   } else {
@@ -49,15 +49,15 @@ class LoginActionController extends ActionController {
                   //if username is not in table users
                   $this->setError('Benutzername nicht gefunden');
         } else {
-              echo "Empty Post"
+              echo "Empty Post";
         }
     }
     
     public function doLogout() {
         $this->userTable = new UserTable();
-        $this->userTable->updateUserStatusId($this->sessionManager->getUser()['username'],2);
-        $this->sessionController->destroy()
-        $this->sessionController->redirect('login')
+        $this->userTable->updateUserStatusId($this->sessionController->getUser()['username'],2);
+        $this->sessionController->destroy();
+        $this->sessionController->redirect('login');
     }
     
 }
