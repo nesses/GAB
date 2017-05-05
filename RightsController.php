@@ -33,6 +33,11 @@ class RightsController {
           } else 
                 return true:
     }
+    public function isOpenModule() {
+          if($this->sessionController->getModule() == 'login')
+                return true;
+          else return false;
+    }
     /*
     public function updateLastSeen($username) {
         $datestr = $this->userTable->updateLastSeen($username);

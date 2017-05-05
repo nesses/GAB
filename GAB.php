@@ -32,7 +32,7 @@ class GAB  {
         
         $this->showNavigation($this->module);
         //is user logged in
-        if($this->rightsController->isLoggedIn()) {
+        if($this->rightsController->isLoggedIn() || $this->rightsController->isOpenModule()) {
               if($this->testModuleFile($this->sessionController->getModule())) {
                   require_once 'modules/'.$this->module.'/'.$this->module.'.php';
                   if(class_exists($this->module)) {
