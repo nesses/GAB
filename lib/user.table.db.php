@@ -63,8 +63,8 @@ class UserTable  {
     public function addUser($data) {
         $this->db->insertRow($data);
     }
-    public function getUsersByGroupId($groups_id) {
-        $this->db->initTable(['id','name','surname'],['groups_id',$groups_id]);
+    public function getUsersByGroupId($groups_id,$index,$offset) {
+        $this->db->initTable(['id','name','surname'],['groups_id',$groups_id],'userstatus_id',"$index,$offset");
         $tdata = $this->db->asArray();
         return $tdata; 
     }
