@@ -13,6 +13,7 @@ class ActionController {
             echo "<br>View :: ".$sessionController->getView();
             //die;
         }
+        
         if($sessionController->getAction() != null && $sessionController->getAction() != '') {
             if($sessionController->getAction() && !in_array($sessionController->getAction(),$actions)) {
                 $_SESSION['action'] = NULL;
@@ -30,11 +31,12 @@ class ActionController {
             }            
         }     
     }
-    private function setError($error) {
-          $this->error = $error;
+    public function setError($error) {
+          $this->sessionController->setError($error);
+          //$this->error = $error;
     }
-    public function getError() {
-          return $this->error;
-    }
+    //public function getError() {
+    //      return $this->error;
+    //}
     
 }

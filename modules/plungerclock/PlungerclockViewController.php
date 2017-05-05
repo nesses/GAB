@@ -3,26 +3,21 @@
 /* 
  * @author Matthias Grotjohann
  */
-require_once 'SessionController.php';
-class PlungerclockViewController extends SessionController {
+require_once 'ViewController.php';
+class PlungerclockViewController extends ViewController {
+    private $sessionController;
+    
     private $smarty;
     
-    private $view;
     private $views = ['dashBoard'];
             
-    public function __construct($smarty,$view) {
+    public function __construct($sessionController,$smarty,$debug=false) {
         
-        if(!in_array($view, $this->views)) {
-            echo "<br>PLUNGERCLOCK : NO VIEW :: $view";
-            //$_SESSION['view'] = 'dashBoard';
-            //die;
-            echo '<script type="text/javascript">window.location="index.php?module=plungerclock&view=dashBoard"</script>';
-        
-        } else {
-            parent::__construct($open_mod=false);
-            $this->view = $view;
-    
-        }
+        $this->sessionController = $sessionController;
+        if($debug)
+            echo "<b>[DBG]Plungerclock</b>";
+        $this->smarty = $smarty;
+        parent::__construct($sessionController,$this->views,$debug);
         
         
     }

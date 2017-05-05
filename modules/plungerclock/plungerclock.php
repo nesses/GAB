@@ -7,20 +7,25 @@ require_once 'modules/plungerclock/PlungerclockViewController.php';
 
 class plungerclock  {
     
+    private $sessionController;
+    private $rightsController;   
     private $smarty;
     private $actionController;
     private $viewController;
+
     
     private $fieldVisibility = ["id"                =>   1,
                                 "users_id"          =>   1,
                                 "timestamp"         =>   1];
     
 
-    
-    public function __construct($view,$action) {
-        $this->actionController  = new PlungerclockActionController($action, $this->actions);
-        $this->smarty = new Smarty();
-        $this->viewController = new PlungerclockViewController($this->smarty,$view);
+
+    public function __construct($sessionController,$rightsController,$smarty,$debug) {        
+        $this->sessionController=$sessionController;
+        $this->rightsController=$rightsController;
+        $this->smarty = $smarty;
+        $this->actionController  = new PlungerclockActionController($sessionController,$debug);
+        $this->viewController = new PlungerclockViewController($sessionController,$smarty,$debug);
         
        
         

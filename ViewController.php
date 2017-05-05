@@ -9,8 +9,11 @@ class ViewController {
      
     private $sessionController;
     
+    private $error;
     public function __construct($sessionController,$views,$debug=false) {
-        //print_r($this->getModule());
+        $this->sessionController = $sessionController;
+        $this->error = $this->sessionController->getError();
+        
         if($debug) {
             echo "<br>View :: ".$sessionController->getView();
             //die;
@@ -20,7 +23,7 @@ class ViewController {
                 echo "<br><b>NOT FOUND<b>";
                 
             }
-            echo '<script type="text/javascript">window.location="index.php?module='.$sessionController->getModule().'&view=main"</script>';
+            echo '<script type="text/javascript">window.location="index.php?module='.$sessionController->getModule().'&view='.$views[0].'"</script>';
         
         } else {
             $view = $sessionController->getView();
@@ -32,5 +35,8 @@ class ViewController {
         
         
         
+    }
+    public function getError() {
+        return $this->error;
     }
 }

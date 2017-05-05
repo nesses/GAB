@@ -6,7 +6,8 @@ require_once 'lib/modules.table.db.php';
 
 class SessionController {
     
-    private $rights;
+    private $errors;
+    
     private $module;
     private $view;
     private $action;
@@ -85,6 +86,17 @@ class SessionController {
     public function setView($view) {
         $this->view = $view;
         $_SESSION['view'] = $view;
+    }
+    public function setError($errormsg) {
+        $_SESSION['error'][$this->module][0] = $errormsg;
+        //$this->redirect();
+    }
+    public function getError() {
+        $err = $_SESSION['error'][$this->module][0];
+        return $err;    
+    }
+    public function clearError() {
+        $_SESSION['error'][$this->module]=null;
     }
     public function redirect($module = null) {
           if(!$module)

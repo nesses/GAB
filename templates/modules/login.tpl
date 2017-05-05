@@ -1,4 +1,5 @@
-{include file="templates/error.tpl"}
+    {include file="templates/error.tpl"}
+
 <div id='login'>
 
 
@@ -18,5 +19,5 @@
             </tr>
         </table>
     </form> 
-    </div> 
+    </div>
 </div>

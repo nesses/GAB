@@ -29,7 +29,9 @@ class GAB  {
         
     }
     public function HORIDO() {
+        require_once 'modules/system/GabError.php';
         
+        $error = new GabError();
         $this->showNavigation($this->module);
         //is user logged in
         if($this->rightsController->isOpenModule() || $this->rightsController->isLoggedIn()) {
@@ -37,17 +39,18 @@ class GAB  {
                   require_once 'modules/'.$this->module.'/'.$this->module.'.php';
                   if(class_exists($this->module)) {
                       $gab_module = new $this->module($this->sessionController,$this->rightsController,$this->smarty,$this->debug);
-                      $gab_module->show();
-                  } else
-                      $this->smarty->assign('error',$this->module.'::Module File eixsts but Class is not there');
+                      //$gab_module->show();
+                  } else {
+                      $error->setMsg($this->module.'::Module File eixsts but Class is not there');
+                      $error->show();
+                  }
               } else {
-                  $this->smarty->assign('error','No such module :: '.$this->module);
+                  $error->setMsg('No such module :: '.$this->module);
+                  $error->show();
               }
           } else {
-              
-                $this->smarty->assign('errorMsg', $this->rightsController->getError());
-                $this->smarty->display('templates/error.tpl');
-                
+                $error->setMsg($this->rightsController->getError());
+                $error->show();                
           }
     }
     private function testModuleFile($module) {

@@ -13,9 +13,12 @@ class Login  {
     private $viewController;
 
     public function __construct($sessionController,$rightsController,$smarty,$debug) {//$view,$action) { 
+        $this->sessionController = $sessionController;
+        $this->rightsController = $rightsController;
+        
         $this->smarty = $smarty;
         $this->actionController = new LoginActionController($sessionController,$debug);
-        $this->smarty->assign('error',$this->actionController->getError());
+        //$this->smarty->assign('error',$this->actionController->getError());
         $this->viewController = new LoginViewController($sessionController,$smarty,$debug);
     }
     
