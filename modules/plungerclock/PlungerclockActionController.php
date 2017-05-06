@@ -7,8 +7,9 @@ require_once 'ActionController.php';
 class PlungerclockActionController extends ActionController {
     private $sessionController;
     
-    private $actions = ['stamp','stampforget'];
+    private $actions = ['stamp'];
     
+
     private $pclockTable;
     
     public function __construct($sessionController,$pclockTable,$debug) {

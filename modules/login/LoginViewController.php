@@ -11,7 +11,7 @@ class LoginViewController extends ViewController{
     private $sessionController;
     
     private $views = ['main'];
-    private $params = ['main'];
+    
     private $smarty;
             
     public function __construct($sessionController,$smarty,$debug=false) {

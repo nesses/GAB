@@ -11,7 +11,7 @@
     <table style="width:100%;background:#efefef;text-align: center;" class="table_controls">
         <tr>
             <td><a href="index.php?module=plungerclock&view=dashBoard&day=back">-<--<</a></td>
-            <td>{date('d.m.Y')}</td>
+            <td>{$today}</td>
             <td><a href="index.php?module=plungerclock&view=dashBoard&day=next">->--></a></td>
         </tr>
     </table>

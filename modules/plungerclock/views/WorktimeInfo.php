@@ -12,15 +12,35 @@ class WorktimeInfo extends Smarty {
         $this->assign('forgetInfo','disabled');
         
     }
-    public function init($status,$commingstamps,$goingstamps,$times,$summary) {
-        $this->assign('status',$status);
-        $this->assign('stampscount',sizeof($commingstamps));
-        $this->assign('commingstamps',$commingstamps);
-        $this->assign('goingstamps',$goingstamps);
-        $this->assign('times',$times);
-        $this->assign('summary',$summary);
-        
+    
+    public function setStatus($status) {
+        $this->assign("status",$status);
     }
+    public function setToday($today) {
+        $this->assign('today',$today);
+    }
+    public function setStamps($comming,$going) {
+        $this->assign('commingstamps',$comming);
+        $this->assign('goingstamps',$going);
+        $this->assign('stampscount',sizeof($comming));
+        foreach($comming as $nr => $stamp) {
+            if($going[$nr]['timestamp']) {
+                $secs_between = strtotime($going[$nr]['timestamp'])-strtotime($stamp['timestamp']);
+                $today_secs += $secs_between;
+                $times[$nr] = date('H:i:s',strtotime("1970/1/1")+$secs_between);
+            
+            }
+        }
+        if(sizeof($comming) > sizeof($going)) {
+            $today_secs += strtotime(date('H:i:s'))-strtotime($comming[sizeof($comming)-1]['timestamp']);
+            $this->assign("status",1);
+        }
+        $this->assign('summary',date('H:i:s',strtotime("1970/1/1")+$today_secs));
+        //$summary_time = date('H:i:s',strtotime("1970/1/1")+$today_secs);
+    }
+    //public function setTimeSummary($time) {
+      //  $this->assign('summary',$time);
+    //}
     public function disableStampButton() {
         $this->assign('stampButton','disabled');
     }
