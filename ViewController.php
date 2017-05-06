@@ -1,16 +1,14 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * @author Matthias Grotjohann
  */
 class ViewController {
      
     private $sessionController;
     
     private $error;
-    public function __construct($sessionController,$views,$debug=false) {
+    public function __construct($sessionController,$views,$params,$debug=false) {
         $this->sessionController = $sessionController;
         $this->error = $this->sessionController->getError();
         
@@ -27,6 +25,10 @@ class ViewController {
         
         } else {
             $view = $sessionController->getView();
+            
+            if($params[$view]) {
+                $sessionController->fetchParams($params[$view]);
+            }
             try {
                     $this->$view();
                     
@@ -40,4 +42,5 @@ class ViewController {
     public function getError() {
         return $this->error;
     }
+    
 }

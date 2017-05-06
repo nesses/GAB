@@ -7,7 +7,7 @@ require_once 'ActionController.php';
 class PlungerclockActionController extends ActionController {
     private $sessionController;
     
-    private $actions = ['stamp'];
+    private $actions = ['stamp','stampforget'];
     
     private $pclockTable;
     
@@ -36,6 +36,9 @@ class PlungerclockActionController extends ActionController {
         
         }
         
+    }
+    public function stampforget() {
+        echo "STAMPFORGET";
     }
     
 }

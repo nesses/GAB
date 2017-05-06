@@ -7,7 +7,7 @@ require_once 'RightsController.php';
 require_once "lib/smarty-3.1.30/libs/Smarty.class.php";
 
 class GAB  {
-    private $debug = false;
+    private $debug = null;
 
     private $smarty;
     private $sessionController;
@@ -38,7 +38,7 @@ class GAB  {
               if($this->testModuleFile($this->sessionController->getModule())) {
                   require_once 'modules/'.$this->module.'/'.$this->module.'.php';
                   if(class_exists($this->module)) {
-                      $gab_module = new $this->module($this->sessionController,$this->rightsController,$this->smarty,$this->debug);
+                      $gab_module = new $this->module($this->sessionController,$this->rightsController,$this->debug);
                       //$gab_module->show();
                   } else {
                       $error->setMsg($this->module.'::Module File eixsts but Class is not there');

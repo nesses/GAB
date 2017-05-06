@@ -28,9 +28,8 @@ class plungerclock  {
         
         $this->pclockTable= new PlungerclockTable();
         $this->actionController  = new PlungerclockActionController($sessionController, $this->pclockTable,$debug);
-        $this->viewController = new PlungerclockViewController($sessionController,$debug);
-
-        
+        $this->viewController = new PlungerclockViewController($sessionController,$this->pclockTable,$debug);
+  
     }
     
     

@@ -36,11 +36,10 @@ class Db {
         
         $result = $this->pdo->query($sql);
         if($result) {
-            if($result->rowCount() > 0) {
+            if($result->rowCount() >= 0) {
                 $this->rowCount = $result->rowCount();
                 $this->queryResult = $result;
             }
-            
         } else {
             throw new Exception("SQL FAILED::".$sql);
         }
@@ -113,7 +112,8 @@ class Db {
                 $ret = $this->queryResult->fetchAll();
                 return $ret;
             }
-        
+        //echo $sql.'<br>';
+       
         return null;
     }
     public function update($tablename,$data,$where) {

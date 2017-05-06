@@ -18,7 +18,7 @@ class SessionController {
     public function __construct($debug = false) {
         
         $this->init();
-        if($debug)
+        //if($debug)
             print_r($_SESSION);
         
         
@@ -37,6 +37,13 @@ class SessionController {
         
         
         
+    }
+    public function fetchParams($params) {
+        foreach ($params as $key => $paramkey) {
+            if(isset($_GET[$paramkey])) {
+                $_SESSION[$this->getModule()][$paramkey] = $_GET[$paramkey];
+            }
+        }
     }
     private function fetchModule() {
         if(isset($_GET['module'])) {
@@ -97,6 +104,12 @@ class SessionController {
     }
     public function clearError() {
         $_SESSION['error'][$this->module]=null;
+    }
+    public function getParams() {
+        return $_SESSION[$this->module];
+    }
+    public function setParam($name,$data) {
+        $_SESSION[$this->module][$name] = $data;
     }
     public function redirect($module = null) {
           if(!$module)

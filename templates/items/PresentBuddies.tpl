@@ -22,12 +22,5 @@
                 <td>{$buddy['name']}</td>
             </tr>
         {/foreach}
-    </table>    
-    <form method="POST" action="index.php?module=plungerclock&view=dashBoard&action=stamp">
-        <table style="width:100%;text-align: center;">    
-            <tr style="background:gray;">
-                <td><input style="background:yellow;font-size:16px;" type="submit" value="{if $user_work_stat eq '1'}Feierabend/Pause{else}Arbeit beginnen{/if}" name="stamp" /></td>
-            </tr>
-        </table>
-    </form>	
+    </table>	
 </div>

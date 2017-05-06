@@ -47,6 +47,7 @@ class DbTable {
             $this->data = $tdata;
             return 1;
         }
+        $this->data = null;
         return 0;
     }
     public function updateTable($data,$where) {
@@ -67,16 +68,17 @@ class DbTable {
     }
     public function asArray() {
         $ret = ARRAY();
-        
-        foreach($this->data as $row => $columns) {
-            $ret[$row] =ARRAY();
-            foreach($columns as $title => $value) {
-                if(in_array($title,$this->colNames) ) {
-                    if($title != "0")				
-                    $ret[$row]["$title"] = $value;
+        if($this->data) {
+            foreach($this->data as $row => $columns) {
+                $ret[$row] =ARRAY();
+                foreach($columns as $title => $value) {
+                    if(in_array($title,$this->colNames) ) {
+                        if($title != "0")				
+                        $ret[$row]["$title"] = $value;
+                    }
                 }
             }
-	}
+        }
         return $ret;
     }
 }

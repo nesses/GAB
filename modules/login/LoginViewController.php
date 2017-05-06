@@ -11,6 +11,7 @@ class LoginViewController extends ViewController{
     private $sessionController;
     
     private $views = ['main'];
+    private $params = ['main'];
     private $smarty;
             
     public function __construct($sessionController,$smarty,$debug=false) {
@@ -18,7 +19,7 @@ class LoginViewController extends ViewController{
         if($debug)
             echo "<b>[DBG]Login</b>";
         $this->smarty = $smarty;
-        parent::__construct($sessionController,$this->views,$debug);
+        parent::__construct($sessionController,$this->views,$this->params,$debug);
         
         
         

@@ -9,17 +9,21 @@ class PlungerclockViewController extends ViewController {
     
     private $sessionController;
     private $usersTable;
+    private $pclockTable;
     
     private $views = ['dashBoard'];
+    
+    private $params = ['dashBoard' => ['page','day','offset','date']];
      
-    public function __construct($sessionController,$debug=false) {
+    public function __construct($sessionController,$pclockTable,$debug=false) {
         
         $this->sessionController = $sessionController;
         $this->usersTable = new UserTable();
+        $this->pclockTable = $pclockTable;
         
         if($debug)
             echo "<b>[DBG]Plungerclock</b>";
-        parent::__construct($sessionController,$this->views,$debug);
+        parent::__construct($sessionController,$this->views,$this->params,$debug);
         
         
     }
@@ -28,11 +32,18 @@ class PlungerclockViewController extends ViewController {
     }
     public function dashBoard() {
         
-        $offset = 5;
-        $page = $_GET['page'];
-        $groups_id = $this->sessionController->getUser()['groups_id'];
         
-        $pages = $this->mkInt($this->usersTable->countGroupId($groups_id)/$offset,0);
+        $page = $this->sessionController->getParams()['page'];
+        $day = $this->sessionController->getParams()['day'];
+        $date = $this->sessionController->getParams()['date'];
+        if(!$date)
+            $this->sessionController->setParam('date',time());
+        $offset = 6;
+        
+        $groups_id = $this->sessionController->getUser()['groups_id'];
+        $users_id = $this->sessionController->getUser()['id'];
+        $pages = ceil($this->usersTable->countGroupId($groups_id)/$offset);
+        
         if($page == -1)
             $page = $pages-1;
         if($page >= $pages)
@@ -41,16 +52,36 @@ class PlungerclockViewController extends ViewController {
         
         $buddies = $this->usersTable->byGroupId($groups_id, $index, $offset);
         
-        $wtStat = 1;
+        
+        $today = date('Y-m-d');
+        
+        $commingstamps = $this->pclockTable->getStamps($users_id,"$today",'1');
+        $goingstamps = $this->pclockTable->getStamps($users_id,"$today",'0');
+        
+        
+        foreach($commingstamps as $nr => $stamp) {
+            if($goingstamps[$nr]['timestamp']) {
+                $secs_between = strtotime($goingstamps[$nr]['timestamp'])-strtotime($stamp['timestamp']);
+                $today_secs += $secs_between;
+                $times[$nr] = date('H:i:s',strtotime("1970/1/1")+$secs_between);
+            }
+        }
+        
+        if(sizeof($commingstamps) > sizeof($goingstamps)) {
+            $today_secs += strtotime(date('H:i:s'))-strtotime($commingstamps[sizeof($commingstamps)-1]['timestamp']);
+            $wtStat = 1;
+        }
+        
+        $summary_time = date('H:i:s',strtotime("1970/1/1")+$today_secs);
         
         $dash=new dashBoard();
-        $dash->initPresentBuddies($buddies, $page, $pages);
-        $dash->initWorktimeInfo($wtStat);
+        $dash->getPresentBuddies()->init($buddies, $page, $pages);
+        $dash->getWorktimeInfo()->init($wtStat,$commingstamps,$goingstamps,$times,$summary_time);
+        
+        
+        
+        
         $dash->display();
-        /*
-        $WtInfo = new WorktimeInfo();
-        $WtInfo->display('templates/');
-        */
         
     }
 }
