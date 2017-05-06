@@ -41,9 +41,12 @@ class PlungerclockViewController extends ViewController {
         
         $buddies = $this->usersTable->byGroupId($groups_id, $index, $offset);
         
+        $wtStat = 1;
+        
         $dash=new dashBoard();
         $dash->initPresentBuddies($buddies, $page, $pages);
-        $dash->display('templates/modules/plungerclock.tpl');
+        $dash->initWorktimeInfo($wtStat);
+        $dash->display();
         /*
         $WtInfo = new WorktimeInfo();
         $WtInfo->display('templates/');
