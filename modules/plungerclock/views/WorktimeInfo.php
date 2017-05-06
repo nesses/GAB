@@ -10,9 +10,7 @@ class WorktimeInfo extends Smarty {
         parent::__construct();
         $this->assign('stampButton','enabled');
         $this->assign('forgetInfo','disabled');
-        
     }
-    
     public function setStatus($status) {
         $this->assign("status",$status);
     }
@@ -36,11 +34,8 @@ class WorktimeInfo extends Smarty {
             $this->assign("status",1);
         }
         $this->assign('summary',date('H:i:s',strtotime("1970/1/1")+$today_secs));
-        //$summary_time = date('H:i:s',strtotime("1970/1/1")+$today_secs);
+        $this->assign('times',$times);
     }
-    //public function setTimeSummary($time) {
-      //  $this->assign('summary',$time);
-    //}
     public function disableStampButton() {
         $this->assign('stampButton','disabled');
     }

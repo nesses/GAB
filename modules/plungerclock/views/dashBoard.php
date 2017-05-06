@@ -15,10 +15,10 @@ class dashBoard  {
         $this->worktimeInfo = new WorktimeInfo();
         
     }
-    public function getPresentBuddies() {
+    public function PresentBuddies() {
         return $this->presentBuddies;
     }
-    public function getWorktimeInfo() {
+    public function WorktimeInfo() {
         return $this->worktimeInfo;
     }
     public function display() {

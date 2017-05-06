@@ -35,14 +35,12 @@ class PlungerclockViewController extends ViewController {
         $groups_id = $this->sessionController->getUser()['groups_id'];
         $users_id = $this->sessionController->getUser()['id'];
         
-        
+        //WORKTIMEINFO
+        $date = $this->sessionController->getParams()['date'];
+        $day = $this->sessionController->getParams()['day'];
         
         $dash=new dashBoard();
         
-        //WORKTIMEINFO
-        $page = $this->sessionController->getParams()['page'];
-        $day = $this->sessionController->getParams()['day'];
-        $date = $this->sessionController->getParams()['date'];
         
         if(!$date) {
             $today = date('d.m.Y');
@@ -60,42 +58,30 @@ class PlungerclockViewController extends ViewController {
         }
         $commingstamps = $this->pclockTable->getStamps($users_id,"$today",'1');
         $goingstamps = $this->pclockTable->getStamps($users_id,"$today",'0');
-        
-        
-        foreach($commingstamps as $nr => $stamp) {
-            if($goingstamps[$nr]['timestamp']) {
-                $secs_between = strtotime($goingstamps[$nr]['timestamp'])-strtotime($stamp['timestamp']);
-                $today_secs += $secs_between;
-                $times[$nr] = date('H:i:s',strtotime("1970/1/1")+$secs_between);
-            
-            }
-        }
-        if(sizeof($commingstamps) > sizeof($goingstamps)) {
-            $today_secs += strtotime(date('H:i:s'))-strtotime($commingstamps[sizeof($commingstamps)-1]['timestamp']);
-            $wtStat = 1;
-        }
-        
-        $summary_time = date('H:i:s',strtotime("1970/1/1")+$today_secs);
-        
-        $dash->getWorktimeInfo()->init($wtStat,$commingstamps,$goingstamps,$times,$summary_time,$today);
+        $dash->WorktimeInfo()->setStamps($commingstamps,$goingstamps);
         
         //PRESENT BUDDIES
         $offset = 6;
-        
+        $page = $this->sessionController->getParams()['page'];
         $pages = ceil($this->usersTable->countGroupId($groups_id)/$offset);
         
         if($page == -1)
             $page = $pages-1;
-        if($page >= $pages)
-            $page=0;
+        elseif($page == $pages)
+            $page = 0;
+        
         $index = $page*$offset;
-        
         $buddies = $this->usersTable->byGroupId($groups_id, $index, $offset);
+        $dash->PresentBuddies()->setBuddies($buddies);
+        $dash->PresentBuddies()->setPage($page,$pages);
         
         
         
         
-        $dash->getPresentBuddies()->init($buddies, $page, $pages);
+        
+        
+        
+        
         
         
         
