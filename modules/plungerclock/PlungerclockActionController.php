@@ -6,15 +6,11 @@
 require_once 'ActionController.php';
 class PlungerclockActionController extends ActionController {
     private $sessionController;
+    private $pclockTable;
     
     private $actions = ['stamp'];
     
-
-    private $pclockTable;
-    
-    public function __construct($sessionController,$pclockTable,$debug) {
-        if($debug)
-            echo "<br><b>[DBG]PlungerclockActionController</b>";
+    public function __construct($sessionController,$pclockTable) {
         $this->sessionController = $sessionController;
         $this->pclockTable = $pclockTable;
         parent::__construct($sessionController,$this->actions);

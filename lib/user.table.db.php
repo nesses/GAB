@@ -47,6 +47,7 @@ class UserTable  {
         $tdata = $this->db->asArray();
         return $tdata;
     }
+    
     public function getRightsId($userid) {
         
         $this->db->initTable('rights_id',['id',$userid]);

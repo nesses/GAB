@@ -8,12 +8,12 @@ class employees {
     private $sessionController;
     private $actionController;
     private $viewController;
-
+    
     public function __construct($sessionController,$debug) {        
         $this->sessionController=$sessionController;
         
-        $this->actionController  = new EmployeesActionController($sessionController, $debug);
-        $this->viewController = new EmployeesViewController($sessionController,$debug);
+        $this->actionController  = new EmployeesActionController($sessionController);
+        $this->viewController = new EmployeesViewController($sessionController);
   
     }
 }

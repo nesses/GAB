@@ -9,14 +9,13 @@ class RightsController {
     private $modulesTable;
     private $userTable;
     
-    public function __construct($debug = false) {
-        $this->sessionController = $sessionController;
+    public function __construct() {
         $this->userTable = new UserTable();
         $this->modulesTable = new ModulesTable();
     }
     public function isLoggedIn() {
           if(!$this->getUser()) {
-                $this->error = "[DENIED] Sie sind zurzeit nicht Angemeldet";     
+                return false;     
           } else 
                 return true;
     }
@@ -32,6 +31,9 @@ class RightsController {
         else {
             if($this->getModule() == 'plungerclock' && $this->isLoggedIn())
                 return true;
+            if($this->getModule() == 'employees' && $this->isLoggedIn())
+                return true;
+            
         }
         
     }

@@ -17,6 +17,14 @@ class PlungerclockTable {
     public function __construct() {
         $this->db = new DbTable($this->table,$this->colNames);
     }
+    public function getWorkingUsers($group_id) {
+        $this->db->initTable("distinct a.username from users a left join plungerclock b on a.id = b.users_id where b.status_id = 1 and a.groups_id = '".$group_id."' and b.timestamp > '".date('Y-m-d')."';");
+        
+        $tdata = $this->db->asArray();
+        //print_r($tdata);
+        return $tdata;
+        
+    }
     public function getAll() {
         $this->db->initTable();
         $tdata = $this->db->asArray();

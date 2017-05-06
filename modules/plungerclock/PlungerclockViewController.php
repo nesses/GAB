@@ -15,20 +15,15 @@ class PlungerclockViewController extends ViewController {
     
     private $params = ['dashBoard' => ['page','date','day']];
      
-    public function __construct($sessionController,$pclockTable,$debug=false) {
+    public function __construct($sessionController,$pclockTable) {
         
         $this->sessionController = $sessionController;
         $this->usersTable = new UserTable();
         $this->pclockTable = $pclockTable;
         
-        if($debug)
-            echo "<b>[DBG]Plungerclock</b>";
-        parent::__construct($sessionController,$this->views,$this->params,$debug);
+        parent::__construct($sessionController,$this->views,$this->params);
         
         
-    }
-    public function getView() {
-        return $this->view;
     }
     public function dashBoard() {
         //brauchen beide
@@ -71,7 +66,8 @@ class PlungerclockViewController extends ViewController {
             $page = 0;
         
         $index = $page*$offset;
-        $buddies = $this->usersTable->byGroupId($groups_id, $index, $offset);
+        $buddies = $this->pclockTable->getWorkingUsers($groups_id);
+        print_r($buddies);
         $dash->PresentBuddies()->setBuddies($buddies);
         $dash->PresentBuddies()->setPage($page,$pages);
         

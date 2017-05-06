@@ -11,18 +11,15 @@ class GAB  {
 
     private $smarty;
     private $sessionController;
-    //private $rightsController;
     
     private $module;
-    
-    
     public function __construct($debug=false) {
         $this->debug = $debug;
         $this->sessionController = new SessionController($debug);
         $this->module = $this->sessionController->getModule();
-        $this->action = $this->sessionController->getAction();
-        $this->view   = $this->sessionController->getView();
-        //$this->rightsController = new RightsController($this->sessionController,$debug);
+        //$this->action = $this->sessionController->getAction();
+        //$this->view   = $this->sessionController->getView();
+        
         if($debug)
             echo "<b>[[[DEBUG]]]</b><br><b>- [GAB] -</b><br>Module: $this->module<br>View: $this->view<br>Action: $this->action";
         

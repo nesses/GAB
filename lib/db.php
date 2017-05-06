@@ -32,8 +32,8 @@ class Db {
 	  * @param string $sql
 	  * @throws Excpetion
 	*/
-    private function query($sql) {
-        
+    public function query($sql) {
+        echo "$sql<br>";
         $result = $this->pdo->query($sql);
         if($result) {
             if($result->rowCount() >= 0) {
@@ -44,7 +44,6 @@ class Db {
             throw new Exception("SQL FAILED::".$sql);
         }
     }
-    
     /**
      * generates list of columns from array when given
      * @param  array     $columns     array of columns
@@ -108,10 +107,10 @@ class Db {
         $sql .= ";";
         
         $this->query($sql);
-            if($this->rowCount > 0) {
-                $ret = $this->queryResult->fetchAll();
-                return $ret;
-            }
+        if($this->rowCount > 0) {
+            $ret = $this->queryResult->fetchAll();
+            return $ret;
+        }
         //echo $sql.'<br>';
        
         return null;

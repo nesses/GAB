@@ -3,7 +3,6 @@
  * @author Matthias Grotjohann
  */
 class ActionController {
-    private $error;
     
     private $sessionController;
     

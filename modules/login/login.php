@@ -12,10 +12,8 @@ class Login {
 
     public function __construct($sessionController,$debug) {//$view,$action) { 
         $this->sessionController = $sessionController;
-        $this->rightsController = $rightsController;
         
         $this->actionController = new LoginActionController($sessionController,$debug);
-        //$this->smarty->assign('error',$this->actionController->getError());
         $this->viewController = new LoginViewController($sessionController,$debug);
     }
     
