@@ -13,7 +13,7 @@ class ActionController {
             echo "<br>View :: ".$sessionController->getView();
             //die;
         }
-        
+                   
         if($sessionController->getAction() != null && $sessionController->getAction() != '') {
             if($sessionController->getAction() && !in_array($sessionController->getAction(),$actions)) {
                 $_SESSION['action'] = NULL;

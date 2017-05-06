@@ -31,10 +31,11 @@ class ViewController {
                     $this->$view();
                     
                 } catch (Throwable $e) {}
-        }
+        } 
         
-        
-        
+    }
+    public function mkInt($dbl) {
+        return round($dbl,0);
     }
     public function getError() {
         return $this->error;
