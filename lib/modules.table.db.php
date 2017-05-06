@@ -35,6 +35,11 @@ class ModulesTable {
         
 	return $ret;
     }
+    public function getModuleInfo($module) {
+        $this->db->initTable('*',['name',$module]);
+        $tdata = $this->db->asArray();
+        return $tdata[0];
+    }
 
     
 }

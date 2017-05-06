@@ -75,17 +75,7 @@ class PlungerclockViewController extends ViewController {
         $dash->PresentBuddies()->setBuddies($buddies);
         $dash->PresentBuddies()->setPage($page,$pages);
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+ 
         $dash->display();
         
     }

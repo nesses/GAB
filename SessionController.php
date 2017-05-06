@@ -3,8 +3,8 @@
  * @author Matthias Grotjohann
  */
 require_once 'lib/modules.table.db.php';
-
-class SessionController {
+require_once 'RightsController.php';
+class SessionController extends RightsController {
     
     private $errors;
     
@@ -16,10 +16,9 @@ class SessionController {
     
     
     public function __construct($debug = false) {
-        
+        parent::__construct();
         $this->init();
-        //if($debug)
-            print_r($_SESSION);
+        print_r($_SESSION);
         
         
     }
@@ -68,6 +67,9 @@ class SessionController {
     }
     public function fetchUser() {
         $this->user = $_SESSION['user'];
+    }
+    public function getRightsController() {
+        return $this->rightsController;
     }
     public function hasPOST() {
         if($_POST)

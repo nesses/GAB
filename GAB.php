@@ -11,7 +11,7 @@ class GAB  {
 
     private $smarty;
     private $sessionController;
-    private $rightsController;
+    //private $rightsController;
     
     private $module;
     
@@ -22,7 +22,7 @@ class GAB  {
         $this->module = $this->sessionController->getModule();
         $this->action = $this->sessionController->getAction();
         $this->view   = $this->sessionController->getView();
-        $this->rightsController = new RightsController($this->sessionController,$debug);
+        //$this->rightsController = new RightsController($this->sessionController,$debug);
         if($debug)
             echo "<b>[[[DEBUG]]]</b><br><b>- [GAB] -</b><br>Module: $this->module<br>View: $this->view<br>Action: $this->action";
         
@@ -34,11 +34,12 @@ class GAB  {
         $error = new GabError();
         $this->showNavigation($this->module);
         //is user logged in
-        if($this->rightsController->isOpenModule() || $this->rightsController->isLoggedIn()) {
-              if($this->testModuleFile($this->sessionController->getModule())) {
+        if($this->sessionController->isOpenModule() || $this->sessionController->isLoggedIn()) {
+              
+            if($this->testModuleFile($this->sessionController->getModule())) {
                   require_once 'modules/'.$this->module.'/'.$this->module.'.php';
                   if(class_exists($this->module)) {
-                      $gab_module = new $this->module($this->sessionController,$this->rightsController,$this->debug);
+                      $gab_module = new $this->module($this->sessionController,$this->debug);
                       //$gab_module->show();
                   } else {
                       $error->setMsg($this->module.'::Module File eixsts but Class is not there');
@@ -49,7 +50,7 @@ class GAB  {
                   $error->show();
               }
           } else {
-                $error->setMsg($this->rightsController->getError());
+                $error->setMsg("Nicht angemeldet");
                 $error->show();                
           }
     }

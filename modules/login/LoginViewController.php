@@ -5,14 +5,14 @@
  */
 require_once 'SessionController.php';
 require_once 'ViewController.php';
-
-class LoginViewController extends ViewController{
+require_once 'modules/login/views/Login.php';
+class LoginViewController extends ViewController {
     
     private $sessionController;
     
     private $views = ['main'];
     
-    private $smarty;
+    //private $smarty;
             
     public function __construct($sessionController,$smarty,$debug=false) {
         $this->sessionController = $sessionController;
@@ -25,13 +25,15 @@ class LoginViewController extends ViewController{
         
     }
     public function main() {
+        $login = new SmartyLogin();
+        
         if($this->getError()) {
-            $this->smarty->assign('msg',$this->getError());
+            $login->assign('msg',$this->getError());
             
             
         }
         
-        $this->smarty->display('templates/modules/login.tpl'); 
+        $login->display('templates/modules/login.tpl'); 
     
         
     }

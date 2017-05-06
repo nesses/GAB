@@ -13,7 +13,7 @@ class ViewController {
         $this->error = $this->sessionController->getError();
         
         if($debug) {
-            echo "<br>View :: ".$sessionController->getView();
+            echo "<br>View :: ".$this->sessionController->getView();
             //die;
         }
         if(!in_array($sessionController->getView(), $views)) {
@@ -26,13 +26,15 @@ class ViewController {
         } else {
             $view = $sessionController->getView();
             
-            if($params[$view]) {
-                $sessionController->fetchParams($params[$view]);
-            }
-            try {
-                    $this->$view();
-                    
+            if($sessionController->amIAllowed()) {
+                if($params[$view]) {
+                    $sessionController->fetchParams($params[$view]);
+                }
+                try {
+                        $this->$view();
+
                 } catch (Throwable $e) {}
+            } else echo "VIEW::KEINE"; 
         } 
         
     }

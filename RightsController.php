@@ -3,42 +3,45 @@
  * @author Matthias Grotjohann
  */
 require_once 'lib/user.table.db.php';
-class RightsController {
-    private $error;
+require_once 'lib/modules.table.db.php';
+class RightsController {    
     
-    private $sessionController;
+    private $modulesTable;
     private $userTable;
     
-    public function __construct($sessionController,$debug = false) {
+    public function __construct($debug = false) {
         $this->sessionController = $sessionController;
         $this->userTable = new UserTable();
-        
-        
-    }
-    public function isAuthenticated($userstatus) {
-        
-        if($userstatus == 1)
-            return 1;
-        return 0;
-    }
-    public function isModuleAllowed() {
-          if($this->rights->isAuthenticated($_SESSION['user']['userstatus_id']) == 1) {
-            $this->user   = $_SESSION['user'];
-            if($_SESSION['user']['username'])
-            $this->rights->updateLastSeen($_SESSION['user']['username']);
-           }
+        $this->modulesTable = new ModulesTable();
     }
     public function isLoggedIn() {
-          if(!$this->sessionController->getUser()) {
-                $this->error = "[DENIED] Sie sind zurzeit nicht Angemeldet";
-                
+          if(!$this->getUser()) {
+                $this->error = "[DENIED] Sie sind zurzeit nicht Angemeldet";     
           } else 
                 return true;
     }
-    public function isOpenModule() {
-          if($this->sessionController->getModule() == 'login')
+    public function amIROOT() {
+        $rights = $this->userTable->getRightsId($this->getUser()['id']);
+        if($rights == 1)
+            return true;
+        else return false;
+    }
+    public function amIAllowed() {
+        if($this->isOpenModule())
+            return true;
+        else {
+            if($this->getModule() == 'plungerclock' && $this->isLoggedIn())
                 return true;
-          else return false;
+        }
+        
+    }
+    public function isOpenModule() {
+          
+        $mod_info = $this->modulesTable->getModuleInfo($this->getModule());
+        
+        if($mod_info['type_id'] == 1)
+            return true;
+        
     }
     public function getError() {
         return $this->error;

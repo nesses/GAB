@@ -12,17 +12,9 @@ class plungerclock  {
     private $actionController;
     private $viewController;
 
-    private $dashBoard;
-    
     private $pclockTable;
     
-    private $fieldVisibility = ["id"                =>   1,
-                                "users_id"          =>   1,
-                                "timestamp"         =>   1];
-    
-
-
-    public function __construct($sessionController,$rightsController,$debug) {        
+    public function __construct($sessionController,$debug) {        
         $this->sessionController=$sessionController;
         $this->rightsController=$rightsController;
         

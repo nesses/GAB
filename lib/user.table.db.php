@@ -47,6 +47,12 @@ class UserTable  {
         $tdata = $this->db->asArray();
         return $tdata;
     }
+    public function getRightsId($userid) {
+        
+        $this->db->initTable('rights_id',['id',$userid]);
+        $tdata = $this->db->asArray();
+        return $tdata[0]['rights_id'];
+    }
     public function getAll() {
         $this->db->initTable();
         $tdata = $this->db->asArray();
