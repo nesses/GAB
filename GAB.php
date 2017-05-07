@@ -22,7 +22,7 @@ class GAB  {
         $this->module = $this->sessionController->getModule();
         $this->action = $this->sessionController->getAction();
         $this->view   = $this->sessionController->getView();
-        $this->rightsController = new RightsController($this->sessionController,$debug)
+        $this->rightsController = new RightsController($this->sessionController,$debug);
         if($debug)
             echo "<b>[[[DEBUG]]]</b><br><b>- [GAB] -</b><br>Module: $this->module<br>View: $this->view<br>Action: $this->action";
         
@@ -32,20 +32,20 @@ class GAB  {
         
         $this->showNavigation($this->module);
         //is user logged in
-        if($this->rightsController->isLoggedIn() || $this->rightsController->isOpenModule()) {
+        if($this->sessionController->isLoggedIn() || $this->sessionController->isOpenModule()) {
               if($this->testModuleFile($this->sessionController->getModule())) {
                   require_once 'modules/'.$this->module.'/'.$this->module.'.php';
                   if(class_exists($this->module)) {
                       $gab_module = new $this->module($this->sessionController,$this->rightsController,$this->smarty,$this->debug);
-                      $gab_module->show();
+                      //$gab_module->show();
                   } else
                       $this->smarty->assign('error',$this->module.'::Module File eixsts but Class is not there');
               } else {
                   $this->smarty->assign('error','No such module :: '.$this->module);
               }
           } else 
-                echo "Not logged in"
-    
+                echo "Not logged in";
+    }
     private function testModuleFile($module) {
         return is_file('modules/'.$module.'/'.$module.'.php');
     }

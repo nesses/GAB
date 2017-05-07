@@ -25,17 +25,21 @@ class RightsController {
             return true;
         else return false;
     }
+    //NÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖÖT
+    //FOR NOW THIS CHECKS ONLY THE MOD RIGHTS:::
+    //Maybe rename and make new for views actions items ===!==
     public function amIAllowed() {
-        if($this->isOpenModule())
+        if($this->isOpenModule()) {
+            
             return true;
+        }
+            
         else {
             if($this->getModule() == 'plungerclock' && $this->isLoggedIn())
                 return true;
             if($this->getModule() == 'employees' && $this->isLoggedIn())
-                return true;
-            
+                return true; 
         }
-        
     }
     public function isOpenModule() {
           

@@ -30,9 +30,11 @@ class ListView extends Smarty {
                                 'alterer_id'    =>  'Bearbeiter',
                                 'userstatus_id' =>  'Status'];
     
-    public function __construct() {
+    private $table;
+    public function __construct($table) {
         parent::__construct();
         $this->assign('fieldVisibility',$this->fieldVisibility);
         $this->assign('fieldTitles', $this->fieldTitles);
+        $this->table = $table;
     }
 }

@@ -17,12 +17,10 @@ class SessionController extends RightsController {
     private $actions;
     
     
-    public function __construct($debug = false) {
+    public function __construct() {
         parent::__construct();
         $this->init();
         print_r($_SESSION);
-        
-        
     }
     public function init() {
         session_start();
@@ -36,11 +34,20 @@ class SessionController extends RightsController {
         $this->fetchUser();
         
     }
-    public registerActions($actions) {
+    public function registerModuleActions($actions) {
+        //add 'if isset @' to create duoble regitrations
+        
         $_SESSION[$this->getModule()]['ACTIONS'] = $actions;
+        $_SESSION[$this->getModule()]['VIEWS'] = array_keys($actions);
     }
-    public function registerViews($views) {
-        $_SESSION[$this->getModule()]['VIEWS'] = $views;
+    public function getModuleActions() {
+        return $_SESSION[$this->getModule()]['ACTIONS'];
+    }
+    public function getViewActions() {
+        return $_SESSION[$this->getModule()]['ACTIONS'][$this->view];
+    }
+    public function getModuleViews() {
+        return $_SESSION[$this->getModule()]['VIEWS'];
     }
     public function fetchParams($params) {
         foreach ($params as $key => $paramkey) {

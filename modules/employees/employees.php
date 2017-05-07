@@ -1,19 +1,18 @@
 <?php
 
-require_once 'modules/employees/EmployeesActionController.php';
-require_once 'modules/employees/EmployeesViewController.php';
-
+require_once 'modules/employees/EmployeesController.php';
 class employees {
     
-    private $sessionController;
-    private $actionController;
-    private $viewController;
+    private $controller;
     
-    public function __construct($sessionController,$debug) {        
-        $this->sessionController=$sessionController;
+    private $actions = ['ListView' => ['page','offset','orderby']];
+    
+    private $views = ['ListView'];
+    
+    public function __construct($sessionController) {        
+        $sessionController->registerModuleActions($this->actions);
+        $this->controller = new EmployeesController($sessionController);
         
-        $this->actionController  = new EmployeesActionController($sessionController);
-        $this->viewController = new EmployeesViewController($sessionController);
   
     }
 }

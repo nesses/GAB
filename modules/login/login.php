@@ -3,22 +3,18 @@
  * @author Matthias Grotjohann
  */
 require_once 'lib/user.table.db.php';
-require_once 'modules/login/LoginActionController.php';
-require_once 'modules/login/LoginViewController.php';
+require_once 'modules/login/LoginController.php';
 class Login {
-    //private $sessionController;
-    //private $actionController;
-    //private $viewController;
+    
     private $controller;
     
+    private $views    = ['main'];
+      
+    private $actions  = ['main' => ['doLogin','doLogout']];
     
-
-    public function __construct($sessionController,$debug) {//$view,$action) { 
-        $sessionController->registerActions();
-        //$this->sessionController = $sessionController;
-        
-        //$this->actionController = new LoginActionController($sessionController,$debug);
-        //$this->viewController = new LoginViewController($sessionController,$debug);
+    public function __construct($sessionController) { 
+        $sessionController->registerModuleActions($this->actions);
+        $this->controller = new LoginController($sessionController);
     }
     
 
