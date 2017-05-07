@@ -108,6 +108,7 @@ class SessionController extends RightsController {
         $_SESSION['error'][$this->module]=null;
     }
     public function getParams() {
+        
         return $_SESSION[$this->module];
     }
     public function setParam($name,$data) {

@@ -58,7 +58,7 @@ class PlungerclockViewController extends ViewController {
         //PRESENT BUDDIES
         $offset = 6;
         $page = $this->sessionController->getParams()['page'];
-        $pages = ceil($this->usersTable->countGroupId($groups_id)/$offset);
+        $pages = ceil($this->pclockTable->countWorkingUsers($groups_id)/$offset);
         
         if($page == -1)
             $page = $pages-1;
@@ -67,7 +67,7 @@ class PlungerclockViewController extends ViewController {
         
         $index = $page*$offset;
         $buddies = $this->pclockTable->getWorkingUsers($groups_id);
-        print_r($buddies);
+        //print_r($buddies);
         $dash->PresentBuddies()->setBuddies($buddies);
         $dash->PresentBuddies()->setPage($page,$pages);
         

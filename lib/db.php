@@ -33,12 +33,13 @@ class Db {
 	  * @throws Excpetion
 	*/
     public function query($sql) {
-        echo "$sql<br>";
+        
         $result = $this->pdo->query($sql);
         if($result) {
             if($result->rowCount() >= 0) {
                 $this->rowCount = $result->rowCount();
                 $this->queryResult = $result;
+                return $result;
             }
         } else {
             throw new Exception("SQL FAILED::".$sql);
@@ -105,7 +106,7 @@ class Db {
             $sql .= " LIMIT $limit";
         
         $sql .= ";";
-        
+        echo $sql."<br>";
         $this->query($sql);
         if($this->rowCount > 0) {
             $ret = $this->queryResult->fetchAll();

@@ -50,7 +50,12 @@ class DbTable {
         $this->data = null;
         return 0;
     }
-    
+    public function query($sql) {
+        //echo $sql;
+        $res = $this->db->query($sql);
+        $this->data = $res->fetchAll();
+       
+    }
     public function updateTable($data,$where) {
         if($this->checkData($data)) {
             $this->db->update($this->tableName, $data, $where);
@@ -74,10 +79,10 @@ class DbTable {
             foreach($this->data as $row => $columns) {
                 $ret[$row] =ARRAY();
                 foreach($columns as $title => $value) {
-                    if(in_array($title,$this->colNames) ) {
+                    
                         if($title != "0")				
                         $ret[$row]["$title"] = $value;
-                    }
+                    
                 }
             }
         }

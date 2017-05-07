@@ -47,17 +47,21 @@ class UserTable  {
         $tdata = $this->db->asArray();
         return $tdata;
     }
-    
     public function getRightsId($userid) {
         
         $this->db->initTable('rights_id',['id',$userid]);
         $tdata = $this->db->asArray();
         return $tdata[0]['rights_id'];
     }
-    public function getAll() {
-        $this->db->initTable();
+    public function getAll($index='',$offset="",$orderby='') {
+        $this->db->initTable('*','',$orderby,"$index,$offset");
         $tdata = $this->db->asArray();
         return $tdata;
+    }
+    public function countAll() {
+        $this->db->initTable('count(id)');
+        $tdata = $this->db->asArray();
+        return $tdata[0]['count(id)'];
     }
     public function updateUserstatusId($username,$int) {
         $this->db->updateTable(['userstatus_id' => $int],['username',$username]);

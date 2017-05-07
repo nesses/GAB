@@ -27,6 +27,7 @@ class ViewController {
             $view = $sessionController->getView();
             
             if($sessionController->amIAllowed()) {
+                
                 if($params[$view]) {
                     $sessionController->fetchParams($params[$view]);
                 }
