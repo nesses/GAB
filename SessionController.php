@@ -13,6 +13,8 @@ class SessionController extends RightsController {
     private $action;
     private $user;
     
+    private $views;
+    private $actions;
     
     
     public function __construct($debug = false) {
@@ -33,9 +35,12 @@ class SessionController extends RightsController {
         
         $this->fetchUser();
         
-        
-        
-        
+    }
+    public registerActions($actions) {
+        $_SESSION[$this->getModule()]['ACTIONS'] = $actions;
+    }
+    public function registerViews($views) {
+        $_SESSION[$this->getModule()]['VIEWS'] = $views;
     }
     public function fetchParams($params) {
         foreach ($params as $key => $paramkey) {

@@ -28,7 +28,7 @@ class ActionController {
                     
                 } catch (Throwable $e) {}
             }            
-        }     
+        } 
     }
     public function setError($error) {
           $this->sessionController->setError($error);

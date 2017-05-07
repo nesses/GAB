@@ -6,15 +6,19 @@ require_once 'lib/user.table.db.php';
 require_once 'modules/login/LoginActionController.php';
 require_once 'modules/login/LoginViewController.php';
 class Login {
-    private $sessionController;
-    private $actionController;
-    private $viewController;
+    //private $sessionController;
+    //private $actionController;
+    //private $viewController;
+    private $controller;
+    
+    
 
     public function __construct($sessionController,$debug) {//$view,$action) { 
-        $this->sessionController = $sessionController;
+        $sessionController->registerActions();
+        //$this->sessionController = $sessionController;
         
-        $this->actionController = new LoginActionController($sessionController,$debug);
-        $this->viewController = new LoginViewController($sessionController,$debug);
+        //$this->actionController = new LoginActionController($sessionController,$debug);
+        //$this->viewController = new LoginViewController($sessionController,$debug);
     }
     
 
