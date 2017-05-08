@@ -6,7 +6,7 @@ require_once 'lib/modules.table.db.php';
 require_once 'RightsController.php';
 class SessionController extends RightsController {
     
-    private $errors;
+    private $error;
     
     private $module;
     
@@ -62,13 +62,7 @@ class SessionController extends RightsController {
     public function clearError() {
         $_SESSION['error'][$this->module]=null;
     }
-    public function getParams() {
-        
-        return $_SESSION[$this->module];
-    }
-    public function setParam($name,$data) {
-        $_SESSION[$this->module][$name] = $data;
-    }
+    
     public function redirect($module = null) {
           if(!$module)
                 $module = $this->module;

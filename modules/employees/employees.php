@@ -7,8 +7,6 @@ class employees {
     
    
    
-    private $usersTable;
-    private $groupsTable;
     
     private $fieldVisibility = ["id"                =>  1,
                                 "username"          =>  1,
@@ -40,15 +38,17 @@ class employees {
     
     private $views          = ['ListView'];
     
-    private $default_view   = 'ListView';
+    //private $default_view   = 'ListView';
+    
+    private $parameters;
     
     public function __construct($sessionController) {        
         $this->controller = new EmployeesController($sessionController);
         $this->controller->registerModuleActions($this->actions);
         $this->controller->init($this->views[0]);
+        $this->parameters = $this->controller->fetchParams();
         if(!$this->controller->getError()) {
             $command=$this->controller->getActionCommand();
-        
             if(!$command)
                 $command = $this->controller->getViewCommand();
             $this->$command();
@@ -56,40 +56,35 @@ class employees {
   
     }
     public function ListView() {
+        $userTable = new UserTable();
         $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
-        $listView->setModule($this->sessionController->getCurrentModule());
-        
-        $this->sessionController->fetchParams();
-        
+        $listView->setModule($this->controller->getCurrentModule());
+       
         //get offset from url($_GET need to be registered in
         //employee.php)
-        $offset=$this->sessionController->getParams()['offset'];
-        
+        $offset=$this->parameters['offset'];
         if(!$offset) {
-            $offset = $listView->getDefaultOffset(); 
+            $offset = $listView->getOffset(); 
         }
-        $listView->setOffset($offset);
-        
-        $page=$this->sessionController->getParams()['page'];
+        $page=$this->parameters['page'];
         $listView->setPage($page);
-         
-        $orderby=$this->sessionController->getParams()['orderby'];
+       
+        $listView->setOffset($offset);
+      
+        $orderby=$this->parameters['orderby'];
         
         $index = $page-1;
+        if($index < 0)
+            $index = 0;
         $index = "".$index*$offset."";
         
-        $size = $this->usersTable->countAll();
+        $size = $userTable->countAll();
         $pageCount = ceil($size/$offset);
         
         $listView->setPageCount($pageCount);
         
         
-        
-        
-        
-        
-        
-        $content = $this->usersTable->getAllJoined($index,$offset,$orderby);
+        $content = $userTable->getAllJoined($index,$offset,$orderby);
         //print_r($content); 
         $listView->setContent($content);
         

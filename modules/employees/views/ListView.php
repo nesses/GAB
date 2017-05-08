@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * 
+ * @author Matthias Grotjohann
  */
 class ListView extends Smarty {
     
@@ -27,7 +27,7 @@ class ListView extends Smarty {
     public function setOffset($offset) {
         $this->offset = $offset;
     }
-    public function getDefaultOffset() {
+    public function getOffset() {
         return $this->offset;
     }
     public function setPage($page) {

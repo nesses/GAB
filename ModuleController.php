@@ -33,6 +33,7 @@ class ModuleController {
             //$this->execute($execute);
         } else { 
             $this->setError("KEINE BERECHTIGUNG :: [#1] VIEW oder ACTION");
+            
         }
         
     }
@@ -54,6 +55,7 @@ class ModuleController {
         }
             
     }
+    
     public function getView() {
         return $this->view;
     }
@@ -94,15 +96,21 @@ class ModuleController {
         //add 'if isset @' to create duoble regitrations
         if(!$_SESSION[$this->sessionController->getModule()]['ACTIONS'])
             $_SESSION[$this->sessionController->getModule()]['ACTIONS'] = $actions;
-        //$_SESSION[$this->getModule()]['VIEWS'] = array_keys($actions);
     }
     public function fetchParams() {
         $params = $this->getViewActions();
         foreach ($params as $key => $paramkey) {
             if(isset($_GET[$paramkey])) {
-                $_SESSION[$this->getModule()][$paramkey] = $_GET[$paramkey];
+                $_SESSION[$this->sessionController->getModule()][$paramkey] = $_GET[$paramkey];
             }
         }
+        return $this->getParams();
+    }
+    public function getParams() {
+        return $_SESSION[$this->sessionController->getModule()];
+    }
+    public function setParam($name,$data) {
+        $_SESSION[$this->module][$name] = $data;
     }
     public function getModuleActions() {
         return $_SESSION[$this->getModule()]['ACTIONS'];
