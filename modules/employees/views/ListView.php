@@ -5,52 +5,44 @@
  */
 class ListView extends Smarty {
     
+    private $fieldVisibility
+    private $fieldTitles
+    
     private $offset;
-    private $index;
-    private $orderby;
+    private $page;
+    private $pageCount;
     
-    private $tableData;
     
-    private $fieldVisibility = ["id"                =>  1,
-                                "username"          =>  1,
-                                "password"          =>  0,
-                                "name"              =>  1,
-                                "surname"           =>  1,
-                                "lastseen"          =>  1,
-                                "rights_id"         =>  1,
-                                "groups_id"         =>  1,
-                                "creator_id"        =>  1,
-                                "created"           =>  0,
-                                "alterer_id"        =>  0,
-                                "userstatus_id"     =>  1];    
+    private $content;
     
-    private $fieldTitles =  [   'id'            =>  'ID',
-                                'username'      =>  'Benutzername',
-                                'password'      =>  'Password',
-                                'name'          =>  'Name',
-                                'surname'       =>  'Vorname',
-                                'lastseen'      =>  'Zuletzt',
-                                'groups_id'     =>  'Gewerk',
-                                'rights_id'     =>  'Rechte',
-                                'creator_id'    =>  'Ersteller',
-                                'created'       =>  'Erstellt',
-                                'alterer_id'    =>  'Bearbeiter',
-                                'userstatus_id' =>  'Status'];
     
-    private $table;
-    public function __construct($table) {
+    
+    public function __construct($fieldVisibility,$fieldTitles) {
+        $this->fieldVisibility = $fieldVisibility;
+        $this->fieldTitles = $fieldTitles;
         parent::__construct();
-        $this->assign('fieldVisibility',$this->fieldVisibility);
-        $this->assign('fieldTitles', $this->fieldTitles);
-        $this->table = $table;
     }
+    
     public function setOffset($offset) {
         $this->offset = $offset;
     }
-    public function setIndex($index) {
-        $this->index = $index;
+    
+    public function setPage($page) {
+        $this->page = $page;
+    }
+    public function setPageCount($pageCount) {
+        $this->pageCount = $pageaCount;
     }
     public function setOrderBy($orderby) {
         $this->orderby = $orderby;
+    
+    public function setContent($content) {
+        $this->content = $content;
+    }
+    public function show() {
+        $this->assign('fieldVisibility',$this->fieldVisibility);
+        $this->assign('fieldTitles', $this->fieldTitles);
+   
+        $this->display('templates/items/ListView.tpl')
     }
 }

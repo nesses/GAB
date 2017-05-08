@@ -8,6 +8,34 @@ class EmployeesController extends ModuleController {
     private $default_view = 'ListView';
    
     private $usersTable;
+    private $groupsTable;
+    
+    private $fieldVisibility = ["id"                =>  1,
+                                "username"          =>  1,
+                                "password"          =>  0,
+                                "name"              =>  1,
+                                "surname"           =>  1,
+                                "lastseen"          =>  1,
+                                "rights_id"         =>  1,
+                                "groups_id"         =>  1,
+                                "creator_id"        =>  1,
+                                "created"           =>  0,
+                                "alterer_id"        =>  0,
+                                "userstatus_id"     =>  1];    
+    
+    private $fieldTitles =  [   'id'            =>  'ID',
+                                'username'      =>  'Benutzername',
+                                'password'      =>  'Password',
+                                'name'          =>  'Name',
+                                'surname'       =>  'Vorname',
+                                'lastseen'      =>  'Zuletzt',
+                                'groups_id'     =>  'Gewerk',
+                                'rights_id'     =>  'Rechte',
+                                'creator_id'    =>  'Ersteller',
+                                'created'       =>  'Erstellt',
+                                'alterer_id'    =>  'Bearbeiter',
+                                'userstatus_id' =>  'Status'];
+    
     
     public function __construct($sessionController) {
         $this->setDefaultView($this->default_view);
@@ -22,6 +50,9 @@ class EmployeesController extends ModuleController {
         $offset=$this->sessionController->getParams()['offset'];
         $page=$this->sessionController->getParams()['page'];
         $orderby=$this->sessionController->getParams()['orderby'];
+        $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
+        $listView->setPage($page);
+        
         /*
         if(!$offset) {
             $offset = 5;
@@ -42,7 +73,7 @@ class EmployeesController extends ModuleController {
         $listView->assign('size',$size);
         $listView->assign('users',$users);
         */
-        $listView = new ListView($this->usersTable);
+        
         $listView->display("templates/items/ListView.tpl");
     }
     public function editView() {
@@ -70,4 +101,3 @@ class EmployeesController extends ModuleController {
  
     }
 }
-

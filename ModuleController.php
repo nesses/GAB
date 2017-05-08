@@ -13,13 +13,13 @@ class ModuleController {
             //first look, is there an Action because if so Controller will
             //redirect you after execution 
             $execute = $this->checkAction();
-            echo $execute;
+            
             //execute view when there is no action given
             //Action causes controller to redirect so
             //this will only be affected when there is no action
             if(!$execute)
                 $execute = $this->checkView();
-            echo $execute;
+            
             $this->execute($execute);
         } else { 
             echo "<br>You are not allowed to do this::::<br>";

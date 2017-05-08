@@ -4,7 +4,7 @@
         <td><<<</td>
         <td>
             <select>
-                {for $i=0 to ceil($size/$offset)-1}
+                {for $i=0 to $pageCount}
                 <option onclick="window.location='index.php?module={$module}&view={$view}&page={$i}'">{$i+1}</option>
                 {/for}
             </select>
