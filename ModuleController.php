@@ -19,7 +19,6 @@ class ModuleController {
         $this->fetchAction();
         if($this->getView() == '')
             $this->setView($view);
-        echo $this->view;
         if($this->sessionController->amIAllowed()) {
             //first look, is there an Action because if so Controller will
             //redirect you after execution 

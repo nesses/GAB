@@ -1,3 +1,3 @@
-<div id="inner_mod_error">
+<div style="background:red;font-weight:bold;" id="">
     {$msg}
 </div>

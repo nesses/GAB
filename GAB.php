@@ -35,14 +35,16 @@ class GAB  {
                   require_once 'modules/'.$this->module.'/'.$this->module.'.php';
                   if(class_exists($this->module)) {
                       $gab_module = new $this->module($this->sessionController,$this->rightsController,$this->smarty,$this->debug);
+                      //$this->smarty->assign('msg',$gab_module->getError());
                       //$gab_module->show();
                   } else
-                      $this->smarty->assign('error',$this->module.'::Module File eixsts but Class is not there');
+                      $this->smarty->assign('msg',$this->module.'::Module File eixsts but Class is not there');
               } else {
-                  $this->smarty->assign('error','No such module :: '.$this->module);
+                  $this->smarty->assign('msg','No such module :: '.$this->module);
               }
           } else 
                 echo "Not logged in";
+            $this->smarty->display('templates/error.tpl');
     }
     private function testModuleFile($module) {
         return is_file('modules/'.$module.'/'.$module.'.php');

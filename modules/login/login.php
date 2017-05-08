@@ -5,6 +5,8 @@
 require_once 'modules/login/LoginController.php';
 class Login {
     
+    private $error;
+    
     private $controller;
     
     private $views    = ['main'];
@@ -19,11 +21,13 @@ class Login {
         
         $this->controller->init($this->views[0]);
         if(!$this->controller->getError()) {
-            $command=$this->controller->getActionCommand();
-        
-            if(!$command)
-                $command = $this->controller->getViewCommand();
-            $this->$command();
+            $a_command=$this->controller->getActionCommand();
+            if($a_command)
+                $this->$a_command();
+            //if(!$command)
+            $v_command = $this->controller->getViewCommand();
+            $this->$v_command();
+            
         } else 
            echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
     }
@@ -61,20 +65,24 @@ class Login {
                     $this->controller->redirect('employees','ListView');
                 }  
             } else {
-
-                $this->setError('Passwort falsch');
+                echo 'Passwort falsch';
             }
         } else 
             //if username is not in table users
-            $this->setError('Benutzername nicht gefunden');
+            echo 'Benutzername nicht gefunden';
 
     }
-    
+    private function setError($error) {
+        $this->error = $error;
+    }
+    public function getError() {
+        return $this->error;
+    }
     public function doLogout() {
         $this->userTable = new UserTable();
         $this->userTable->updateUserStatusId($this->controller->getSessionUser()['username'],2);
         $this->controller->destroySession();
-        $this->controller->redirect('login','doLogin');
+        $this->controller->redirect('login','main');
     }
     
 

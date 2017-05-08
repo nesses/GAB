@@ -10,7 +10,7 @@ class plungerclock  {
     
     private $views = ['dashBoard'];
     
-    private $actions = ['dashBoard' => ['page','date','day']];
+    private $actions = ['dashBoard' => ['offset','page','date','day']];
     
     private $parameters;
     
@@ -56,7 +56,7 @@ class plungerclock  {
         $pclockTable = new PlungerclockTable();
         $commingstamps = $pclockTable->getStamps($users_id,"$today",'1');
         $goingstamps = $pclockTable->getStamps($users_id,"$today",'0');
-        print_r($commingstamps);
+        
         $dash->WorktimeInfo()->setStamps($commingstamps,$goingstamps);
         
         //PRESENT BUDDIES
@@ -71,7 +71,6 @@ class plungerclock  {
         
         $index = $page*$offset;
         $buddies = $pclockTable->getWorkingUsers($groups_id);
-        print_r($buddies);
         $dash->PresentBuddies()->setBuddies($buddies);
         $dash->PresentBuddies()->setPage($page,$pages);
         
