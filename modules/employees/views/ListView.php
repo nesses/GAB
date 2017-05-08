@@ -9,6 +9,8 @@ class ListView extends Smarty {
     private $index;
     private $orderby;
     
+    private $tableData;
+    
     private $fieldVisibility = ["id"                =>  1,
                                 "username"          =>  1,
                                 "password"          =>  0,

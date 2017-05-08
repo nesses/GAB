@@ -88,6 +88,11 @@ class SessionController extends RightsController {
               return true;
         return false;
     }
+    public function hasAction() {
+        if($this->action && $this->hasPOST())
+            return true;
+        return false;
+    }
     public function getUser() {
         return $this->user;
     }
