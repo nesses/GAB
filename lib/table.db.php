@@ -17,17 +17,9 @@ class DbTable {
             $this->db = new Db();
             $this->tableName = $tableName;
             $this->colNames = $colNames;
-            //QUICK SOLUTION TO QUERY EMPTY TABLES::::
-            //if($this->testTable() <> 1)
-		//throw new Exception(__FUNCTION__." :: Column definition does not match");
+            
    
         } else throw new Exception(__FUNCTION__." :: Missing Table or Column definitions");
-    }
-    private function testTable() {
-        $tdata = $this->db->select($this->tableName,$this->colNames,['id','1']);
-        if(!$tdata)
-             return 0;
-	return 1;
     }
     private function checkData($data) {
         $dataColumns = array_keys($data);

@@ -21,21 +21,10 @@ class UserTable  {
                             "created",
                             "alterer_id",
                             "userstatus_id"];
-    
-     
-    
-    private $colTypes =   [ 'id'            =>  'int',
-                            'username'      =>  'text',
-                            'password'      =>  'password',
-                            'name'          =>  'text',
-                            'surname'       =>  'text',
-                            'lastseen'      =>  'datetime',
-                            'groups_id'      =>  'combobox',
-                            'rights_id'     =>  'combobox',
-                            'creator_id'    =>  'int',
-                            'created'       =>  'datetime',
-                            'alterer_id'    =>  'int',
-                            'userstatus_id' =>  'int'];
+    private $links      =  ['rights_id' => ['rights' => 'title'],
+                            'groups'    => ['groups' => 'title'],
+                            'creator_id'=> ['users'  => 'username']
+                            'alterer_id'=> ['users'  => 'username']];
     
     
     public function __construct() {

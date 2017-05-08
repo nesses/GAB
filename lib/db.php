@@ -18,13 +18,13 @@ class Db {
     public function __construct() {
         global $db_type;
         global $db_conf;
-	if($db_type == 'MySQL') {
+	      if($db_type == 'MySQL') {
             $mysql_conf  = $db_conf['MySQL'];
             $this->pdo = new PDO('mysql:host='.$mysql_conf['host'].';dbname='.$mysql_conf['dbname'], $mysql_conf['user'], $mysql_conf['passwd']);
             $this->query("SET NAMES UTF8;");
-	} elseif($db_type == 'SQLite') {
+	      } elseif($db_type == 'SQLite') {
             //create sqlite
-	}
+	   }
         
     }
 	/***

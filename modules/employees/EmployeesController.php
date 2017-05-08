@@ -56,7 +56,7 @@ class EmployeesController extends ModuleController {
         
         $page=$this->sessionController->getParams()['page'];
         $listView->setPage($page);
-        
+         
         $orderby=$this->sessionController->getParams()['orderby'];
         
         $size = $this->usersTable->countAll();
