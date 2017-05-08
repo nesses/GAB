@@ -63,9 +63,11 @@ class SessionController extends RightsController {
         $_SESSION['error'][$this->module]=null;
     }
     
-    public function redirect($module = null) {
+    public function redirect($module = null,$view= null) {
           if(!$module)
                 $module = $this->module;
+          if($view)
+              $module .= "&view=".$view;
           echo '<script type="text/javascript">window.location="index.php?module='.$module.'"</script>';
     }
     public function destroy() {

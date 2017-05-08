@@ -29,8 +29,8 @@ class plungerclock  {
     } 
     public function dashBoard() {
         //brauchen beide
-        $groups_id = $this->controller->getUser()['groups_id'];
-        $users_id = $this->controller->getUser()['id'];
+        $groups_id = $this->controller->getSessionUser()['groups_id'];
+        $users_id = $this->controller->getSessionUser()['id'];
         
         //WORKTIMEINFO
         $date = $this->parameters['date'];

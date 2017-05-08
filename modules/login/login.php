@@ -24,7 +24,8 @@ class Login {
             if(!$command)
                 $command = $this->controller->getViewCommand();
             $this->$command();
-        } else echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
+        } else 
+           echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
     }
     public function main() {
         $login = new SmartyLogin();
@@ -73,7 +74,7 @@ class Login {
         $this->userTable = new UserTable();
         $this->userTable->updateUserStatusId($this->controller->getSessionUser()['username'],2);
         $this->controller->destroySession();
-        $this->controller->redirect('login');
+        $this->controller->redirect('login','doLogin');
     }
     
 

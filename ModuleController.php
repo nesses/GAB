@@ -38,7 +38,6 @@ class ModuleController {
         
     }
     private function checkAction() {
-        echo "ChkAction:::.$this->action";
         if(!$this->getAction() && !in_array($this->getAction(),$this->getViewActions())) {
             $this->setError("NO SUCH ACTION OR NO ACTION SET :: [#2] ".$this->getAction()." ::");;
         } else {
@@ -46,7 +45,6 @@ class ModuleController {
         }
     }
     private function checkView() {
-        echo "ChkView:::";
         if($this->getView() && !in_array($this->getView(), $this->getModuleViews())) {
             $this->setError("NO SUCH VIEW OR NO VIEW SET :: [#3]".$this->getView()." ::");
         } else {
@@ -116,8 +114,10 @@ class ModuleController {
         return $_SESSION[$this->getModule()]['ACTIONS'];
     }
     public function getViewActions() {
-        
-            return $_SESSION[$this->sessionController->getModule()]['ACTIONS'][$this->getView()];
+            if($_SESSION[$this->sessionController->getModule()]['ACTIONS'][$this->getView()])
+                return $_SESSION[$this->sessionController->getModule()]['ACTIONS'][$this->getView()];
+            
+            return Array();
         
     }
     public function getModuleViews() {
@@ -138,8 +138,8 @@ class ModuleController {
     public function setDefaultView($viewName) {
         $this->default_view = $viewName;
     }
-    public function redirect($view) {
-        $this->sessionController->redirect($module = null,$view);
+    public function redirect($module,$view) {
+        $this->sessionController->redirect($module,$view);
     }
     public function destroySession() {
         $this->sessionController->destroy();

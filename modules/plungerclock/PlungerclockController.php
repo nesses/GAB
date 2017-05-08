@@ -17,4 +17,5 @@ class PlungerclockController extends ModuleController {
     public function getSessionUser() {
         return $this->sessionController->getUser();
     }
+    
 }
