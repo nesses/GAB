@@ -43,11 +43,12 @@
                 <td>
                      {$val}
                 </td>
+               
                 {/if}
             {/foreach}
-            <td><a href="index.php?module={$module}&view=EditView&id={$cols['id']}">[E]</a></td>
+            <!--<td><a href="index.php?module={$module}&view=EditView&id={$cols['id']}">[E]</a></td>
             <td><a href="index.php?module={$module}&view=EditView&action=delete&id={$cols['id']}">[D]</a></td>
-        </tr>
+        --></tr>
     {/foreach}
     <tr id='listAllTitles'>
         {foreach from=$fieldTitles key=title item=value}

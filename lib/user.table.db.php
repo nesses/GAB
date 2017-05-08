@@ -58,6 +58,29 @@ class UserTable  {
         $tdata = $this->db->asArray();
         return $tdata;
     }
+    public function getAllJoined($index='',$offset="",$orderby='') {
+        $sql = "select 
+                    a.id,a.surname,a.name,a.username,a.password,a.created,a.altered,a.userstatus_id,
+                    b.title as groups_id,
+                    c.title as rights_id,
+                    d.username as creator_id,
+                    e.username as alterer_id
+                from      users  a 
+                left join groups b on a.groups_id = b.id 
+                left join rights c on a.rights_id = c.id 
+                left join users  d on a.creator_id = d.id 
+                left join users  e on a.alterer_id = e.id ";
+        if($orderby <> '')
+            $sql .= "order by ".$orderby;
+        
+        if($index <> '' && $offset <> '')
+            $sql .= " limit $index,$offset";
+        echo $sql;
+        $this->db->query($sql);
+        $tdata = $this->db->asArray();
+        //print_r($tdata);
+        return $tdata;
+    }
     public function countAll() {
         $this->db->initTable('count(id)');
         $tdata = $this->db->asArray();

@@ -63,9 +63,15 @@ class EmployeesController extends ModuleController {
         $pageCount = ceil($size/$offset);
         
         $listView->setPageCount($pageCount);
+        $index = $page*$offset;
+        
+        if($index < 0)
+            $index = 0;
         
         
-        $content = $this->usersTable->getAll(($page-1)*$offset,$offset,$orderby);
+        
+        $content = $this->usersTable->getAllJoined($index,$offset,$orderby);
+        //print_r($content); 
         $listView->setContent($content);
         
         $listView->show();
