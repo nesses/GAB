@@ -22,7 +22,7 @@ class LoginController extends ModuleController {
             
         //}
         
-        $login->display('templates/modules/login.tpl'); 
+        $login->show();
        
     }
     public function doLogin() {

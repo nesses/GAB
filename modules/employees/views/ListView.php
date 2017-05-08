@@ -7,6 +7,7 @@ class ListView extends Smarty {
     
     private $offset;
     private $index;
+    private $orderby;
     
     private $fieldVisibility = ["id"                =>  1,
                                 "username"          =>  1,
@@ -40,5 +41,14 @@ class ListView extends Smarty {
         $this->assign('fieldVisibility',$this->fieldVisibility);
         $this->assign('fieldTitles', $this->fieldTitles);
         $this->table = $table;
+    }
+    public function setOffset($offset) {
+        $this->offset = $offset;
+    }
+    public function setIndex($index) {
+        $this->index = $index;
+    }
+    public function setOrderBy($orderby) {
+        $this->orderby = $orderby;
     }
 }

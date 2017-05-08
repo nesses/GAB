@@ -8,4 +8,17 @@
 
 class SmartyLogin extends Smarty {
     
+    private $error;
+    
+    public function __construct() {
+        parent::__construct();
+    }
+    public function setError($txt) {
+        $this->error = $txt;
+    }
+    public function show() {
+        if($this->error)
+            $this->assign('error',$this->error);
+        $this->display('templates/modules/login.tpl');
+    }
 }
