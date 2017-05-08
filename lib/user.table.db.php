@@ -64,7 +64,8 @@ class UserTable  {
                     b.title as groups_id,
                     c.title as rights_id,
                     d.username as creator_id,
-                    e.username as alterer_id
+                    e.username as alterer_id,
+                    a.userstatus_id
                 from      users  a 
                 left join groups b on a.groups_id = b.id 
                 left join rights c on a.rights_id = c.id 
@@ -113,4 +114,3 @@ class UserTable  {
     
 }
 ?>
-
