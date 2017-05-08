@@ -130,7 +130,7 @@ class ModuleController {
     public function setDefaultView($viewName) {
         $this->default_view = $viewName;
     }
-    public function redirect($module,$view) {
+    public function redirect($view) {
         $this->sessionController->redirect($module = null,$view);
     }
     public function destroySession() {

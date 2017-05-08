@@ -45,7 +45,7 @@ class employees {
     public function __construct($sessionController) {        
         $this->controller = new EmployeesController($sessionController);
         $this->controller->registerModuleActions($this->actions);
-        $this->controller->init();
+        $this->controller->init($this->views[0]);
         if(!$this->controller->getError()) {
             $command=$this->controller->getActionCommand();
         
@@ -57,7 +57,7 @@ class employees {
     }
     public function ListView() {
         $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
-        $listView->setModule($this->sessionController->getModule());
+        $listView->setModule($this->sessionController->getCurrentModule());
         
         $this->sessionController->fetchParams();
         
