@@ -49,7 +49,8 @@ class SessionController extends RightsController {
     public function getModuleViews() {
         return $_SESSION[$this->getModule()]['VIEWS'];
     }
-    public function fetchParams($params) {
+    public function fetchParams() {
+        $params = $this->getViewActions();
         foreach ($params as $key => $paramkey) {
             if(isset($_GET[$paramkey])) {
                 $_SESSION[$this->getModule()][$paramkey] = $_GET[$paramkey];

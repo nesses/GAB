@@ -26,7 +26,7 @@ class ModuleController {
         }
     }
     private function checkAction() {
-        
+        echo "ChkAction:::";
         if(!$this->sessionController->getAction() && !in_array($this->sessionController->getAction(),$this->sessionController->getViewActions())) {
             //echo "<br>NO ACTION :: ".$this->sessionController->getAction();
             return false;
@@ -36,7 +36,7 @@ class ModuleController {
         }
     }
     private function checkView() {
-        
+        echo "ChkView:::";
         if($this->sessionController->getAction() || $this->sessionController->getView() && !in_array($this->sessionController->getView(), $this->sessionController->getModuleViews())) {
             //echo "<br>NO VIEW";
         } else {

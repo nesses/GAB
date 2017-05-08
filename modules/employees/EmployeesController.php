@@ -43,38 +43,32 @@ class EmployeesController extends ModuleController {
         $this->usersTable = new UserTable();
         parent::__construct($sessionController);
     }
-    public function main() {
-        
-    }
     public function ListView() {
-        $offset=$this->sessionController->getParams()['offset'];
-        $page=$this->sessionController->getParams()['page'];
-        $orderby=$this->sessionController->getParams()['orderby'];
         $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
+        $listView->setModule($this->sessionController->getModule());
+        
+        $this->sessionController->fetchParams();
+        $offset=$this->sessionController->getParams()['offset'];
+        if(!$offset) {
+            $offset = $listView->getDefaultOffset(); 
+        }
+        $listView->setOffset($offset);
+        
+        $page=$this->sessionController->getParams()['page'];
         $listView->setPage($page);
         
-        /*
-        if(!$offset) {
-            $offset = 5;
-            $this->sessionController->setParam('offset',$offset);
-        }
-        if(!$page) {
-            $page = 0;
-            $this->sessionController->setParam('page',$page);
-        }
-        $listView = new ListView($this->usersTable);
+        $orderby=$this->sessionController->getParams()['orderby'];
         
-        $users = $this->usersTable->getAll($page*$offset,$offset,$orderby);
         $size = $this->usersTable->countAll();
+        $pageCount = ceil($size/$offset);
         
-        $listView->assign('module',$this->sessionController->getModule());
-        $listView->assign('view',$this->sessionController->getView());
-        $listView->assign('offset',$offset);
-        $listView->assign('size',$size);
-        $listView->assign('users',$users);
-        */
+        $listView->setPageCount($pageCount);
         
-        $listView->display("templates/items/ListView.tpl");
+        
+        $content = $this->usersTable->getAll(($page-1)*$offset,$offset,$orderby);
+        $listView->setContent($content);
+        
+        $listView->show();
     }
     public function editView() {
         echo "editView";

@@ -11,6 +11,7 @@ class employees {
     
     public function __construct($sessionController) {        
         $sessionController->registerModuleActions($this->actions);
+        
         $this->controller = new EmployeesController($sessionController);
         
   
