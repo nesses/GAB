@@ -38,17 +38,16 @@
     </tr>
     {foreach from=$content key=row item=cols}
         <tr id='listAllRowA'>
-            {foreach from=$cols key=title item=val}
-                {if $fieldVisibility[$title] eq 1}
+            {foreach from=$fieldVisibility key=col item=visibility}
+                {if $visibility eq 1}
                 <td>
-                     {$val}
+                     {$content[$row][$col]}
                 </td>
-               
                 {/if}
             {/foreach}
-            <!--<td><a href="index.php?module={$module}&view=EditView&id={$cols['id']}">[E]</a></td>
+            <td><a href="index.php?module={$module}&view=EditView&id={$cols['id']}">[E]</a></td>
             <td><a href="index.php?module={$module}&view=EditView&action=delete&id={$cols['id']}">[D]</a></td>
-        --></tr>
+        </tr>
     {/foreach}
     <tr id='listAllTitles'>
         {foreach from=$fieldTitles key=title item=value}

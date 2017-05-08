@@ -21,9 +21,10 @@ class UserTable  {
                             "created",
                             "alterer_id",
                             "userstatus_id"];
+    
     private $links      =  ['rights_id' => ['rights' => 'title'],
                             'groups'    => ['groups' => 'title'],
-                            'creator_id'=> ['users'  => 'username']
+                            'creator_id'=> ['users'  => 'username'],
                             'alterer_id'=> ['users'  => 'username']];
     
     
@@ -49,12 +50,12 @@ class UserTable  {
     }
     public function getAllJoined($index='',$offset="",$orderby='') {
         $sql = "select 
-                    a.id,a.surname,a.name,a.username,a.password,a.created,a.altered,a.userstatus_id,
+                    a.id,a.surname,a.name,a.username,a.password,a.lastseen,a.created,a.altered,a.userstatus_id,
                     b.title as groups_id,
                     c.title as rights_id,
                     d.username as creator_id,
                     e.username as alterer_id,
-                    a.userstatus_id
+                    a.userstatus_id as userstatus_id 
                 from      users  a 
                 left join groups b on a.groups_id = b.id 
                 left join rights c on a.rights_id = c.id 
