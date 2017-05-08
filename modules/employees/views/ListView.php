@@ -4,6 +4,10 @@
  * 
  */
 class ListView extends Smarty {
+    
+    private $offset;
+    private $index;
+    
     private $fieldVisibility = ["id"                =>  1,
                                 "username"          =>  1,
                                 "password"          =>  0,
