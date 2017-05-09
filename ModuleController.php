@@ -4,8 +4,6 @@ class ModuleController {
     
     private $sessionController;
     
-    
-    
     private $action;
     private $view;
     
@@ -82,15 +80,17 @@ class ModuleController {
                 $_SESSION['action'] = '';
             }
         }
-        $this->action = $_SESSION['action'];
+        $this->action = $_SESSION[$this-sessionController->getModule()]['action'];
     }
     private function fetchView() {
         
         if(isset($_GET['view']))
-            $_SESSION['view'] = $_GET['view'];
-        else
-            $_SESSION['view'] = '';
-        $this->view = $_SESSION['view'];
+            $_SESSION[$this->sessionController->getModule()]['view'] = $_GET['view'];
+        elseif($_SESSION[$this->sessionController->getModule()]['view'] <> '') {
+            $_SESSION['HISTORY']['view'] = $_SESSION['view'];
+            $_SESSION[$this->sessionController->getModule()]['view'] = '';
+        }
+        $this->view = $_SESSION[$this->sessionController->getModule()]['view'];
     }
     
     public function registerModuleActions($actions) {
