@@ -28,11 +28,12 @@ class SessionController extends RightsController {
     }
     
     private function fetchModule() {
+        
         if(isset($_GET['module'])) {
             $_SESSION['module'] = $_GET['module'];
-        }
-        //} else 
-        //    $_SESSION['module'] = 'login';
+        } elseif($_SESSION['module'] == '')
+            $_SESSION['module'] = 'login';    
+        
         $this->module = $_SESSION['module'];
     }
     
