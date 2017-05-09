@@ -1,13 +1,17 @@
-<table>
+    <table style="width:100%;">
     <tr>
         <td>Seite:</td>
         <td><<<</td>
         <td>
             <select>
+                {if $pageCount > 0}
                 {for $i=1 to $pageCount}
                 <option {if $page eq $i}selected{/if} onclick="window.location='index.php?module={$module}&view=ListView&page={$i}'">{$i}</option>
                 {/for}
-            </select>
+                {else}
+                    <option>1</option>
+                {/if}
+            </select> <b>/ {$pageCount+1}</b>
         </td>
         <td>>>></td>
         <td>
@@ -20,9 +24,14 @@
                 {/for}
             </select>
         </td>
+        <td style="width:50%;"></td>
+        <td>
+            <a href="index.php?view=EditView&mode=new">Mitarbeiter hinzufügen</a>
+        </td>
+        
     </tr>
 </table>
-<table id='listAll'>
+<table style="width:100%;" id='listAll'>
     <tr id='listAllTitles'>
         {foreach from=$fieldTitles key=title item=value}
         {if $fieldVisibility[$title] eq 1}

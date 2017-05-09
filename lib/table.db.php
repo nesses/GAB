@@ -71,13 +71,14 @@ class DbTable {
             foreach($this->data as $row => $columns) {
                 $ret[$row] =ARRAY();
                 foreach($columns as $title => $value) {
-                    
+                    if(in_array("$title", $this->colNames)) {
                         if($title != "0")				
                         $ret[$row]["$title"] = $value;
-                    
+                    }
                 }
             }
         }
+        //print_r($ret);
         return $ret;
     }
 }

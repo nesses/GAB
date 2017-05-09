@@ -2,38 +2,70 @@
 
 require_once 'modules/employees/EmployeesController.php';
 require_once 'modules/module.php';
+require_once 'lib/employees.table.db.php';
 class employees extends Module {
     
     private $controller;
+    private $fieldVisibility =  ['id'               => 0, 
+                                 'user_id'          => 1, 
+                                 'name'             => 1, 
+                                 'surname'          => 1,
+                                 'group_id'         => 0,
+                                 'tel'              => 0,
+                                 'mobile'           => 0,
+                                 'mail'             => 0,
+                                 'street'           => 0,
+                                 'zip'              => 0,
+                                 'city'             => 0,
+                                 'workaction_id'    => 1,
+                                 'speechcoursedays' => 0,
+                                 'workaction_beginn'=> 1,
+                                 'workaction_end'   => 1,
+                                 'timeaddon_end'    => 1,
+                                 'created'          => 0,
+                                 'creator_id'       => 0,
+                                 'birthday'         => 1,
+                                 'jobcenterid'      => 1,
+                                 'handicaped'       => 0,
+                                 'pillflat'         => 0,
+                                 'bank_id'          => 0,
+                                 'bic'              => 0,
+                                 'iban'             => 0,
+                                 'accountowner'     => 0,
+                                 'nationality_id'   => 0,
+                                 'anrede_id'        => 0];
     
-      
-    private $fieldVisibility = ["id"                =>  1,
-                                "username"          =>  1,
-                                "password"          =>  0,
-                                "name"              =>  1,
-                                "surname"           =>  1,
-                                "lastseen"          =>  1,
-                                "rights_id"         =>  1,
-                                "groups_id"         =>  1,
-                                "creator_id"        =>  1,
-                                "created"           =>  0,
-                                "alterer_id"        =>  0,
-                                "userstatus_id"     =>  1];    
+    private $fieldTitles =      ['id'               => "ID", 
+                                 'user_id'          => "User", 
+                                 'name'             => "Name", 
+                                 'surname'          => "Nachname",
+                                 'group_id'         => "Rechte",
+                                 'tel'              => "Tel.:",
+                                 'mobile'           => "Mobil",
+                                 'mail'             => "e-Mail",
+                                 'street'           => "Strasse",
+                                 'zip'              => "PLZ",
+                                 'city'             => "Ort",
+                                 'workaction_id'    => "Maßnahme",
+                                 'speechcoursedays' => "Sprachkurs",
+                                 'workaction_beginn'=> "Beginnt",
+                                 'workaction_end'   => "Endet",
+                                 'timeaddon_end'    => "Verlängerung",
+                                 'created'          => "Erstellt",
+                                 'creator_id'       => "Ersteller",
+                                 'birthday'         => "Geb.Datum",
+                                 'jobcenterid'      => "Jobcenter#",
+                                 'handicaped'       => "Schwerbehindert",
+                                 'pillflat'         => "Krankenkasse",
+                                 'bank_id'          => "Bank",
+                                 'bic'              => "BIC",
+                                 'iban'             => "IBAN",
+                                 'accountowner'     => "Kto.Inhaber",
+                                 'nationality_id'   => "Nationalität",
+                                 'anrede_id'        => "Anrede"];
     
-    private $fieldTitles =  [   'id'            =>  'ID',
-                                'username'      =>  'Benutzername',
-                                'password'      =>  'Password',
-                                'name'          =>  'Name',
-                                'surname'       =>  'Vorname',
-                                'lastseen'      =>  'Zuletzt',
-                                'groups_id'     =>  'Gewerk',
-                                'rights_id'     =>  'Rechte',
-                                'creator_id'    =>  'Ersteller',
-                                'created'       =>  'Erstellt',
-                                'alterer_id'    =>  'Bearbeiter',
-                                'userstatus_id' =>  'Status'];
-    
-    private $actions        = ['ListView' => []];
+    private $actions        = [ 'ListView' => [],
+                                'EditView' => []];
     
     private $views          = ['ListView','EditView'];
     
@@ -55,7 +87,7 @@ class employees extends Module {
     }
 
     public function ListView() {
-        $userTable = new UserTable();
+        $userTable = new EmployeesTable();
         $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
         $listView->setModule($this->controller->getCurrentModule());
        

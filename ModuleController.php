@@ -116,6 +116,8 @@ class ModuleController {
         } 
         $this->view = $_SESSION[$this->getModule()]['view'];
         //GABLogger::debug("V-NOTHING FETCHED -KEEpOLD:".$this->view);
+        if($this->view <> null)
+            return true;
         return false;
     }
     public function registerModuleParameters($parameters) {
