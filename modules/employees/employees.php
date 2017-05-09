@@ -94,7 +94,6 @@ class employees extends Module {
         //get offset from url($_GET need to be registered in
         //employee.php)
         $offset=$this->getValues()['offset'];
-        
         $page=$this->getValues()['page'];
         $listView->setPage($page);
        
