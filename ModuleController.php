@@ -51,10 +51,12 @@ class ModuleController {
     private function checkView() {
         if($this->getView() && !in_array($this->getView(), $this->getModuleViews())) {
             $this->setError("NO SUCH VIEW :: [#3] ".$this->getView()." ::");
+            print_r($this->getModuleViews());
             GABLogger::debug("Wrong V:".$this->view);
             
         } else {
             $this->view = $this->getView();
+            
             GABLogger::debug("Got V:".$this->view);
         }
             

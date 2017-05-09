@@ -33,13 +33,11 @@ class employees extends Module {
                                 'alterer_id'    =>  'Bearbeiter',
                                 'userstatus_id' =>  'Status'];
     
-    private $actions        = ['ListView'];
+    private $actions        = ['ListView' => []];
+    
+    private $views          = ['ListView','EditView'];
+    
     private $params         = ['ListView' => ['page','offset','orderby']];
-
-
-    private $views          = ['ListView'];
-    
-    
     
     private $default_values = ['ListView' => ['page'   => 1,
                                               'offset' => 10,

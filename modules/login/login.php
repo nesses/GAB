@@ -3,9 +3,9 @@
  * @author Matthias Grotjohann
  */
 require_once 'modules/login/LoginController.php';
-class Login {
+require_once 'modules/module.php';
+class Login extends Module {
     
-    private $error;
     
     private $controller;
     
@@ -13,34 +13,18 @@ class Login {
       
     private $actions  = ['main' => ['doLogin','doLogout']];
     
+    private $params   = ['main' =>[]];
+    
     public $default_view = 'main';
     
-    public function __construct($sessionController) { 
-        GABLogger::debug(__CLASS__);
+    public function __construct($sessionController) {
+        $this->setViews($this->views);
+        $this->setActions($this->actions);
+        $this->setParams($this->params);
+        $this->setDefaultValues($this->default_values);
         $this->controller = new LoginController($sessionController);
-        $this->controller->registerModuleActions($this->actions);
-        $this->controller->init($this->views[0]);
-        //$this->parameters = $this->controller->fetchParams();
-        if(!$this->controller->getError()) {
-            if($this->controller->hasAction()) {
-                $this->executeCommand();
-            } 
-            $this->initView ();
-        } else 
-            echo $this->controller->getError();
-  
-    }
-    private function executeCommand() {
         
-        $command=$this->controller->getActionCommand();
-        $this->$command();
-        if(!$this->getError())
-            $this->controller->redirect();
-    
-    }
-    private function initView() {
-        $view = $this->controller->getView();
-        $this->$view();
+        parent::__construct($this->controller);
     }
     public function main() {
         $login = new SmartyLogin();
@@ -78,12 +62,7 @@ class Login {
             $this->setError ('Benutzername nicht gefunden');
 
     }
-    private function setError($error) {
-        $this->error = $error;
-    }
-    public function getError() {
-        return $this->error;
-    }
+    
     public function doLogout() {
         $this->userTable = new UserTable();
         $this->userTable->updateUserStatusId($this->controller->getSessionUser()['username'],2);
