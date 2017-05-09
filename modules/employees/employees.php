@@ -34,24 +34,27 @@ class employees {
                                 'alterer_id'    =>  'Bearbeiter',
                                 'userstatus_id' =>  'Status'];
     
-    private $actions        = ['ListView' => ['page','offset','orderby']];
-    
+    private $actions        = ['ListView' => []];
+    private $params         = ['ListView' => ['page','offset','orderby']];
+
+
     private $views          = ['ListView'];
     
-    //private $default_view   = 'ListView';
-    
-    private $parameters;
+    private $values;
     
     public function __construct($sessionController) {        
         $this->controller = new EmployeesController($sessionController);
         $this->controller->registerModuleActions($this->actions);
+        $this->controller->registerModuleParameters($this->params);
         $this->controller->init($this->views[0]);
-        $this->parameters = $this->controller->fetchParams();
+        $this->values = $this->controller->fetchViewParams();
+        print_r($this->values);
         if(!$this->controller->getError()) {
             if($this->controller->hasAction()) {
+                
                 $this->executeCommand();
-            } else
-                $this->initView ();
+            } 
+            $this->initView ();
         } else 
             echo $this->controller->getError();
   
@@ -60,9 +63,9 @@ class employees {
         
         $command=$this->controller->getActionCommand();
         $this->$command();
-        $this->controller->redirect();
-
-        
+        if(!$this->getError())
+            $this->controller->redirect();
+    
     }
     private function initView() {
         $view = $this->controller->getView();
@@ -75,16 +78,16 @@ class employees {
        
         //get offset from url($_GET need to be registered in
         //employee.php)
-        $offset=$this->parameters['offset'];
+        $offset=$this->values['offset'];
         if(!$offset) {
             $offset = $listView->getOffset(); 
         }
-        $page=$this->parameters['page'];
+        $page=$this->values['page'];
         $listView->setPage($page);
        
         $listView->setOffset($offset);
       
-        $orderby=$this->parameters['orderby'];
+        $orderby=$this->values['orderby'];
         
         $index = $page-1;
         if($index < 0)

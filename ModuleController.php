@@ -117,38 +117,45 @@ class ModuleController {
         return false;
     }
     public function registerModuleParameters($parameters) {
-        //TODO
+        if(!$_SESSION[$this->sessionController->getModule()]['PARAMS'])
+            $_SESSION[$this->sessionController->getModule()]['PARAMS'] = $parameters;
     }
     public function registerModuleActions($actions) {
-        GABLogger::debug("REGISTER".$actions['ListView'][0]);
+        //GABLogger::debug("REGISTER".$actions['ListView'][0]);
         //add 'if isset @' to create duoble regitrations
         if(!$_SESSION[$this->sessionController->getModule()]['ACTIONS'])
             $_SESSION[$this->sessionController->getModule()]['ACTIONS'] = $actions;
     }
-    public function fetchParams() {
-        $params = $this->getViewActions();
+    public function fetchViewParams() {
+        $params = $this->getViewParameters();
         foreach ($params as $key => $paramkey) {
             if(isset($_GET[$paramkey])) {
-                $_SESSION[$this->sessionController->getModule()][$paramkey] = $_GET[$paramkey];
+                $_SESSION[$this->sessionController->getModule()]['VALUES'][$this->getView()][$paramkey] = $_GET[$paramkey];
             }
         }
-        return $this->getParams();
+        return $this->getViewParamValues();
     }
-    public function getParams() {
-        return $_SESSION[$this->sessionController->getModule()];
+    public function getViewParamValues() {
+        return $_SESSION[$this->sessionController->getModule()]['VALUES'][$this->getView()];
     }
-    public function setParam($name,$data) {
-        $_SESSION[$this->sessionController->getModule()][$name] = $data;
+    public function setViewParamValue($name,$data) {
+        $_SESSION[$this->sessionController->getModule()]['VALUES'][$this->getView()][$name] = $data;
     }
     public function getModuleActions() {
         return $_SESSION[$this->getModule()]['ACTIONS'];
     }
+    public function getModuleParameters() {
+        return $_SESSION[$this->getModule()]['PARAMS'];
+    }
     public function getViewActions() {
             if($_SESSION[$this->sessionController->getModule()]['ACTIONS'][$this->getView()])
                 return $_SESSION[$this->sessionController->getModule()]['ACTIONS'][$this->getView()];
-            
             return Array();
-        
+    }
+    public function getViewParameters() {
+            if($_SESSION[$this->sessionController->getModule()]['PARAMS'][$this->getView()])
+                return $_SESSION[$this->sessionController->getModule()]['PARAMS'][$this->getView()];
+            return Array();
     }
     public function getModuleViews() {
         return array_keys($_SESSION[$this->sessionController->getModule()]['ACTIONS']);

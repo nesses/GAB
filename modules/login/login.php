@@ -20,28 +20,32 @@ class Login {
         $this->controller = new LoginController($sessionController);
         $this->controller->registerModuleActions($this->actions);
         $this->controller->init($this->views[0]);
+        //$this->parameters = $this->controller->fetchParams();
         if(!$this->controller->getError()) {
-            $a_command=$this->controller->getActionCommand();
-            if($a_command)
-                $this->$a_command();
-            
-            
+            if($this->controller->hasAction()) {
+                $this->executeCommand();
+            } 
+            $this->initView ();
         } else 
-           echo $this->controller->getError();
-        if(!$this->controller->getError()) {
-            $v_command = $this->controller->getView();
-            $this->$v_command();
-        }
+            echo $this->controller->getError();
+  
+    }
+    private function executeCommand() {
+        
+        $command=$this->controller->getActionCommand();
+        $this->$command();
+        if(!$this->getError())
+            $this->controller->redirect();
+    
+    }
+    private function initView() {
+        $view = $this->controller->getView();
+        $this->$view();
     }
     public function main() {
         $login = new SmartyLogin();
-        
-        //if($this->getError()) {
-        //    $login->assign('msg',$this->getError());
-            
-            
-        //}
-        
+        echo $this->getError();
+
         $login->show();
        
     }
@@ -67,11 +71,11 @@ class Login {
                     $this->controller->redirect('employees','ListView');
                 }  
             } else {
-                echo 'Passwort falsch';
+                $this->setError('Passwort falsch');
             }
         } else 
             //if username is not in table users
-            echo 'Benutzername nicht gefunden';
+            $this->setError ('Benutzername nicht gefunden');
 
     }
     private function setError($error) {
