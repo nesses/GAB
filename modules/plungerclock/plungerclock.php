@@ -15,6 +15,7 @@ class plungerclock  {
     private $parameters;
     
     public function __construct($sessionController) {        
+        GABLogger::debug(__CLASS__);
         $this->controller = new PlungerclockController($sessionController);
         $this->controller->registerModuleActions($this->actions);
         $this->controller->init($this->views[0]);

@@ -66,7 +66,7 @@ class UserTable  {
         
         if($index <> '' && $offset <> '')
             $sql .= " limit $index,$offset";
-        echo $sql;
+        //echo $sql;
         $this->db->query($sql);
         $tdata = $this->db->asArray();
         //print_r($tdata);

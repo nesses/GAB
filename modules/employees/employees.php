@@ -53,7 +53,7 @@ class employees {
             else
                 $this->initView ();
         } else 
-            echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
+            echo "Error gefunden !!!!!".$this->controller->getError();
   
     }
     private function executeCommand() {
@@ -65,7 +65,7 @@ class employees {
         
     }
     private function initView() {
-        $view = $this->controller->getViewCommand();
+        $view = $this->controller->getView();
         $this->$view();
     }
     public function ListView() {

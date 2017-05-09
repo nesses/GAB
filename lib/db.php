@@ -33,7 +33,7 @@ class Db {
 	  * @throws Excpetion
 	*/
     public function query($sql) {
-        
+        //GABLogger::debug($sql);
         $result = $this->pdo->query($sql);
         if($result) {
             if($result->rowCount() >= 0) {
@@ -106,7 +106,7 @@ class Db {
             $sql .= " LIMIT $limit";
         
         $sql .= ";";
-        echo $sql."<br>";
+        
         $this->query($sql);
         if($this->rowCount > 0) {
             $ret = $this->queryResult->fetchAll();

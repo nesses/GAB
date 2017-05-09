@@ -9,8 +9,10 @@ class LoginController extends ModuleController {
     
     
     public function __construct($sessionController) {
+        //GABLogger::debug(__CLASS__);
         $this->sessionController = $sessionController;
         parent::__construct($sessionController);
+        
     }
     
     public function hasAction() {

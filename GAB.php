@@ -5,10 +5,11 @@
 require_once 'SessionController.php';
 require_once 'RightsController.php';
 require_once "lib/smarty-3.1.30/libs/Smarty.class.php";
+require_once "inc/logger.php";
 
 class GAB  {
     private $debug = false;
-
+    
     private $smarty;
     private $sessionController;
     private $rightsController;
@@ -17,18 +18,19 @@ class GAB  {
     
     
     public function __construct($debug=false) {
+        //GABLogger::debug(__FUNCTION__);
         $this->debug = $debug;
         $this->sessionController = new SessionController($debug);
         $this->module = $this->sessionController->getModule();
         $this->rightsController = new RightsController($this->sessionController,$debug);
-        if($debug)
-            echo "<b>[[[DEBUG]]]</b><br><b>- [GAB] -</b><br>Module: $this->module<br>View: $this->view<br>Action: $this->action";
         
         
+        //$log::debug("test");
     }
     public function HORIDO() {
         
         $this->showNavigation($this->module);
+        
         //is user logged in
         if($this->sessionController->isLoggedIn() || $this->sessionController->isOpenModule()) {
               if($this->testModuleFile($this->sessionController->getModule())) {

@@ -16,20 +16,22 @@ class Login {
     public $default_view = 'main';
     
     public function __construct($sessionController) { 
+        GABLogger::debug(__CLASS__);
         $this->controller = new LoginController($sessionController);
         $this->controller->registerModuleActions($this->actions);
-        
         $this->controller->init($this->views[0]);
         if(!$this->controller->getError()) {
             $a_command=$this->controller->getActionCommand();
             if($a_command)
                 $this->$a_command();
-            //if(!$command)
-            $v_command = $this->controller->getViewCommand();
-            $this->$v_command();
+            
             
         } else 
-           echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
+           echo "Error gefunden ! ".$this->controller->getError();
+        if(!$this->controller->getError()) {
+            $v_command = $this->controller->getView();
+            $this->$v_command();
+        }
     }
     public function main() {
         $login = new SmartyLogin();

@@ -13,6 +13,8 @@ class SessionController extends RightsController {
     private $user;
     
     
+    
+    
     public function __construct() {
         parent::__construct();
         $this->init();

@@ -12,41 +12,51 @@ class ModuleController {
         
     }
     public function init($view) {
-        $this->fetchView();
+        //$this->fetchView();
+        
+        if(!$this->fetchView()) {
+            GABLogger::debug("DEF V::".$view);
+            //echo "NO VIEW SET SET DEFAULT VIEW:::".$view;
+            $this->setView($view);
+        }
         
         $this->fetchAction();
-        if($this->getView() == '')
-            $this->setView($view);
-        if($this->sessionController->amIAllowed()) {
+        
+        if($this->sessionController->amIAllowed($this->action)) {
+            
             //first look, is there an Action because if so Controller will
             //redirect you after execution 
             $this->checkAction();
-            
             //execute view when there is no action given
             //Action causes controller to redirect so
             //this will only be affected when there is no action
             $this->checkView();
             
-            //$this->execute($execute);
         } else { 
-            $this->setError("KEINE BERECHTIGUNG :: [#1] VIEW oder ACTION");
+            $this->setError("KEINE BERECHTIGUNG :: [#1] VIEW oder ACTION : ".$this->sessionController->getRightsError());
             
         }
-        
     }
     private function checkAction() {
-        if(!$this->getAction() && !in_array($this->getAction(),$this->getViewActions())) {
-            $this->setError("NO SUCH ACTION OR NO ACTION SET :: [#2] ".$this->getAction()." ::");;
+        if($this->getAction() && !in_array($this->getAction(),$this->getViewActions())) {
+            $this->setError("NO SUCH ACTION :: [#2] ".$this->getAction()." ::");;
+            GABLogger::debug("Wrong A:".$this->action);
+            $this->action = null;
+            
         } else {
             $this->action = $this->getAction();
+            GABLogger::debug("Got A:".$this->action);
+        
         }
     }
     private function checkView() {
         if($this->getView() && !in_array($this->getView(), $this->getModuleViews())) {
-            $this->setError("NO SUCH VIEW OR NO VIEW SET :: [#3]".$this->getView()." ::");
+            $this->setError("NO SUCH VIEW :: [#3] ".$this->getView()." ::");
+            GABLogger::debug("Wrong V:".$this->view);
+            
         } else {
             $this->view = $this->getView();
-            $this->error = null;
+            GABLogger::debug("Got V:".$this->view);
         }
             
     }
@@ -56,7 +66,7 @@ class ModuleController {
     }
     public function setView($view) {
         $this->view = $view;
-        $_SESSION['view'] = $view;
+        $_SESSION[$this->sessionController->getModule()]['view'] = $view;
     }
     public function getAction() {
         return $this->action;
@@ -72,25 +82,40 @@ class ModuleController {
         return false;
     }
     private function fetchAction() {
-        if(isset($_GET['action'])) 
-            $_SESSION['action'] = $_GET['action'];
-        else {
-            if($_SESSION['action'] <> '') {
-                $_SESSION['HISTORY']['action'] = $_SESSION['action'];
-                $_SESSION['action'] = '';
-            }
-        }
-        $this->action = $_SESSION[$this-sessionController->getModule()]['action'];
+        if(isset($_GET['action']) && $_GET['action'] <> $_SESSION[$this->sessionController->getModule()]['action']) { 
+            $_SESSION[$this->sessionController->getModule()]['HISTORY']['action'][] = $_SESSION[$this->sessionController->getModule()]['action'];    
+            $_SESSION[$this->sessionController->getModule()]['action'] = $_GET['action'];
+            $this->action = $_GET['action'];
+            GABLogger::debug("A|".$this->action);
+            return true;
+            
+        } elseif(isset($_GET['action']) && $_GET['action'] == $_SESSION[$this->sessionController->getModule()]['action']) { 
+              $this->action = $_GET['action'];
+              //GABLogger::debug("'".$this->action);
+              return true;
+        } 
+        //GABLogger::debug("A-NOTHING FETCHED -FORGETOLD:".$_SESSION[$this->sessionController->getModule()]['action']);
+        $_SESSION[$this->sessionController->getModule()]['action'] = null;
+        
+        return false;    
+        
     }
     private function fetchView() {
-        
-        if(isset($_GET['view']))
+        //GABLogger::debug(__FUNCTION__);
+        if(isset($_GET['view']) && $_GET['view'] <> $_SESSION[$this->sessionController->getModule()]['view']) {
+            $_SESSION[$this->sessionController->getModule()]['HISTORY']['view'][] = $_SESSION[$this->sessionController->getModule()]['view'];
             $_SESSION[$this->sessionController->getModule()]['view'] = $_GET['view'];
-        elseif($_SESSION[$this->sessionController->getModule()]['view'] <> '') {
-            $_SESSION['HISTORY']['view'] = $_SESSION['view'];
-            $_SESSION[$this->sessionController->getModule()]['view'] = '';
-        }
+            $this->view = $_GET['view'];
+            GABLogger::debug("V|".$this->view);
+            return true;
+        } else if(isset($_GET['view']) && $_GET['view'] == $_SESSION[$this->sessionController->getModule()]['view']) {
+            $this->view = $_GET['view'];
+            //GABLogger::debug("'".$this->view);
+            return true;
+        } 
         $this->view = $_SESSION[$this->sessionController->getModule()]['view'];
+        //GABLogger::debug("V-NOTHING FETCHED -KEEpOLD:".$this->view);
+        return false;
     }
     
     public function registerModuleActions($actions) {
@@ -111,7 +136,7 @@ class ModuleController {
         return $_SESSION[$this->sessionController->getModule()];
     }
     public function setParam($name,$data) {
-        $_SESSION[$this->module][$name] = $data;
+        $_SESSION[$this->sessionController->getModule()][$name] = $data;
     }
     public function getModuleActions() {
         return $_SESSION[$this->getModule()]['ACTIONS'];
@@ -129,9 +154,7 @@ class ModuleController {
     public function getActionCommand() {
         return $this->action;
     }
-    public function getViewCommand() {
-        return $this->view;
-    }
+    
     public function setError($error) {
         $this->error = $error;
     }
