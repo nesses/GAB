@@ -1,13 +1,12 @@
 <?php
 
 require_once 'modules/employees/EmployeesController.php';
-class employees {
+require_once 'modules/module.php';
+class employees extends Module {
     
     private $controller;
     
-    private $error;
-   
-    
+      
     private $fieldVisibility = ["id"                =>  1,
                                 "username"          =>  1,
                                 "password"          =>  0,
@@ -34,43 +33,29 @@ class employees {
                                 'alterer_id'    =>  'Bearbeiter',
                                 'userstatus_id' =>  'Status'];
     
-    private $actions        = ['ListView' => []];
+    private $actions        = ['ListView'];
     private $params         = ['ListView' => ['page','offset','orderby']];
 
 
     private $views          = ['ListView'];
     
-    private $values;
     
-    public function __construct($sessionController) {        
+    
+    private $default_values = ['ListView' => ['page'   => 1,
+                                              'offset' => 10,
+                                              'orderby'=> 'username']];
+    
+    
+    public function __construct($sessionController) {
+        $this->setViews($this->views);
+        $this->setActions($this->actions);
+        $this->setParams($this->params);
+        $this->setDefaultValues($this->default_values);
         $this->controller = new EmployeesController($sessionController);
-        $this->controller->registerModuleActions($this->actions);
-        $this->controller->registerModuleParameters($this->params);
-        $this->controller->init($this->views[0]);
-        $this->values = $this->controller->fetchViewParams();
-        print_r($this->values);
-        if(!$this->controller->getError()) {
-            if($this->controller->hasAction()) {
-                
-                $this->executeCommand();
-            } 
-            $this->initView ();
-        } else 
-            echo $this->controller->getError();
-  
-    }
-    private function executeCommand() {
         
-        $command=$this->controller->getActionCommand();
-        $this->$command();
-        if(!$this->getError())
-            $this->controller->redirect();
-    
+        parent::__construct($this->controller);
     }
-    private function initView() {
-        $view = $this->controller->getView();
-        $this->$view();
-    }
+
     public function ListView() {
         $userTable = new UserTable();
         $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
@@ -78,16 +63,14 @@ class employees {
        
         //get offset from url($_GET need to be registered in
         //employee.php)
-        $offset=$this->values['offset'];
-        if(!$offset) {
-            $offset = $listView->getOffset(); 
-        }
-        $page=$this->values['page'];
+        $offset=$this->getValues()['offset'];
+        
+        $page=$this->getValues()['page'];
         $listView->setPage($page);
        
         $listView->setOffset($offset);
       
-        $orderby=$this->values['orderby'];
+        $orderby=$this->getValues()['orderby'];
         
         $index = $page-1;
         if($index < 0)
