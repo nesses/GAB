@@ -48,12 +48,25 @@ class employees {
         $this->controller->init($this->views[0]);
         $this->parameters = $this->controller->fetchParams();
         if(!$this->controller->getError()) {
-            $command=$this->controller->getActionCommand();
-            if(!$command)
-                $command = $this->controller->getViewCommand();
-            $this->$command();
-        } else echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
+            if($this->controller->hasAction())
+                $this->executeCommand();
+            else
+                $this->initView ();
+        } else 
+            echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
   
+    }
+    private function executeCommand() {
+        
+        $command=$this->controller->getActionCommand();
+        $this->$command();
+        $this->controller->redirect();
+
+        
+    }
+    private function initView() {
+        $view = $this->controller->getViewCommand();
+        $this->$view();
     }
     public function ListView() {
         $userTable = new UserTable();
