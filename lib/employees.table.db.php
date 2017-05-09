@@ -71,8 +71,9 @@ class EmployeesTable {
         return $tdata;
     }
     public function countAll() {
+        
         $this->db->initTable('count(id)');
-        $tdata = $this->db->asArray();
+        $tdata = $this->db->asRaw();
         return $tdata[0]['count(id)'];
     }
 

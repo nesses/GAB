@@ -11,7 +11,7 @@
                 {else}
                     <option>1</option>
                 {/if}
-            </select> <b>/ {$pageCount+1}</b>
+            </select> <b>/ {$pageCount}</b>
         </td>
         <td>>>></td>
         <td>

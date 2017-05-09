@@ -2,6 +2,7 @@
 
 require_once 'modules/employees/EmployeesController.php';
 require_once 'modules/module.php';
+require_once 'modules/employees/views/EditView.php';
 require_once 'lib/employees.table.db.php';
 class employees extends Module {
     
@@ -72,7 +73,7 @@ class employees extends Module {
     private $params         = ['ListView' => ['page','offset','orderby']];
     
     private $default_values = ['ListView' => ['page'   => 1,
-                                              'offset' => 10,
+                                              'offset' => 5,
                                               'orderby'=> 'username']];
     
     
@@ -87,39 +88,23 @@ class employees extends Module {
     }
 
     public function ListView() {
-        $userTable = new EmployeesTable();
-        $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
-        $listView->setModule($this->controller->getCurrentModule());
-       
-        //get offset from url($_GET need to be registered in
-        //employee.php)
         $offset=$this->getValues()['offset'];
         $page=$this->getValues()['page'];
-        $listView->setPage($page);
-       
-        $listView->setOffset($offset);
-      
         $orderby=$this->getValues()['orderby'];
-        
-        $index = $page-1;
-        if($index < 0)
-            $index = 0;
-        $index = "".$index*$offset."";
-        
-        $size = $userTable->countAll();
-        $pageCount = ceil($size/$offset);
-        
-        $listView->setPageCount($pageCount);
-        
-        
-        $content = $userTable->getAllJoined($index,$offset,$orderby);
-        //print_r($content); 
-        $listView->setContent($content);
-        
+        $userTable = new EmployeesTable();
+        $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
+            $listView->setModule($this->controller->getCurrentModule());
+            $listView->setOrderBy($orderby);
+            $listView->setOffset($offset);
+            $listView->setPage($page);
+            $listView->setTable($userTable);
+            $listView->initContent();
         $listView->show();
     }
     public function editView() {
-        echo "editView";
+        $editView = new EditView();
+        
+        $editView->show();
     }
     public function save() {
         $this->userTable=new UserTable();

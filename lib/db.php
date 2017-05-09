@@ -110,6 +110,7 @@ class Db {
         $this->query($sql);
         if($this->rowCount > 0) {
             $ret = $this->queryResult->fetchAll();
+            //print_r($ret);
             return $ret;
         }
         //echo $sql.'<br>';

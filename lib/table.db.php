@@ -64,6 +64,9 @@ class DbTable {
     
         
     }
+    public function asRaw() {
+        return $this->data;
+    }
     public function asArray() {
         $ret = ARRAY();
         //print_r($this->data);

@@ -6,6 +6,7 @@
 class ListView extends Smarty {
     
     private $module;
+    
     private $fieldVisibility;
     private $fieldTitles;
     
@@ -14,14 +15,23 @@ class ListView extends Smarty {
     private $offset;
     
     private $page;
+    
+    private $index;
+    
     private $pageCount;
     
     private $content;
+    
+    private $orderby;
 
     public function __construct($fieldVisibility,$fieldTitles) {
         $this->fieldVisibility = $fieldVisibility;
         $this->fieldTitles = $fieldTitles;
         parent::__construct();
+    }
+    public function initContent() {
+        $this->content = $this->table->getAllJoined("$this->index",$this->offset,$this->orderby);
+        $this->pageCount = ceil($this->table->countAll()/$this->offset);
     }
     public function setTable($table) {
         $this->table = $table;
@@ -30,23 +40,27 @@ class ListView extends Smarty {
         $this->module = $module;
     }
     public function setOffset($offset) {
+        
         $this->offset = $offset;
     }
     public function getOffset() {
         return $this->offset;
     }
     public function setPage($page) {
+        if($page == 0)
+            $page = 1;
+        $this->index = ($page-1) * $this->offset;
         $this->page = $page;
+ 
     }
-    public function setPageCount($pageCount) {
-        $this->pageCount = $pageCount;
+    public function setOrderBy($orderby) {
+        $this->orderby = $orderby;
     }
+    
     public function setContent($content) {
         $this->content = $content;
     }
-    public function initContent() {
-        
-    }
+    
     public function show() {
         $this->assign('fieldVisibility',$this->fieldVisibility);
         $this->assign('fieldTitles', $this->fieldTitles);
