@@ -27,7 +27,7 @@ class Login {
             
             
         } else 
-           echo "Error gefunden ! ".$this->controller->getError();
+           echo $this->controller->getError();
         if(!$this->controller->getError()) {
             $v_command = $this->controller->getView();
             $this->$v_command();

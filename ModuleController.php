@@ -33,8 +33,7 @@ class ModuleController {
             $this->checkView();
             
         } else { 
-            $this->setError("KEINE BERECHTIGUNG :: [#1] VIEW oder ACTION : ".$this->sessionController->getRightsError());
-            
+            $this->setError("DENIED :: [#1] VIEW oder ACTION : ".$this->sessionController->getRightsError());
         }
     }
     private function checkAction() {
@@ -117,8 +116,11 @@ class ModuleController {
         //GABLogger::debug("V-NOTHING FETCHED -KEEpOLD:".$this->view);
         return false;
     }
-    
+    public function registerModuleParameters($parameters) {
+        //TODO
+    }
     public function registerModuleActions($actions) {
+        GABLogger::debug("REGISTER".$actions['ListView'][0]);
         //add 'if isset @' to create duoble regitrations
         if(!$_SESSION[$this->sessionController->getModule()]['ACTIONS'])
             $_SESSION[$this->sessionController->getModule()]['ACTIONS'] = $actions;

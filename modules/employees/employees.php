@@ -5,7 +5,7 @@ class employees {
     
     private $controller;
     
-   
+    private $error;
    
     
     private $fieldVisibility = ["id"                =>  1,
@@ -48,12 +48,12 @@ class employees {
         $this->controller->init($this->views[0]);
         $this->parameters = $this->controller->fetchParams();
         if(!$this->controller->getError()) {
-            if($this->controller->hasAction())
+            if($this->controller->hasAction()) {
                 $this->executeCommand();
-            else
+            } else
                 $this->initView ();
         } else 
-            echo "Error gefunden !!!!!".$this->controller->getError();
+            echo $this->controller->getError();
   
     }
     private function executeCommand() {
