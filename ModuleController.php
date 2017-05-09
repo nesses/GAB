@@ -76,8 +76,12 @@ class ModuleController {
     private function fetchAction() {
         if(isset($_GET['action'])) 
             $_SESSION['action'] = $_GET['action'];
-        else 
-            $_SESSION['action'] = '';
+        else {
+            if($_SESSION['action'] <> '') {
+                $_SESSION['HISTORY']['action'] = $_SESSION['action'];
+                $_SESSION['action'] = '';
+            }
+        }
         $this->action = $_SESSION['action'];
     }
     private function fetchView() {
