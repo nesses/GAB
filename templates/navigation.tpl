@@ -7,7 +7,8 @@
         <title>[GAB] - {$modTitles[$module]}  </title>
         <link rel="shortcut icon" href=""> 
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" href="css/layout.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!--<link rel="stylesheet" type="text/css" href="css/layout.css">-->
     </head>
     <body>
         <script type="text/javascript" src="js/functions.js"></script>

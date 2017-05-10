@@ -3,11 +3,13 @@
 /* 
  * @author Matthias Grotjohann
  */
+require_once 'lib/table.db.php';
+
 class EditView extends Smarty {
     
     private $table;
     private $relatedTables;
-    private $relations
+    private $relations;
     private $fieldTitles;
     private $fieldTypes;
     
@@ -18,7 +20,10 @@ class EditView extends Smarty {
         foreach($fields as $fieldTitle => $settings) {
             $this->fieldTypes[$fieldTitle] = $settings['type'];
             $this->fieldTitles[$fieldTitle] = $settings['title'];
+            
         }
+        $this->extractRelatedTables();
+        $this->loadRelations();
         
         parent::__construct();
     }
@@ -26,8 +31,25 @@ class EditView extends Smarty {
         if(!$fieldTypes)
             $fieldTypes = $this->fieldTypes;
         foreach($fieldTypes as $fieldTitle => $settings) {
-            if(is_array($settings['title']))
+            if(is_array($settings))
+                $this->relations[$fieldTitle] = $settings;
+            
         }
+        print_r($this->relations);
+    }
+    private function loadRelations() {
+        foreach($this->relations as $fieldTitle => $table_col) {
+            foreach ($table_col as $tableName => $columns) {
+                $table = new DbTable($tableName, ['id',$columns]);           
+                $table->initTable('id,'.$columns.' as title ');
+                $cont = $table->asRaw();
+                $this->relatedTables[$fieldTitle] = $cont;  
+            }    
+        }
+        //  print_r($this->relatedTables);
+    }
+    public function setupColumns($cols) {
+        $this->fieldTitles= array_chunk($this->fieldTitles,$cols,true);
     }
     public function initContent() {
         // TODO
@@ -38,19 +60,17 @@ class EditView extends Smarty {
     public function setTable($table) {
         $this->table = $table;
     }
-    public function setRelatedTables($tables_array) {
-        $this->relatedTables = $tables_array;
-        
-    }
+    
     public function setId($id) {
         $this->id = $id;
     }
     public function show() {
         $this->assign("id",$this->id);
-        
+        $this->setupColumns(3);
         $this->assign('fieldTitles',$this->fieldTitles);
-        $this->assign('fieldTypes', $this->fieldTypes);
-        
+        //print_r(array_chunk($this->fieldTitles,3,true));
+        $this->assign('fieldTypes', $this->fieldTypes,3,true);
+        $this->assign('relatedTables',$this->relatedTables);
         $this->display("templates/items/EditView.tpl");
     }
 }

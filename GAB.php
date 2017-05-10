@@ -22,10 +22,7 @@ class GAB  {
         $this->debug = $debug;
         $this->sessionController = new SessionController($debug);
         $this->module = $this->sessionController->getModule();
-        $this->rightsController = new RightsController($this->sessionController,$debug);
         
-        
-        //$log::debug("test");
     }
     public function HORIDO() {
         
@@ -36,9 +33,8 @@ class GAB  {
               if($this->testModuleFile($this->sessionController->getModule())) {
                   require_once 'modules/'.$this->module.'/'.$this->module.'.php';
                   if(class_exists($this->module)) {
-                      $gab_module = new $this->module($this->sessionController,$this->rightsController,$this->smarty,$this->debug);
-                      //$this->smarty->assign('msg',$gab_module->getError());
-                      //$gab_module->show();
+                      $gab_module = new $this->module($this->sessionController);
+                      
                   } else
                       $this->smarty->assign('msg',$this->module.'::Module File eixsts but Class is not there');
               } else {

@@ -19,13 +19,13 @@ class employees extends Module {
                                  'street'           => ['visibility' => 0,'title' => "Strasse",         'type' => 'text'    ],
                                  'zip'              => ['visibility' => 0,'title' => "PLZ",             'type' => 'number'  ],
                                  'city'             => ['visibility' => 0,'title' => "Ort",             'type' => 'text'    ],
-                                 'workaction_id'    => ['visibility' => 1,'title' => "Maßnahme",        'type' => ['groups' => 'title'],
+                                 'workaction_id'    => ['visibility' => 1,'title' => "Maßnahme",        'type' => ['groups' => 'title']],
                                  'speechcoursedays' => ['visibility' => 0,'title' => "Sprachkurs",      'type' => 'number'  ],
                                  'workaction_beginn'=> ['visibility' => 1,'title' => "Beginnt",         'type' => 'date'    ],
                                  'workaction_end'   => ['visibility' => 1,'title' => "Endet",           'type' => 'date'    ],
                                  'timeaddon_end'    => ['visibility' => 1,'title' => "Verlängerung",    'type' => 'date'    ],
                                  'created'          => ['visibility' => 0,'title' => "Erstellt",        'type' => 'date'    ],
-                                 'creator_id'       => ['visibility' => 0,'title' => "Ersteller",       'type' => ['users' => 'username'],
+                                 'creator_id'       => ['visibility' => 0,'title' => "Ersteller",       'type' => ['users' => 'username']],
                                  'birthday'         => ['visibility' => 1,'title' => "Geb.Datum",       'type' => 'date'    ],
                                  'jobcenterid'      => ['visibility' => 1,'title' => "Jobcenter#",      'type' => 'date'    ],
                                  'handicaped'       => ['visibility' => 0,'title' => "Schwerbehindert", 'type' => 'bool'    ],
@@ -38,7 +38,7 @@ class employees extends Module {
                                  'anrede_id'        => ['visibility' => 0,'title' => "Anrede",          'type' => 'number'  ]];
     
     private $actions        = [ 'ListView' => ['edit','del'],
-                                'EditView' => []];
+                                'EditView' => ['save']];
     
     private $views          = ['ListView','EditView'];
     
@@ -60,6 +60,7 @@ class employees extends Module {
         $this->controller = new EmployeesController($sessionController);
         
         parent::__construct($this->controller);
+        
     }
 
     public function ListView() {
@@ -78,6 +79,9 @@ class employees extends Module {
         $listView->show();
     }
     public function editView() {
+        $this->controller->registerPOSTDataFields(array_keys($this->fields));
+        $this->controller->fetchPOSTDataFields();
+    
         $id = $this->getValues()['id'];
         $editView = new EditView($this->fields);
         $editView->setId($id);
@@ -86,25 +90,13 @@ class employees extends Module {
         $editView->show();
     }
     public function save() {
-        $this->userTable=new UserTable();
-        
-        if(isset($_POST['_action'])) {
-            unset($_POST['_action']);
-            unset($_POST['id']);
-            $_POST['creator_id'] = $_SESSION['user']['id'];
-            $_POST['alterer_id'] = $_SESSION['user']['id'];
-            $_POST['password'] = md5($_POST['password']);
-            $_POST['userstatus_id'] = 4;
-            $date = new DateTime('now');
-            $date->format('Y-m-d H:i:s');
-            $_POST['created'] = $date->format('Y-m-d H:i:s');
-
-            $this->userTable->addUser($_POST);
-            $_SESSION['action'] = null;
-        }
-        
-        echo '<script type="text/javascript">window.location="index.php?module=employees&view=listAll"</script>';
- 
+       
+      foreach($this->fields as $name => $settings) {
+          $_POST[$name];
+       }
+        print_r($receive);
+        $this->controller->setError("DEVELOPMENT");
+        $this->setError("DEEVL");
     }
 }
 ?>

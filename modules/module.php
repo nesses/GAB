@@ -56,6 +56,10 @@ class Module {
     public function setValues($values) {
         $this->values = $values;
     }
+    public function setViewParams($viewName,$params) {
+        $this->params[$viewName] = $params;
+        $this->controller->registerModuleParameters($this->params);
+    }
     public function setParams($params) {
         $this->params = $params;
     }

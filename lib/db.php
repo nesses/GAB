@@ -33,7 +33,7 @@ class Db {
 	  * @throws Excpetion
 	*/
     public function query($sql) {
-        //GABLogger::debug($sql);
+        GABLogger::sql($sql);
         $result = $this->pdo->query($sql);
         if($result) {
             if($result->rowCount() >= 0) {

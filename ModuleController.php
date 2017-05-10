@@ -7,6 +7,8 @@ class ModuleController {
     private $action;
     private $view;
     
+    private $dataFieldsNames;
+    
     public function __construct($sessionController) {
         $this->sessionController = $sessionController;
         
@@ -61,27 +63,6 @@ class ModuleController {
         }
             
     }
-    
-    public function getView() {
-        return $this->view;
-    }
-    public function setView($view) {
-        $this->view = $view;
-        $_SESSION[$this->getModule()]['view'] = $view;
-    }
-    public function getAction() {
-        return $this->action;
-    }
-    public function hasPOST() {
-        if($_POST)
-              return true;
-        return false;
-    }
-    public function hasAction() {
-        if($this->action && $this->hasPOST())
-            return true;
-        return false;
-    }
     private function fetchAction() {
         if(isset($_GET['action']) && $_GET['action'] <> $_SESSION[$this->getModule()]['action']) { 
             $_SESSION[$this->getModule()]['HISTORY']['action'][] = $_SESSION[$this->getModule()]['action'];    
@@ -120,15 +101,29 @@ class ModuleController {
             return true;
         return false;
     }
+    public function registerPOSTDataFields($fields) {
+        $_SESSION[$this->getModule()]['DATAFIELDS'][$this->getView()] = $fields;
+        $this->dataFieldsNames = $fields;
+    }
     public function registerModuleParameters($parameters) {
-        if(!$_SESSION[$this->getModule()]['PARAMS'])
-            $_SESSION[$this->getModule()]['PARAMS'] = $parameters;
+        $_SESSION[$this->getModule()]['PARAMS'] = $parameters;
     }
     public function registerModuleActions($actions) {
         //GABLogger::debug("REGISTER".$actions['ListView'][0]);
-        //add 'if isset @' to create duoble regitrations
-        if(!$_SESSION[$this->getModule()]['ACTIONS'])
-            $_SESSION[$this->getModule()]['ACTIONS'] = $actions;
+        $_SESSION[$this->getModule()]['ACTIONS'] = $actions;
+    }
+    public function fetchPOSTDataFields() {
+        
+        if(isset($_POST)) {
+            foreach($_POST as $key => $val) {
+                if(in_array($key, $this->dataFieldsNames))
+                $_SESSION[$this->getModule()]['DATA'][$this->getView()][$key] = $val;
+                
+                echo $_SESSION[$this->getModule()]['DATA'][$this->getView()][$key];
+            }
+            
+            unset($_POST);
+        }
     }
     public function fetchViewParams() {
         $params = $this->getViewParameters();
@@ -157,9 +152,9 @@ class ModuleController {
             return Array();
     }
     public function getViewParameters() {
-            if($_SESSION[$this->getModule()]['PARAMS'][$this->getView()])
-                return $_SESSION[$this->getModule()]['PARAMS'][$this->getView()];
-            return Array();
+        if($_SESSION[$this->getModule()]['PARAMS'][$this->getView()])
+            return $_SESSION[$this->getModule()]['PARAMS'][$this->getView()];
+        return Array();
     }
     public function getModuleViews() {
         return array_keys($_SESSION[$this->getModule()]['ACTIONS']);
@@ -167,11 +162,29 @@ class ModuleController {
     public function getActionCommand() {
         return $this->action;
     }
+    
+    public function getView() {
+        if($this->view)
+            return $this->view;
+        else throw new Exception(__CLASS__."::".__FUNCTION__."::set view first!");
+    }
     public function setError($error) {
         $this->error = $error;
     }
     public function getError() {
         return $this->error;
+    }
+    public function setView($view) {
+        $this->view = $view;
+        $_SESSION[$this->getModule()]['view'] = $view;
+    }
+    public function getAction() {
+        return $this->action;
+    }
+    public function hasAction() {
+        if($this->action && $this->sessionController->hasPOST())
+            return true;
+        return false;
     }
     public function getModule() {
         return $this->sessionController->getModule();
@@ -185,4 +198,5 @@ class ModuleController {
     public function destroySession() {
         $this->sessionController->destroy();
     }
+    
 }

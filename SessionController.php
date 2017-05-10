@@ -18,7 +18,7 @@ class SessionController extends RightsController {
     public function __construct() {
         parent::__construct();
         $this->init();
-        print_r($_SESSION);
+        //print_r($_SESSION);
     }
     public function init() {
         session_start();
@@ -88,6 +88,9 @@ class SessionController extends RightsController {
     }
     public function destroy() {
           session_unset();
+    }
+    public function hasPOST() {
+        return isset($_POST);
     }
     
 }   

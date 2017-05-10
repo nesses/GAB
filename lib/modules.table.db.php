@@ -22,7 +22,7 @@ class ModulesTable {
     }
     
     public function getTitles($mode = 'normal') {
-    //GABLogger::debug(__FUNCTION__);    
+       
         $this->db->initTable(["title","name"]);
         if($mode == 'normal')
             $ret = $this->db->asArray();
