@@ -31,6 +31,7 @@ class ListView extends Smarty {
     }
     public function initContent() {
         $this->content = $this->table->getAllJoined("$this->index",$this->offset,$this->orderby);
+        //if($this->offset == 0) $this->offset = 5;
         $this->pageCount = ceil($this->table->countAll()/$this->offset);
     }
     public function setTable($table) {
@@ -40,8 +41,9 @@ class ListView extends Smarty {
         $this->module = $module;
     }
     public function setOffset($offset) {
-        
-        $this->offset = $offset;
+        if($offset > 0)
+            $this->offset = $offset;
+        else $this->offset = 5;
     }
     public function getOffset() {
         return $this->offset;

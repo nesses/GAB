@@ -6,52 +6,47 @@ require_once 'modules/plungerclock/views/dashBoard.php';
 
 require_once 'modules/plungerclock/PlungerclockController.php';
 require_once 'lib/plungerclock.table.db.php';
-class plungerclock  {
+
+    require_once 'modules/module.php';
+class Plungerclock extends Module {
+       
+    private $controller;
+   
+    private $views    = ['dashBoard'];
     
-    private $views = ['dashBoard'];
+    private $actions  = ['dashBoard' => ['stamp']];
     
-    private $actions = ['dashBoard' => ['offset','page','date','day']];
+    private $params   = ['dashBoard' => ['offset','page','date','day']];
     
-    private $parameters;
-    
-    public function __construct($sessionController) {        
-        GABLogger::debug(__CLASS__);
+    public function __construct($sessionController) {
+        $this->setViews($this->views);
+        $this->setActions($this->actions);
+        $this->setParams($this->params);
+        //$this->setDefaultValues($this->default_values);
         $this->controller = new PlungerclockController($sessionController);
-        $this->controller->registerModuleActions($this->actions);
-        $this->controller->init($this->views[0]);
-        $this->parameters = $this->controller->fetchParams();
-        if(!$this->controller->getError()) {
-            $command=$this->controller->getActionCommand();
-            if(!$command)
-                $command = $this->controller->getViewCommand();
-            $this->$command();
-        } else echo "Error gefunden !!!!!!!:::!:!::!::!::::".$this->controller->getError();
-  
-    } 
+        parent::__construct($this->controller);
+    }
     public function dashBoard() {
         //brauchen beide
         $groups_id = $this->controller->getSessionUser()['groups_id'];
         $users_id = $this->controller->getSessionUser()['id'];
         
-        //WORKTIMEINFO
-        $date = $this->parameters['date'];
-        $day = $this->parameters['day'];
         
         $dash=new dashBoard();
         
         
         if(!$date) {
             $today = date('d.m.Y');
-            $this->controller->setParam('date',time());
+ //           $this->controller->setParam('date',time());
         } else {
             $today = date('d.m.Y',$date);
             if($day) {
-                if($day == 'back')
-                    $this->controller->setParam('date',strtotime($today)-(60*60*24));
-                else
-                    $this->controller->setParam('date',strtotime($today)+(60*60*24));
-                $this->controller->setParam('day','');
-                $this->controller->redirect($this->controller->getView());
+                ////if($day == 'back')
+        //            $this->controller->setParam('date',strtotime($today)-(60*60*24));
+//                else
+//                    $this->controller->setParam('date',strtotime($today)+(60*60*24));
+//                $this->controller->setParam('day','');
+//                $this->controller->redirect($this->controller->getView());
             }
         }
         $pclockTable = new PlungerclockTable();

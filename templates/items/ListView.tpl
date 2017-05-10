@@ -1,35 +1,35 @@
-    <table style="width:100%;">
-    <tr>
-        <td>Seite:</td>
-        <td><<<</td>
-        <td>
-            <select>
-                {if $pageCount > 0}
-                {for $i=1 to $pageCount}
-                <option {if $page eq $i}selected{/if} onclick="window.location='index.php?module={$module}&view=ListView&page={$i}'">{$i}</option>
-                {/for}
-                {else}
-                    <option>1</option>
-                {/if}
-            </select> <b>/ {$pageCount}</b>
-        </td>
-        <td>>>></td>
-        <td>
-            Pro Seite:
-        </td>
-        <td>
-            <select>
-                {for $i=1 to 4}
-                <option {if $i*5 eq $offset}selected{/if} onclick="window.location='index.php?module={$module}&view=ListView&offset={$i*5}'">{$i*5}</option>
-                {/for}
-            </select>
-        </td>
-        <td style="width:50%;"></td>
-        <td>
-            <a href="index.php?view=EditView&mode=new">Mitarbeiter hinzufügen</a>
-        </td>
-        
-    </tr>
+<table style="width:100%;">
+<tr>
+    <td>Seite:</td>
+    <td><<<</td>
+    <td>
+        <select>
+            {if $pageCount > 0}
+            {for $i=1 to $pageCount}
+            <option {if $page eq $i}selected{/if}  {if $page neq $i} onclick="window.location='index.php?module={$module}&view=ListView&page={$i}'"{/if}>{$i}</option>
+            {/for}
+            {else}
+                <option>1</option>
+            {/if}
+        </select> <b>/ {$pageCount}</b>
+    </td>
+    <td>>>></td>
+    <td>
+        Pro Seite:
+    </td>
+    <td>
+        <select>
+            {for $i=1 to 4}
+            <option {if $i*5 eq $offset}selected{/if} onclick="window.location='index.php?module={$module}&view=ListView&offset={$i*5}'">{$i*5}</option>
+            {/for}
+        </select>
+    </td>
+    <td style="width:50%;"></td>
+    <td>
+        <a href="index.php?view=EditView&mode=new">Mitarbeiter hinzufügen</a>
+    </td>
+
+</tr>
 </table>
 <table style="width:100%;" id='listAll'>
     <tr id='listAllTitles'>
@@ -69,4 +69,37 @@
         {/if}
         {/foreach}
     </tr>   
+</table>
+<table style="width:100%;">
+<tr>
+    <td>Seite:</td>
+    <td><<<</td>
+    <td>
+        <select>
+            {if $pageCount > 0}
+            {for $i=1 to $pageCount}
+            <option {if $page eq $i}selected{/if} onclick="window.location='index.php?module={$module}&view=ListView&page={$i}'">{$i}</option>
+            {/for}
+            {else}
+                <option>1</option>
+            {/if}
+        </select> <b>/ {$pageCount}</b>
+    </td>
+    <td>>>></td>
+    <td>
+        Pro Seite:
+    </td>
+    <td>
+        <select>
+            {for $i=1 to 4}
+            <option {if $i*5 eq $offset}selected{/if} onclick="window.location='index.php?module={$module}&view=ListView&offset={$i*5}'">{$i*5}</option>
+            {/for}
+        </select>
+    </td>
+    <td style="width:50%;"></td>
+    <td>
+        <a href="index.php?view=EditView&mode=new">Mitarbeiter hinzufügen</a>
+    </td>
+
+</tr>
 </table>

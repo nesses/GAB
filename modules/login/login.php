@@ -23,7 +23,6 @@ class Login extends Module {
         $this->setParams($this->params);
         $this->setDefaultValues($this->default_values);
         $this->controller = new LoginController($sessionController);
-        
         parent::__construct($this->controller);
     }
     public function main() {
