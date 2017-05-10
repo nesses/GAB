@@ -24,9 +24,15 @@ class ListView extends Smarty {
     
     private $orderby;
 
-    public function __construct($fieldVisibility,$fieldTitles) {
-        $this->fieldVisibility = $fieldVisibility;
-        $this->fieldTitles = $fieldTitles;
+    public function __construct($fields) {
+        foreach($fields as $fieldTitle => $settings) {
+            $this->fieldVisibility[$fieldTitle] = $settings['visibility'];
+            $this->fieldTitles[$fieldTitle] = $settings['title'];
+        }
+        //print_r($this->fieldTitles);
+        //die;
+        //$this->fieldVisibility = $fieldVisibility;
+        //$this->fieldTitles = $fieldTitles;
         parent::__construct();
     }
     public function initContent() {

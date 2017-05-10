@@ -7,74 +7,49 @@ require_once 'lib/employees.table.db.php';
 class employees extends Module {
     
     private $controller;
-    private $fieldVisibility =  ['id'               => 0, 
-                                 'user_id'          => 1, 
-                                 'name'             => 1, 
-                                 'surname'          => 1,
-                                 'group_id'         => 0,
-                                 'tel'              => 0,
-                                 'mobile'           => 0,
-                                 'mail'             => 0,
-                                 'street'           => 0,
-                                 'zip'              => 0,
-                                 'city'             => 0,
-                                 'workaction_id'    => 1,
-                                 'speechcoursedays' => 0,
-                                 'workaction_beginn'=> 1,
-                                 'workaction_end'   => 1,
-                                 'timeaddon_end'    => 1,
-                                 'created'          => 0,
-                                 'creator_id'       => 0,
-                                 'birthday'         => 1,
-                                 'jobcenterid'      => 1,
-                                 'handicaped'       => 0,
-                                 'pillflat'         => 0,
-                                 'bank_id'          => 0,
-                                 'bic'              => 0,
-                                 'iban'             => 0,
-                                 'accountowner'     => 0,
-                                 'nationality_id'   => 0,
-                                 'anrede_id'        => 0];
     
-    private $fieldTitles =      ['id'               => "ID", 
-                                 'user_id'          => "User", 
-                                 'name'             => "Name", 
-                                 'surname'          => "Nachname",
-                                 'group_id'         => "Rechte",
-                                 'tel'              => "Tel.:",
-                                 'mobile'           => "Mobil",
-                                 'mail'             => "e-Mail",
-                                 'street'           => "Strasse",
-                                 'zip'              => "PLZ",
-                                 'city'             => "Ort",
-                                 'workaction_id'    => "Maßnahme",
-                                 'speechcoursedays' => "Sprachkurs",
-                                 'workaction_beginn'=> "Beginnt",
-                                 'workaction_end'   => "Endet",
-                                 'timeaddon_end'    => "Verlängerung",
-                                 'created'          => "Erstellt",
-                                 'creator_id'       => "Ersteller",
-                                 'birthday'         => "Geb.Datum",
-                                 'jobcenterid'      => "Jobcenter#",
-                                 'handicaped'       => "Schwerbehindert",
-                                 'pillflat'         => "Krankenkasse",
-                                 'bank_id'          => "Bank",
-                                 'bic'              => "BIC",
-                                 'iban'             => "IBAN",
-                                 'accountowner'     => "Kto.Inhaber",
-                                 'nationality_id'   => "Nationalität",
-                                 'anrede_id'        => "Anrede"];
+    private $fields =           ['id'               => ['visibility' => 0,'title' => "ID",              'type' => 'hidden'  ], 
+                                 'user_id'          => ['visibility' => 1,'title' => "User",            'type' => ''        ], 
+                                 'name'             => ['visibility' => 1,'title' => "Name",            'type' => 'text'    ], 
+                                 'surname'          => ['visibility' => 1,'title' => "Nachname",        'type' => 'text'    ],
+                                 'group_id'         => ['visibility' => 0,'title' => "Rechte",          'type' => ''        ],
+                                 'tel'              => ['visibility' => 0,'title' => "Tel.:",           'type' => 'text'    ],
+                                 'mobile'           => ['visibility' => 0,'title' => "Mobil",           'type' => 'text'    ],
+                                 'mail'             => ['visibility' => 0,'title' => "e-Mail",          'type' => 'text'    ],
+                                 'street'           => ['visibility' => 0,'title' => "Strasse",         'type' => 'text'    ],
+                                 'zip'              => ['visibility' => 0,'title' => "PLZ",             'type' => 'number'  ],
+                                 'city'             => ['visibility' => 0,'title' => "Ort",             'type' => 'text'    ],
+                                 'workaction_id'    => ['visibility' => 1,'title' => "Maßnahme",        'type' => ''        ],
+                                 'speechcoursedays' => ['visibility' => 0,'title' => "Sprachkurs",      'type' => 'number'  ],
+                                 'workaction_beginn'=> ['visibility' => 1,'title' => "Beginnt",         'type' => 'date'    ],
+                                 'workaction_end'   => ['visibility' => 1,'title' => "Endet",           'type' => 'date'    ],
+                                 'timeaddon_end'    => ['visibility' => 1,'title' => "Verlängerung",    'type' => 'date'    ],
+                                 'created'          => ['visibility' => 0,'title' => "Erstellt",        'type' => 'date'    ],
+                                 'creator_id'       => ['visibility' => 0,'title' => "Ersteller",       'type' => ''        ],
+                                 'birthday'         => ['visibility' => 1,'title' => "Geb.Datum",       'type' => 'date'    ],
+                                 'jobcenterid'      => ['visibility' => 1,'title' => "Jobcenter#",      'type' => 'date'    ],
+                                 'handicaped'       => ['visibility' => 0,'title' => "Schwerbehindert", 'type' => 'bool'    ],
+                                 'pillflat'         => ['visibility' => 0,'title' => "Krankenkasse",    'type' => 'text'    ],
+                                 'bank_id'          => ['visibility' => 0,'title' => "Bank",            'type' => 'text'    ],
+                                 'bic'              => ['visibility' => 0,'title' => "BIC",             'type' => 'text'    ],
+                                 'iban'             => ['visibility' => 0,'title' => "IBAN",            'type' => 'text'    ],
+                                 'accountowner'     => ['visibility' => 0,'title' => "Kto.Inhaber",     'type' => 'text'    ],
+                                 'nationality_id'   => ['visibility' => 0,'title' => "Nationalität",    'type' => 'number'  ],
+                                 'anrede_id'        => ['visibility' => 0,'title' => "Anrede",          'type' => 'number'  ]];
     
-    private $actions        = [ 'ListView' => [],
+    private $actions        = [ 'ListView' => ['edit','del'],
                                 'EditView' => []];
     
     private $views          = ['ListView','EditView'];
     
-    private $params         = ['ListView' => ['page','offset','orderby']];
+    private $params         = ['ListView' => ['page','offset','orderby'],
+                               'EditView' => ['id']];
     
     private $default_values = ['ListView' => ['page'   => 1,
                                               'offset' => 5,
-                                              'orderby'=> 'username']];
+                                              'orderby'=> 'username'],
+        
+                               'EditView' => ['id'     => null]];
     
     
     public function __construct($sessionController) {
@@ -92,7 +67,8 @@ class employees extends Module {
         $page=$this->getValues()['page'];
         $orderby=$this->getValues()['orderby'];
         $userTable = new EmployeesTable();
-        $listView = new ListView($this->fieldVisibility,$this->fieldTitles);
+        //$listView = new ListView($this->fieldVisibility,$this->fieldTitles);
+        $listView = new ListView($this->fields);
             $listView->setModule($this->controller->getCurrentModule());
             $listView->setOrderBy($orderby);
             $listView->setOffset($offset);
@@ -102,7 +78,10 @@ class employees extends Module {
         $listView->show();
     }
     public function editView() {
-        $editView = new EditView();
+        $id = $this->getValues()['id'];
+        $editView = new EditView($this->fields);
+        $editView->setId($id);
+        
         
         $editView->show();
     }

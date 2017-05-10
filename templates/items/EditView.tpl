@@ -2,7 +2,7 @@
     <table style="border:1px solid;">
         <tr>
             <td>
-                zezs
+                {$id}
             </td>
         </tr>
     </table>
