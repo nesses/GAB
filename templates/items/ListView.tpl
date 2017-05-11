@@ -1,11 +1,5 @@
-<div class="container" role="main">
-</div>
-<div class="container" role="main">
-</div>
-
 <div class="jumbotron"> 
-    
-
+<div class="container">    
 <table class="table table-striped">
     <thead>
         <tr>
@@ -13,9 +7,7 @@
         {if $fieldVisibility[$title] eq 1}
             <th>
                 <a href="index.php?module={$module}&view=ListView&orderby={$title}">
-                        {$value}
-                    
-                       
+                {$value}
                 </a>
             </th>
         {/if}
@@ -38,5 +30,6 @@
     {/foreach}
     </tbody>
 </table>            
-</div>
+</div><!-- jumbotron -->
+</div><!-- container -->
       
