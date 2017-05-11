@@ -1,5 +1,5 @@
-<div class="container jumbotron"> 
-<div class="container">    
+<div class="container"> 
+<div class="jumbotron">    
 <table class="table table-striped">
     <thead>
         <tr>

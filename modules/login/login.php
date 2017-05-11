@@ -27,7 +27,9 @@ class Login extends Module {
     }
     public function main() {
         $login = new SmartyLogin();
-        echo $this->getError();
+        $err = $this->getError();
+        if($err)
+            $login->enableAlert ('danger', $err);
 
         $login->show();
        

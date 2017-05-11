@@ -4,13 +4,14 @@
  */
 require_once 'SessionController.php';
 require_once 'RightsController.php';
+require_once 'modules/system/Navigation.php';
 require_once "lib/smarty-3.1.30/libs/Smarty.class.php";
 require_once "inc/logger.php";
 
 class GAB  {
     private $debug = false;
     
-    private $smarty;
+    private $navigation;
     private $sessionController;
     private $rightsController;
     
@@ -35,14 +36,15 @@ class GAB  {
                   if(class_exists($this->module)) {
                       $gab_module = new $this->module($this->sessionController);
                       
-                  } else
-                      $this->smarty->assign('msg',$this->module.'::Module File eixsts but Class is not there');
+                  } //else
+                      //$this->smarty->assign('msg',$this->module.'::Module File eixsts but Class is not there');
               } else {
-                  $this->smarty->assign('msg','No such module :: '.$this->module);
+                  $this->navigation->enableAlert('danger','No such module :: '.$this->module);
+                  
               }
           } else 
-                echo "Not logged in";
-            $this->smarty->display('templates/footer.tpl');
+                $this->navigation->enableAlert('danger',"Zutritt verweigert!!! Nicht angemeldet");
+            $this->navigation->display('templates/footer.tpl');
             
             print_r($_SESSION);
     }
@@ -54,11 +56,12 @@ class GAB  {
         $modTitles = $dbModules->getTitles('keyval');
         $user = $this->sessionController->getUser();
         
-        $this->smarty = new Smarty();
-        $this->smarty->assign('modTitles',$modTitles);
-        $this->smarty->assign('module',$module);
-        $this->smarty->assign('user',$user);
+        $this->navigation = new Navigation();
+        $this->navigation->setItems($modTitles);
+        $this->navigation->setActiveItem($module);
+        if($user)
+            $this->navigation->enableLogin (true);
         
-        $this->smarty->display('templates/navigation.tpl');
+       $this->navigation->show();
     }
 }

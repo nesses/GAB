@@ -1,4 +1,4 @@
-<$php
+<?php
 class Alert extends Smarty {
     
     private $type;
@@ -6,7 +6,7 @@ class Alert extends Smarty {
     private $message;
     
     public function __construct() {
-        parent::__construct():
+        parent::__construct();
     }
     public function setType($type) {
         $this->type = $type;
@@ -21,4 +21,4 @@ class Alert extends Smarty {
         $this->display('templates/items/bs_alert.tpl');
         
     }
-}a
+}

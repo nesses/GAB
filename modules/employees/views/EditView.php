@@ -35,7 +35,7 @@ class EditView extends Smarty {
                 $this->relations[$fieldTitle] = $settings;
             
         }
-        print_r($this->relations);
+        //print_r($this->relations);
     }
     private function loadRelations() {
         foreach($this->relations as $fieldTitle => $table_col) {
@@ -66,10 +66,10 @@ class EditView extends Smarty {
     }
     public function show() {
         $this->assign("id",$this->id);
-        $this->setupColumns(3);
+        $this->setupColumns(8);
         $this->assign('fieldTitles',$this->fieldTitles);
         //print_r(array_chunk($this->fieldTitles,3,true));
-        $this->assign('fieldTypes', $this->fieldTypes,3,true);
+        $this->assign('fieldTypes', $this->fieldTypes);
         $this->assign('relatedTables',$this->relatedTables);
         $this->display("templates/items/EditView.tpl");
     }

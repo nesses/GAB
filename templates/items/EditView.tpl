@@ -1,61 +1,57 @@
-<div class="container jumbotron">
 <div class="container">
-<form style="" method="POST" action="index.php?module=employees&view=EditView&action=save">
-    <table>
-        <tr>
-            <td><button type="submit" action="save">Speichern</button></td>
-        </tr>
-    </table>
-    <table>
-        
+<div class="jumbotron">
+<form method="POST" action="index.php?module=employees&view=EditView&action=save">
+    <div class="row">
         {foreach from=$fieldTitles key=idx item=ft}
-           
-        <tr>
+            <div class="col-xs-4">
             {foreach from=$ft key=name item=title}
-            <td>
-                <b>{$title}<b>
-            </td>
-            <td>
+             
             {if $fieldTypes[$name] eq 'text'}
-                <input type="text" name="{$name}" value=""/>
+                <div class="form-group form-group-sm">
+                <label for="{$name}">{$title}</label>
+                <input class="form-control" type="text" id="{$name}" name="{$name}" value="">
+                </div><!-- form-group -->
             {elseif $fieldTypes[$name] eq 'number'}
-                <input type="text" name="{$name}" value=""/>
+                <div class="form-group form-group-sm">
+                <label for="{$name}">{$title}</label>
+                <input class="form-control" type="text" id="{$name}" name="{$name}" value="">
+                </div><!-- form-group -->
             {elseif $fieldTypes[$name] eq 'hidden'}
-                ---
+                <input  type="hidden" name="{$name}" id="{$name}">
             {elseif $fieldTypes[$name] eq 'bool'}
-                <input type="checkbox"  name="{$name}" value="0">
+                <div class="form-group form-group-sm">
+                <label for="{$name}">{$title}</label>
+                <input class="form-control" type="checkbox" id="{$name}" name="{$name}" value="0">
+                </div><!-- form-group -->
             {elseif $fieldTypes[$name] eq 'date'}
-                <select>
-                    <option>tag</option>
-                    {for $i=1 to 31}
-                    <option>{$i}</option>
-                    {/for}
-                </select>
-                <select style="">
-                    <option>Monat</option>
-                    {for $i=1 to 12}
-                    <option>{$i}</option>
-                    {/for}
-                </select>
-                <select>
-                    <option>2017</option>
-                    {for $i=2013 to 2030}
-                    <option>{$i}</option>
-                    {/for}
-                </select>
+                <div class="form-group form-group-sm">
+                <label for="{$name}">{$title}</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                
+                </div><!-- form-group -->
             {elseif is_array($fieldTypes[$name])}
-                <select name='{$name}'>
+                <div class="form-group form-group-sm">
+                <label for="{$name}">{$title}</label>
+                <select class="form-control" name='{$name}'>
                     {foreach from=$relatedTables[$name] key=id item=title}
                     <option>{$title['title']}</option>
                     {/foreach}
                 </select>
+                </div><!-- form-group -->
             {/if}
-            </td>
+                
             {/foreach}
-        </tr>
-        
+            </div><!-- col -->
         {/foreach}
         
-    </table>
+        </div><!-- row -->
 </form>
-</div>
+        
+
+</div><!--jumbotron -->
+</div>  <!-- container -->

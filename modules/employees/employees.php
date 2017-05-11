@@ -27,7 +27,7 @@ class employees extends Module {
                                  'created'          => ['visibility' => 0,'title' => "Erstellt",        'type' => 'date'    ],
                                  'creator_id'       => ['visibility' => 0,'title' => "Ersteller",       'type' => ['users' => 'username']],
                                  'birthday'         => ['visibility' => 1,'title' => "Geb.Datum",       'type' => 'date'    ],
-                                 'jobcenterid'      => ['visibility' => 1,'title' => "Jobcenter#",      'type' => 'date'    ],
+                                 'jobcenterid'      => ['visibility' => 1,'title' => "Jobcenter#",      'type' => 'text'    ],
                                  'handicaped'       => ['visibility' => 0,'title' => "Schwerbehindert", 'type' => 'bool'    ],
                                  'pillflat'         => ['visibility' => 0,'title' => "Krankenkasse",    'type' => 'text'    ],
                                  'bank_id'          => ['visibility' => 0,'title' => "Bank",            'type' => 'text'    ],
