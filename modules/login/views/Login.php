@@ -19,6 +19,6 @@ class SmartyLogin extends Smarty {
     public function show() {
         if($this->error)
             $this->assign('error',$this->error);
-        $this->display('templates/modules/login.tpl');
+        //$this->display('templates/modules/login.tpl');
     }
 }

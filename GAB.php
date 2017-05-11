@@ -42,7 +42,7 @@ class GAB  {
               }
           } else 
                 echo "Not logged in";
-            $this->smarty->display('templates/error.tpl');
+            $this->smarty->display('templates/footer.tpl');
     }
     private function testModuleFile($module) {
         return is_file('modules/'.$module.'/'.$module.'.php');
