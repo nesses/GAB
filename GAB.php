@@ -43,6 +43,8 @@ class GAB  {
           } else 
                 echo "Not logged in";
             $this->smarty->display('templates/footer.tpl');
+            
+            print_r($_SESSION);
     }
     private function testModuleFile($module) {
         return is_file('modules/'.$module.'/'.$module.'.php');

@@ -1,24 +1,25 @@
-<div style="background: #ccffcc;padding:20px;">
+<div class="container jumbotron">
+<div class="container">
 <form style="" method="POST" action="index.php?module=employees&view=EditView&action=save">
     <table>
         <tr>
             <td><button type="submit" action="save">Speichern</button></td>
         </tr>
     </table>
-    <table style="width:100%;" >
+    <table>
         
         {foreach from=$fieldTitles key=idx item=ft}
            
         <tr>
             {foreach from=$ft key=name item=title}
-            <td style="background:green;text-align:right;padding:5px;">
-                <b style="color:white;">{$title}<b>
+            <td>
+                <b>{$title}<b>
             </td>
-            <td style="background: #ccffcc;">
+            <td>
             {if $fieldTypes[$name] eq 'text'}
-                <input style="width:100%;" type="text" name="{$name}" value=""/>
+                <input type="text" name="{$name}" value=""/>
             {elseif $fieldTypes[$name] eq 'number'}
-                <input style="width:100%;" type="text" name="{$name}" value=""/>
+                <input type="text" name="{$name}" value=""/>
             {elseif $fieldTypes[$name] eq 'hidden'}
                 ---
             {elseif $fieldTypes[$name] eq 'bool'}

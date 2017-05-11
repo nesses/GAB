@@ -1,4 +1,4 @@
-<div class="jumbotron"> 
+<div class="container jumbotron"> 
 <div class="container">    
 <table class="table table-striped">
     <thead>
@@ -29,7 +29,8 @@
         </tr>
     {/foreach}
     </tbody>
-</table>            
+</table>
+    <a href="index.php?view=EditView"><button type="submit" class="btn btn-success">Mitarbeiter erstellen</button></a>    
 </div><!-- jumbotron -->
 </div><!-- container -->
       
